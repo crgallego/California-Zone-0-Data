@@ -1,0 +1,305 @@
+{
+  "what_this_is": "An ESTIMATE, and the only derived figure in this repository. It multiplies a measured rate (CAL FIRE DINS) by an estimated housing count (Census 2020 units x ACS structure share). Both inputs carry their own error and it compounds here.",
+  "estimate": {
+    "homes_with_combustible_fence_attached": 261781,
+    "non_combustible_span_feet": 1308905,
+    "non_combustible_span_miles": 248
+  },
+  "method": "county-weighted",
+  "inputs": {
+    "detached_homes_very_high": 975627,
+    "share_covered_by_county_measured_rate": 70.8,
+    "statewide_fallback_rate": 0.2753,
+    "minimum_county_sample": 100,
+    "span_feet_per_home": 5
+  },
+  "cross_check": {
+    "flat_statewide_rate": 268590,
+    "note": "The flat and county-weighted methods agree within 3%, which is the main reason to trust the order of magnitude. Applying the Palisades/Eaton rate statewide instead gives roughly 422,000, but the county table shows that generalising one dense suburban sample is not supported: Riverside measures 10.9% and Orange 15.6% against Los Angeles at 42.2%."
+  },
+  "limits": "One five-foot span per home is assumed; DINS records a single fence flag per structure while a typical lot has two side-yard attachments, so this is likely conservative. Zone 0 is a draft: the span would be required three to five years after an effective date that has not been set.",
+  "by_county": {
+    "Los Angeles": {
+      "detached_very_high": 242012,
+      "rate_used": 0.4218,
+      "rate_source": "county (n=8880)",
+      "homes_combustible_fence_attached": 102081
+    },
+    "San Diego": {
+      "detached_very_high": 133748,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 36821
+    },
+    "San Bernardino": {
+      "detached_very_high": 73757,
+      "rate_used": 0.2682,
+      "rate_source": "county (n=660)",
+      "homes_combustible_fence_attached": 19782
+    },
+    "Ventura": {
+      "detached_very_high": 53743,
+      "rate_used": 0.2202,
+      "rate_source": "county (n=863)",
+      "homes_combustible_fence_attached": 11834
+    },
+    "Riverside": {
+      "detached_very_high": 96666,
+      "rate_used": 0.1094,
+      "rate_source": "county (n=329)",
+      "homes_combustible_fence_attached": 10575
+    },
+    "Nevada": {
+      "detached_very_high": 31911,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 8785
+    },
+    "Orange": {
+      "detached_very_high": 55435,
+      "rate_used": 0.1561,
+      "rate_source": "county (n=1544)",
+      "homes_combustible_fence_attached": 8653
+    },
+    "El Dorado": {
+      "detached_very_high": 36909,
+      "rate_used": 0.2144,
+      "rate_source": "county (n=2458)",
+      "homes_combustible_fence_attached": 7913
+    },
+    "Sonoma": {
+      "detached_very_high": 10053,
+      "rate_used": 0.5052,
+      "rate_source": "county (n=770)",
+      "homes_combustible_fence_attached": 5079
+    },
+    "Lake": {
+      "detached_very_high": 14943,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 4114
+    },
+    "Tuolumne": {
+      "detached_very_high": 14786,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 4071
+    },
+    "San Luis Obispo": {
+      "detached_very_high": 12689,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 3493
+    },
+    "Contra Costa": {
+      "detached_very_high": 12471,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 3433
+    },
+    "Shasta": {
+      "detached_very_high": 18169,
+      "rate_used": 0.1781,
+      "rate_source": "county (n=365)",
+      "homes_combustible_fence_attached": 3236
+    },
+    "Monterey": {
+      "detached_very_high": 11234,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 3093
+    },
+    "Calaveras": {
+      "detached_very_high": 13447,
+      "rate_used": 0.2213,
+      "rate_source": "county (n=122)",
+      "homes_combustible_fence_attached": 2976
+    },
+    "Amador": {
+      "detached_very_high": 9882,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 2721
+    },
+    "Santa Barbara": {
+      "detached_very_high": 8984,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 2473
+    },
+    "Placer": {
+      "detached_very_high": 18286,
+      "rate_used": 0.1255,
+      "rate_source": "county (n=247)",
+      "homes_combustible_fence_attached": 2295
+    },
+    "San Mateo": {
+      "detached_very_high": 6346,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 1747
+    },
+    "Siskiyou": {
+      "detached_very_high": 11000,
+      "rate_used": 0.1471,
+      "rate_source": "county (n=340)",
+      "homes_combustible_fence_attached": 1618
+    },
+    "Alameda": {
+      "detached_very_high": 5085,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 1400
+    },
+    "Santa Clara": {
+      "detached_very_high": 5370,
+      "rate_used": 0.2212,
+      "rate_source": "county (n=104)",
+      "homes_combustible_fence_attached": 1188
+    },
+    "Fresno": {
+      "detached_very_high": 4145,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 1141
+    },
+    "Madera": {
+      "detached_very_high": 4129,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 1137
+    },
+    "Butte": {
+      "detached_very_high": 8165,
+      "rate_used": 0.1305,
+      "rate_source": "county (n=751)",
+      "homes_combustible_fence_attached": 1066
+    },
+    "Marin": {
+      "detached_very_high": 3299,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 908
+    },
+    "Santa Cruz": {
+      "detached_very_high": 2692,
+      "rate_used": 0.3197,
+      "rate_source": "county (n=122)",
+      "homes_combustible_fence_attached": 861
+    },
+    "Mendocino": {
+      "detached_very_high": 7787,
+      "rate_used": 0.1068,
+      "rate_source": "county (n=103)",
+      "homes_combustible_fence_attached": 832
+    },
+    "Mono": {
+      "detached_very_high": 3011,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 829
+    },
+    "Napa": {
+      "detached_very_high": 4405,
+      "rate_used": 0.1713,
+      "rate_source": "county (n=963)",
+      "homes_combustible_fence_attached": 755
+    },
+    "Plumas": {
+      "detached_very_high": 10353,
+      "rate_used": 0.0701,
+      "rate_source": "county (n=1055)",
+      "homes_combustible_fence_attached": 726
+    },
+    "Yuba": {
+      "detached_very_high": 2630,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 724
+    },
+    "Kern": {
+      "detached_very_high": 11166,
+      "rate_used": 0.0526,
+      "rate_source": "county (n=361)",
+      "homes_combustible_fence_attached": 587
+    },
+    "Humboldt": {
+      "detached_very_high": 2038,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 561
+    },
+    "Trinity": {
+      "detached_very_high": 2581,
+      "rate_used": 0.1429,
+      "rate_source": "county (n=112)",
+      "homes_combustible_fence_attached": 369
+    },
+    "Mariposa": {
+      "detached_very_high": 2095,
+      "rate_used": 0.1706,
+      "rate_source": "county (n=381)",
+      "homes_combustible_fence_attached": 357
+    },
+    "Sierra": {
+      "detached_very_high": 1165,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 321
+    },
+    "Lassen": {
+      "detached_very_high": 2577,
+      "rate_used": 0.0896,
+      "rate_source": "county (n=335)",
+      "homes_combustible_fence_attached": 231
+    },
+    "Stanislaus": {
+      "detached_very_high": 807,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 222
+    },
+    "Tehama": {
+      "detached_very_high": 2780,
+      "rate_used": 0.0746,
+      "rate_source": "county (n=295)",
+      "homes_combustible_fence_attached": 207
+    },
+    "San Benito": {
+      "detached_very_high": 700,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 193
+    },
+    "Tulare": {
+      "detached_very_high": 1273,
+      "rate_used": 0.0995,
+      "rate_source": "county (n=442)",
+      "homes_combustible_fence_attached": 127
+    },
+    "Yolo": {
+      "detached_very_high": 299,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 82
+    },
+    "Colusa": {
+      "detached_very_high": 284,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 78
+    },
+    "Glenn": {
+      "detached_very_high": 242,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 67
+    },
+    "Inyo": {
+      "detached_very_high": 78,
+      "rate_used": 0.2753,
+      "rate_source": "statewide",
+      "homes_combustible_fence_attached": 21
+    }
+  }
+}

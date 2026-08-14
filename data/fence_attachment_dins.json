@@ -1,0 +1,81 @@
+{
+  "source": {
+    "dataset": "CAL FIRE Damage Inspection (DINS) Data",
+    "layer": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/POSTFIRE_MASTER_DATA_SHARE/FeatureServer/0",
+    "field": "FENCEATTACHEDTOSTRUCTURE",
+    "retrieved": "2026-08-14"
+  },
+  "basis": "Rates are computed on surviving structures (DAMAGE = 'No Damage') because the fence is recorded after the fire; at destroyed structures a combustible fence is frequently logged as No Fence or Unknown. Denominators exclude Unknown and null.",
+  "samples": {
+    "statewide_all_years": {
+      "structures_determined": 22795,
+      "structures_excluded_undetermined": 9474,
+      "fence_attached": 12539,
+      "attached_combustible": 6275,
+      "attached_non_combustible": 6264,
+      "no_fence": 10256,
+      "pct_fence_attached": 55.01,
+      "pct_of_attached_combustible": 50.04,
+      "pct_combustible_fence_attached": 27.53
+    },
+    "palisades_eaton_2025": {
+      "structures_determined": 8303,
+      "structures_excluded_undetermined": 25,
+      "fence_attached": 6868,
+      "attached_combustible": 3595,
+      "attached_non_combustible": 3273,
+      "no_fence": 1435,
+      "pct_fence_attached": 82.72,
+      "pct_of_attached_combustible": 52.34,
+      "pct_combustible_fence_attached": 43.3
+    },
+    "palisades_eaton_2025_destroyed_biased": {
+      "structures_determined": 9846,
+      "structures_excluded_undetermined": 1225,
+      "fence_attached": 7141,
+      "attached_combustible": 2971,
+      "attached_non_combustible": 4170,
+      "no_fence": 2705,
+      "pct_fence_attached": 72.53,
+      "pct_of_attached_combustible": 41.6,
+      "pct_combustible_fence_attached": 30.17
+    }
+  },
+  "damage_by_fence_type_palisades_eaton_2025": {
+    "warning": "This cross-tabulation does not support a causal claim in either direction. Destroyed structures under-report combustible fences because the evidence burned. Published so that the artifact travels with the numbers.",
+    "counts": {
+      "Combustible": {
+        "Major (25-50%)": 57,
+        "Inaccessible": 26,
+        "Minor (10-25%)": 123,
+        "No Damage": 4698,
+        "Affected (>0-10%)": 622,
+        "Destroyed (>50%)": 3681
+      },
+      "Non Combustible": {
+        "Inaccessible": 18,
+        "Major (25-50%)": 41,
+        "Minor (10-25%)": 118,
+        "No Damage": 4320,
+        "Destroyed (>50%)": 5534,
+        "Affected (>0-10%)": 600
+      },
+      "No Fence": {
+        "Inaccessible": 3,
+        "Major (25-50%)": 43,
+        "Affected (>0-10%)": 364,
+        "No Damage": 3091,
+        "Destroyed (>50%)": 5316,
+        "Minor (10-25%)": 72
+      },
+      "Unknown": {
+        "Affected (>0-10%)": 4,
+        "Minor (10-25%)": 6,
+        "Destroyed (>50%)": 1733,
+        "Major (25-50%)": 1,
+        "Inaccessible": 49,
+        "No Damage": 45
+      }
+    }
+  }
+}

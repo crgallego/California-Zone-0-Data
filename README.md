@@ -4,9 +4,12 @@ Open data on California Fire Hazard Severity Zones, published by
 [Firewise Fences, Inc.](https://www.firewisefences.com)
 
 Every row in this repository is derived from a government source you can query
-yourself. Nothing here is a company estimate, a model output, or a figure taken
-from secondary reporting. If a number cannot be traced to a primary source, it
-is not in the dataset.
+yourself. Nothing here is taken from secondary reporting, and if a number cannot
+be traced to a primary source it is not in the dataset.
+
+Two files are modelled rather than counted, and both say so on their face: the
+detached single-family columns in the housing files, and
+`zone0_combustible_fence_estimate.json`. Everything else is a count.
 
 ## Headline figure
 
@@ -37,6 +40,27 @@ mobile homes, from ACS shares of units in structure.
 975,631 are detached single-family. Under the April 17, 2026 draft's scope — the
 whole State Responsibility Area plus Very High in the Local Responsibility
 Area — 1,727,936 housing units, of which 1,288,071 detached.
+
+`data/fence_attachment_dins.json` — how many homes have a fence attached to the
+house and what it is made of, from CAL FIRE's Damage Inspection (DINS) database,
+which has recorded it per structure since 2013.
+`data/fence_attachment_by_county.csv` — the same, for 49 counties.
+
+Measured on **surviving** single-family structures, because at a destroyed
+structure the fence burned before anyone could record it: **55.0% of homes
+statewide have a fence attached to the house, and half of those fences are
+combustible.** In the 2025 Palisades and Eaton fires it was 82.7% attached, 52.3%
+of them combustible. County rates range from 7.0% to 50.5% combustible-and-
+attached, so the county file matters more than the statewide one.
+
+`data/zone0_combustible_fence_estimate.json` — the one derived figure here.
+County-weighted, it puts **261,781 homes** in a Very High zone with a
+combustible fence attached to the house: **1,308,905 feet, 248 miles** of
+five-foot non-combustible span, if Zone 0 is adopted as drafted.
+
+Do not cross damage against fence type to argue that attached fences cause
+losses. The raw cross-tab appears to show the opposite, and both readings are
+artifacts of when the fence gets recorded. METHODOLOGY.md explains why.
 
 `data/fhsz_by_community.csv` — Fire Hazard Severity Zone composition for 40
 California communities. For each community it gives, per responsibility area and
@@ -124,10 +148,18 @@ city coverage is the next release.
 
 Firewise Fences is a fence company. This dataset is about fire hazard
 designations, not about our products, and it makes no claim about where we
-operate or what we sell. Nothing here counts fences. The housing file counts
-housing units in hazard zones; how many of those have a fence, of what material,
-attached to the building, is not measured by any public source we know of and is
-not estimated here. Fire hazard designations vary within a community and
+operate or what we sell.
+
+Earlier releases said here that no public source measured how many homes have a
+fence attached, and of what material. That was wrong: CAL FIRE's damage
+inspectors have been recording it per structure since 2013, and the
+`fence_attachment` files now publish what they recorded. The correction is left
+visible rather than quietly removed.
+
+What is still true is that those rates come from a wildfire-exposed sample
+rather than a census of California homes, and that the single figure combining
+them with the housing counts is an estimate and is labelled as one. Fire hazard
+designations vary within a community and
 change over time. **Do not use this dataset to determine the designation of a
 specific parcel.** Use the
 [official CAL FIRE FHSZ viewer](https://osfm.fire.ca.gov/what-we-do/community-wildfire-preparedness-and-mitigation/fire-hazard-severity-zones)
