@@ -62,6 +62,23 @@ Do not cross damage against fence type to argue that attached fences cause
 losses. The raw cross-tab appears to show the opposite, and both readings are
 artifacts of when the fence gets recorded. METHODOLOGY.md explains why.
 
+`data/fence_ignition_dins.json` — where the fire started **on** the structure,
+as the inspector determined it at the scene. This is the one field in DINS that
+speaks to consequence rather than incidence, and it is not distorted by
+post-fire evidence loss, because 97% of these records are structures that
+survived.
+
+Among structures with a determined ignition point and a recorded fence
+material, the fire started at the fence in **21.8%** of cases where that fence
+was combustible, **3.2%** where it was non-combustible, and **0.5%** where there
+was no fence — **6.7 times** and **41 times**. Across 30 separate incidents, the
+attached fence is the fourth most common ignition point on a structure, above
+the roof.
+
+It is not a loss statistic. Of the 254 fence ignitions, 5 structures were
+destroyed and 221 were recorded at 0–10% damage. The fence caught; the house
+usually did not.
+
 `data/fhsz_by_community.csv` — Fire Hazard Severity Zone composition for 40
 California communities. For each community it gives, per responsibility area and
 per tier, the land area in square miles and the share of the municipal boundary

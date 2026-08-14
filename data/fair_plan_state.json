@@ -1,0 +1,116 @@
+{
+  "source": {
+    "publisher": "California FAIR Plan Association",
+    "page": "https://www.cfpnet.com/key-statistics-data/",
+    "county_pif_pdf": "https://www.cfpnet.com/wp-content/uploads/2025/11/CFP-5-yr-PIF-County-FY25-All-251114.pdf",
+    "county_exposure_pdf": "https://www.cfpnet.com/wp-content/uploads/2025/11/CFP-5-yr-TIV-County-FY25-All-251114.pdf",
+    "residential_pif_pdf": "https://www.cfpnet.com/wp-content/uploads/2025/11/CFP-5-yr-PIF-Zip-FY25-DWE-251114.pdf",
+    "residential_exposure_pdf": "https://www.cfpnet.com/wp-content/uploads/2025/11/CFP-5-yr-TIV-Zip-FY25-DWE-251114.pdf",
+    "county_table_as_of": "2025-09-30",
+    "retrieved": "2026-08-14"
+  },
+  "what_this_is": "FAIR Plan is California's residual fire insurer of last resort. County files mix residential, commercial, and business-owners policies. Residential-only statewide totals are taken from the dwelling ZIP rollups. None of these figures is a count of homes in Very High Fire Hazard Severity Zones, and none is a count of combustible fences.",
+  "county_table_all_lines": {
+    "as_of": "2025-09-30",
+    "policies_in_force": 642010,
+    "total_insured_exposure_usd": 693964308706,
+    "pif_by_year": {
+      "2025": 642010,
+      "2024": 463158,
+      "2023": 330265,
+      "2022": 273346,
+      "2021": 242440
+    },
+    "exposure_by_year_usd": {
+      "2025": 693964308706,
+      "2024": 458023820951,
+      "2023": 284064942611,
+      "2022": 210278307795,
+      "2021": 160556622391
+    },
+    "yoy_pif_growth_pct_2025": 39,
+    "yoy_exposure_growth_pct_2025": 52
+  },
+  "statewide_residential": {
+    "as_of": "2025-09-30",
+    "policies_in_force": 621234,
+    "total_insured_exposure_usd": 645115692650,
+    "pif_by_year": {
+      "2025": 621234,
+      "2024": 449833,
+      "2023": 320572,
+      "2022": 265909,
+      "2021": 236515
+    },
+    "exposure_by_year_usd": {
+      "2025": 645115692650,
+      "2024": 431066598171,
+      "2023": 270510184565,
+      "2022": 202103248060,
+      "2021": 155719573171
+    },
+    "yoy_pif_growth_pct_2025": 38,
+    "yoy_exposure_growth_pct_2025": 50
+  },
+  "later_statewide_snapshot_not_in_county_table": {
+    "as_of": "2026-06",
+    "source": "https://www.cfpnet.com/key-statistics-data/",
+    "retrieved": "2026-08-14",
+    "total_pif_all_lines": 696562,
+    "total_exposure_usd": 768000000000,
+    "written_premium_usd": 2040000000,
+    "note": "Read from the Association webpage narrative on 2026-08-14. No county breakout at this vintage. Do not mix with the 2025-09-30 county table."
+  },
+  "top_counties_by_pif_2025": [
+    {
+      "county": "Los Angeles",
+      "pif": 154765,
+      "exposure_usd": 170687950518
+    },
+    {
+      "county": "San Bernardino",
+      "pif": 65132,
+      "exposure_usd": 51481992522
+    },
+    {
+      "county": "San Diego",
+      "pif": 59063,
+      "exposure_usd": 70037078938
+    },
+    {
+      "county": "Riverside",
+      "pif": 57026,
+      "exposure_usd": 51261178212
+    },
+    {
+      "county": "El Dorado",
+      "pif": 28167,
+      "exposure_usd": 28345747025
+    },
+    {
+      "county": "Orange",
+      "pif": 23748,
+      "exposure_usd": 32410972426
+    },
+    {
+      "county": "Nevada",
+      "pif": 23438,
+      "exposure_usd": 27179821914
+    },
+    {
+      "county": "Placer",
+      "pif": 18996,
+      "exposure_usd": 23071327504
+    },
+    {
+      "county": "Ventura",
+      "pif": 15010,
+      "exposure_usd": 21098125022
+    },
+    {
+      "county": "Tuolumne",
+      "pif": 14071,
+      "exposure_usd": 11202009820
+    }
+  ]
+}
