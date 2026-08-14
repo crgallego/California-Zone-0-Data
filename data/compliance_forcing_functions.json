@@ -1,0 +1,159 @@
+{
+  "what_this_is": "Not a measurement. A citation file. Four rules already in force in California that make a homeowner deal with a fence within five feet of the house, plus one that makes someone other than the homeowner pay for it. Every quoted string below is verbatim from the cited authority. Nothing here is derived, estimated, or modelled, except the housing counts in point_of_sale_scope, which are carried in from housing_by_fhsz_state.json and inherit that dataset's error.",
+  "why_it_exists": "Zone 0 is a draft with no effective date. Everything in this file is law or filed rate today. The fence conversation does not have to wait for the draft.",
+  "compiled": "2026-08-14",
+
+  "insurance_credit": {
+    "authority": "California Code of Regulations, Title 10, Section 2644.9 (\"Safer from Wildfires\")",
+    "who_it_binds": "Admitted property insurers that use wildfire risk to segment, create a rate differential, or surcharge premium.",
+    "source": "https://www.insurance.ca.gov/01-consumers/200-wrr/Safer-from-Wildfires.cfm",
+    "regulation_text": "https://www.law.cornell.edu/regulations/california/10-CCR-2644.9",
+    "mandatory_not_optional": {
+      "quote": "No insurer shall use a rating plan that does not take into account and reflect the following mandatory factors.",
+      "subdivision": "(d)(1)"
+    },
+    "the_fence_factor": {
+      "quote": "Incorporation of only noncombustible materials into that portion of any improvements to the property on which the Building Being Evaluated is located, including fences and gates, which is situated within five (5) feet of the Building Being Evaluated",
+      "subdivision": "(d)(1)(B)1.c., property-level immediate surroundings",
+      "note": "An attached wood fence is an improvement to the property within five feet of the building. This is the same object Zone 0 addresses, credited under a rule that is already binding."
+    },
+    "adjacent_factor": {
+      "quote": "Clearing of vegetation, debris, mulch, stored combustible materials, and any and all movable combustible objects, from the area within five (5) feet of the Building Being Evaluated",
+      "subdivision": "(d)(1)"
+    },
+    "filing_deadline": {
+      "quote": "No later than one hundred eighty (180) days following the date this section is filed with the Secretary of State, each insurer shall file a rate application that incorporates a rating plan that includes the factors described in subdivision (d)(1).",
+      "subdivision": "(d)(2)"
+    },
+    "disclosure_right": {
+      "quote": "provide, in writing, to each such policyholder or applicant for property insurance the wildfire risk score or other wildfire risk classification used by the insurer to segment, create a rate differential, or surcharge the premium",
+      "subdivision": "(h)"
+    },
+    "rescore_after_mitigation": {
+      "quote": "In the event that the policyholder or applicant has completed a mitigation measure on the subject property since the time of the last application to or renewal by the insurer, no later than thirty (30) days following the submission to the insurer of the policyholder or applicant's request that the insurer provide a revised wildfire risk score or wildfire risk classification",
+      "subdivision": "(h)(4)"
+    },
+    "appeal_right": {
+      "quote": "permit a policyholder under, or applicant for, a policy of property insurance who disagrees with the assignment of the wildfire risk score, or other wildfire risk classification ... the right to appeal orally or in writing that assignment directly to the insurer",
+      "subdivision": "(i)"
+    },
+    "department_summary_of_the_disclosure": {
+      "quote": "Your insurance company must give you a detailed explanation for the score including how you can lower that score and how much you could save.",
+      "source": "California Department of Insurance, FAQ: Safer from Wildfires Regulation, April 2023",
+      "url": "https://www.insurance.ca.gov/01-consumers/105-type/95-guides/03-res/upload/FAQ-Safer-from-Wildfire-Regulation.pdf"
+    },
+    "department_plain_language_measure": {
+      "quote": "Replacing wood fencing connecting to your home with metal is critical because it can act like a candle wick.",
+      "source": "California Department of Insurance, Safer from Wildfires framework page",
+      "note": "This is the Department's own consumer-facing wording, not ours."
+    },
+    "no_published_discount_amount": "The regulation sets no percentage. Each admitted insurer files its own credit, and the Department's FAQ says so explicitly: \"Different insurance companies may offer different discounts, so it pays to compare.\" There is no statewide number for what a noncombustible fence is worth on an admitted policy, and any figure quoting one is not sourced to CDI."
+  },
+
+  "fair_plan_discount_schedule": {
+    "authority": "California FAIR Plan Association, Wildfire Hardening Discounts, Dwelling Fire and Commercial policies",
+    "source": "https://www.cfpnet.com/wp-content/uploads/2025/11/Discounts-for-Dwelling-Fire-Commercial-Policies-2025.11.15.pdf",
+    "applicable_from": "2025-11-15",
+    "last_revised_on_document": "10/2025",
+    "structure": "12 discounts in four groups: 5 Immediate Surroundings, 5 Structure, 1 Property Level Completion bonus, 1 Community.",
+    "applies_to": "the wildfire portion of the policy premium, not the whole premium",
+    "maximum_combined": {
+      "dwelling_fire_pct": 16.4,
+      "commercial_pct": 13.8,
+      "quote_dwelling": "Dwelling Fire policyholders who obtain all 12 discounts may see a discount of up to 16.4% off the wildfire portion of their policy premium."
+    },
+    "the_fence_discount": {
+      "group": "Immediate Surroundings",
+      "item": 3,
+      "quote": "The property has only noncombustible materials incorporated into any improvements to the property, including fences and gates, within 5 feet of the dwelling",
+      "note": "The FAIR Plan names fences and gates on the face of its own discount sheet."
+    },
+    "completion_bonus": {
+      "group": "Property Level Completion",
+      "quote": "An additional completion discount is offered when all 10 of the Immediate Surroundings and Structure criteria are met",
+      "consequence": "A combustible fence within five feet costs the policyholder two discounts, not one: Immediate Surroundings item 3, and the completion bonus that requires all ten."
+    },
+    "community_discount": {
+      "quote": "Dwelling / Structure is located in a Fire Risk Reduction Community listed by the Board of Forestry, or Dwelling / Structure is located in a Firewise USA Site in Good Standing",
+      "note": "Meeting both criteria earns a larger total percentage discount, per the same document."
+    },
+    "per_measure_percentages_not_published": "The FAIR Plan's public sheet gives only the 12 criteria and the two maximums. It does not break the 16.4% down by measure. Do not attribute a percentage to the fence discount alone; that number is not public.",
+    "cross_reference": "The FAIR Plan book this discount applies to is sized in fair_plan_by_county.csv and fair_plan_state.json."
+  },
+
+  "point_of_sale": {
+    "authority": "California Civil Code Section 1102.19, added by AB 38 (2019)",
+    "operative": "2021-07-01",
+    "source": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1102.19.",
+    "trigger": "Sale of real property located in a high or very high fire hazard severity zone.",
+    "requirement": "The seller must give the buyer documentation that the property complies with Public Resources Code Section 4291 or with a local vegetation management ordinance. Where no local ordinance exists but inspection services are available, the documentation must have been obtained within six months before the transaction.",
+    "escape_hatch": "If the seller cannot produce it, seller and buyer must enter a written agreement under which the buyer obtains documentation of compliance within one year of the close of escrow.",
+    "why_this_matters_commercially": "Every qualifying sale is a scheduled, dated compliance event with a named party responsible for it. That is a lead with a deadline attached, and unlike Zone 0 the deadline already exists.",
+    "scope": {
+      "basis": "Counts carried from housing_by_fhsz_state.json. Center-of-population block group assignment; see METHODOLOGY for the error this method carries.",
+      "core": {
+        "definition": "SRA High + SRA Very High + LRA Very High",
+        "housing_units": 1577667,
+        "occupied": 1382236,
+        "detached": 1166961
+      },
+      "with_lra_high": {
+        "definition": "core plus LRA High",
+        "housing_units": 2035681,
+        "occupied": 1812806,
+        "detached": 1479956
+      },
+      "lra_high_alone": {
+        "housing_units": 458014,
+        "occupied": 430570,
+        "detached": 312995
+      }
+    },
+    "the_open_question": {
+      "what": "Whether Civil Code 1102.19 reaches High zones in the Local Responsibility Area.",
+      "why_it_is_open": "The statute keys on 'a high or very high fire hazard severity zone' without limiting itself to a responsibility area. Until the 2025 LRA maps, the Local Responsibility Area had no statewide High designation at all — only Very High. The LRA layer used in this repository (FHSALRA25_v1_All) does designate Moderate and High. On the face of the statute those 458,014 units are newly inside the trigger. Against that, the underlying defensible space duty the seller must document compliance with, Public Resources Code 4291, is a State Responsibility Area duty, and Government Code 51182 reaches only Very High in the Local Responsibility Area. A seller in LRA High may therefore be in a 'high fire hazard severity zone' with no underlying standard to certify against.",
+      "status": "Unresolved. Flagged, not answered. Do not publish the 2,035,681 figure as the point-of-sale universe without a legal opinion. The defensible figure is 1,577,667.",
+      "how_to_resolve": "Read Civil Code 1102.19 subdivision (a) against Gov. Code 51182 and PRC 4291 as amended, and check whether any local agency has issued AB 38 guidance for LRA High since the 2025 maps."
+    }
+  },
+
+  "neighbor_cost_sharing": {
+    "authority": "California Civil Code Section 841, the Good Neighbor Fence Act of 2013",
+    "source": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=841",
+    "the_presumption": {
+      "quote": "Adjoining landowners are presumed to share an equal benefit from any fence dividing their properties and, unless otherwise agreed to by the parties in a written agreement, shall be presumed to be equally responsible for the reasonable costs of construction, maintenance, or necessary replacement of the fence.",
+      "subdivision": "(b)(1)"
+    },
+    "notice_requirement": "A landowner intending to incur costs must give 30 days' prior written notice to each affected adjoining landowner. The notice must state the presumption of equal responsibility and describe the problem, the proposed solution, the estimated cost, the proposed cost sharing, and the proposed timeline.",
+    "the_presumption_is_rebuttable": "A neighbor can overcome it by a preponderance of the evidence. Courts weigh whether the financial burden is substantially disproportionate to the benefit, the reasonableness of the project and its cost, the effect on property value, financial hardship, and other equitable factors.",
+    "why_this_matters_commercially": "A shared boundary fence is a two-household purchase with a statutory default that splits it. The 30-day notice is a form, not a negotiation.",
+    "what_this_does_not_reach": "Section 841 governs a fence dividing two properties. The specific object Zone 0 and 2644.9 are about is the fence attached to the house, and a run attached to the wall may sit wholly on one owner's land rather than on the boundary. Where it is not a dividing fence, Section 841 does not apply and the owner pays alone. How much of the attached-fence inventory sits on a boundary line is not measured anywhere in this repository and is not known."
+  },
+
+  "community_credit": {
+    "why_it_is_here": "Both 2644.9(d)(1) and the FAIR Plan discount sheet give a credit for something the homeowner cannot do alone: living inside a listed community. Two lists control it.",
+    "fire_risk_reduction_community_list": {
+      "authority": "Public Resources Code Section 4290.1",
+      "list": "data/fire_risk_reduction_communities_2026.csv",
+      "adopted": "Board of Forestry and Fire Protection Resolution No. 2026-01, effective 2026-07-01",
+      "count": 119,
+      "by_type": {"city": 42, "county": 12, "special district or department": 65},
+      "update_cycle": "every two years"
+    },
+    "firewise_usa": {
+      "authority": "National Fire Protection Association, Firewise USA, recognised by name in 2644.9(d)(1) as a 'Firewise USA Site in Good Standing'",
+      "california_count": "not established here",
+      "why_not": "The NFPA state listing is behind an interactive map rather than a downloadable table. A 2023 peer-reviewed count of 500 California sites exists but is three years stale and is not a primary NFPA figure. Left unbuilt rather than sourced to a secondary count.",
+      "next_step": "Pull the count from the NFPA state listing of participants directly before quoting any number."
+    }
+  },
+
+  "what_must_not_be_written": [
+    "Do not say the state requires a homeowner to replace a wood fence today. It does not. 2644.9 binds insurers, not homeowners; it prices the fence, it does not ban it. Zone 0 is still a draft with no effective date.",
+    "Do not attach a percentage to the fence discount. Admitted insurers each file their own and CDI publishes none; the FAIR Plan publishes only the 12 criteria and the 16.4% all-in maximum on the wildfire portion of a Dwelling Fire premium.",
+    "Do not say a FAIR Plan policyholder saves 16.4% by replacing a fence. That figure requires all 12 discounts, applies only to the wildfire portion of the premium, and takes effect on policies dated 2025-11-15 or later.",
+    "Do not publish 2,035,681 as the point-of-sale universe. The LRA High question is open; 1,577,667 is the figure that survives it.",
+    "Do not tell a homeowner their neighbor must pay half. The statute presumes it and the presumption is rebuttable, and it only reaches a fence dividing two properties.",
+    "Do not describe the Fire Risk Reduction Community List as a list of jurisdictions with a Zone 0 or fence ordinance. It is a fire-planning best-practices list and says nothing about local fencing rules."
+  ]
+}

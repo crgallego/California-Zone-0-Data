@@ -574,3 +574,74 @@ should not be read as "7.2% of California structure fires start at a fence."
 
 **It is about attachment, not fences generally.** The field records ignition at
 an *attached* fence, which is the thing the draft Zone 0 clause addresses.
+
+---
+
+# Rules already in force
+
+`data/compliance_forcing_functions.json`,
+`data/fire_risk_reduction_communities_2026.csv`
+
+## Why these are in a data repository at all
+
+Everything else here is a measurement. This is a citation file, and it is here
+because the rest of the repository describes a draft. Zone 0 has no effective
+date. The four rules recorded in `compliance_forcing_functions.json` are law or
+filed rate today, and three of them name fences.
+
+Nothing in that file is derived, estimated, or modelled, with one exception
+noted below. Every quoted string is verbatim from the cited authority, with the
+subdivision recorded next to it, so a reader can check the quote against the
+source rather than against us.
+
+## The one derived part
+
+`point_of_sale.scope` carries housing counts in from
+`housing_by_fhsz_state.json`. Those are center-of-population block group
+assignments and they inherit every limit described in the housing section
+above. They are not a count of homes that will transact; they are a count of
+homes standing inside the statutory trigger.
+
+## The open question, stated as such
+
+Civil Code 1102.19 keys on "a high or very high fire hazard severity zone"
+without naming a responsibility area. Until the 2025 Local Responsibility Area
+maps, the LRA had no statewide High designation — only Very High. The LRA layer
+this repository uses, `FHSALRA25_v1_All`, does designate High, covering 458,014
+housing units.
+
+On the face of the statute those units are inside the point-of-sale trigger.
+Against that, the duty the seller must document compliance *with* — Public
+Resources Code 4291 — is a State Responsibility Area duty, and Government Code
+51182 reaches only Very High in the LRA. A seller in LRA High may sit in a
+"high fire hazard severity zone" with no underlying standard to certify
+against.
+
+This is unresolved and is recorded as unresolved. **1,577,667 housing units is
+the figure that survives the question. 2,035,681 is the figure that depends on
+it.** Publish the first.
+
+## What the community list is and is not
+
+`fire_risk_reduction_communities_2026.csv` is the Board of Forestry's 2026 Fire
+Risk Reduction Community List — 119 agencies, 42 cities, 12 counties, 65
+districts and departments, adopted by Resolution No. 2026-01 effective
+2026-07-01. It is here because membership is one of the two ways a property
+earns the community-level insurance credit under 10 CCR 2644.9(d)(1) and the
+FAIR Plan's Community discount.
+
+It is **not** a list of jurisdictions that have adopted a Zone 0 ordinance, and
+it is not a list of jurisdictions with a fence rule. It says nothing about local
+fencing requirements. Adopted local ordinance dates remain unbuilt.
+
+The Board updates the list every two years. Re-run `build_frrc_list.py` against
+the then-current PDF rather than trusting this file after mid-2028.
+
+## Firewise USA is deliberately absent
+
+The other half of the community credit is a "Firewise USA Site in Good
+Standing." NFPA publishes participants through an interactive map rather than a
+downloadable table, and the only California count readily available is a 2023
+figure from a journal article, not from NFPA. Rather than source a credit-
+bearing number to a three-year-old secondary count, it is left out. Pull it from
+the NFPA state listing before quoting any number.
