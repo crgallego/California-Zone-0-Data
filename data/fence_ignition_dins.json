@@ -1,0 +1,97 @@
+{
+  "what_this_is": "Where the fire started on the structure, as determined by the CAL FIRE damage inspector. A direct observation, not an inference from a cross-tabulation.",
+  "headline": {
+    "share_ignited_at_fence_combustible_pct": 21.77,
+    "share_ignited_at_fence_non_combustible_pct": 3.24,
+    "share_ignited_at_fence_no_fence_pct": 0.53,
+    "ratio_combustible_to_non_combustible": 6.7
+  },
+  "ignition_point_distribution": {
+    "determined_records": 3504,
+    "counts": {
+      "Siding": 1485,
+      "Window": 715,
+      "Eaves": 298,
+      "Attached Fence": 254,
+      "Deck Elevated": 220,
+      "Roof": 213,
+      "Attached Patio Cover/Carport": 173,
+      "Deck on Grade": 127,
+      "Vent": 19,
+      "South End, Charlie side. ": 1,
+      "Swamp Cooler Machinery Filter ": 1,
+      "B side": 1,
+      "A/B side corner": 1,
+      "A/B side": 1,
+      "Bravo side, opposite of road side": 1
+    },
+    "note": "The attached fence ranks fourth of all recorded ignition points on a structure, above the roof."
+  },
+  "by_fence_material": {
+    "Non Combustible": {
+      "n": 988,
+      "fence": 32,
+      "pct_ignited_at_fence": 3.24
+    },
+    "Combustible": {
+      "n": 983,
+      "fence": 214,
+      "pct_ignited_at_fence": 21.77
+    },
+    "(blank)": {
+      "n": 2,
+      "fence": 0,
+      "pct_ignited_at_fence": 0.0
+    },
+    "No Fence": {
+      "n": 1508,
+      "fence": 8,
+      "pct_ignited_at_fence": 0.53
+    },
+    "Unknown": {
+      "n": 23,
+      "fence": 0,
+      "pct_ignited_at_fence": 0.0
+    }
+  },
+  "fence_ignitions_by_damage": {
+    "Affected (>0-10%)": 221,
+    "No Damage": 18,
+    "Minor (10-25%)": 7,
+    "Destroyed (>50%)": 5,
+    "Major (25-50%)": 3
+  },
+  "fence_ignitions_by_incident": {
+    "Eaton": 80,
+    "Palisades": 74,
+    "Camp": 21,
+    "Carr": 18,
+    "Woolsey": 12,
+    "CZU Lightning Cmplx": 6,
+    "Glass": 5,
+    "LNU Lightning Cmplx": 5,
+    "Mountain": 5,
+    "Kincade": 4,
+    "Cache": 3,
+    "Quail": 3,
+    "Airport": 1,
+    "BEU Lightning Cmplx": 1,
+    "Blue Ridge": 1,
+    "Cranston": 1,
+    "Dixie": 1,
+    "Franklin": 1,
+    "Holy": 1,
+    "North Complex": 1,
+    "Pawnee": 1,
+    "Pay": 1,
+    "Point": 1,
+    "Pond": 1,
+    "River": 1,
+    "Ruby": 1,
+    "Saddleridge": 1,
+    "Silverado": 1,
+    "Tick": 1,
+    "Zogg": 1
+  },
+  "limits": "Only a small share of DINS records carry a determined ignition point at all, so this is a subset and not a random one -- an inspector may more readily attribute ignition to a visibly burned fence than to siding. The comparison between materials is within that same subset, which is what makes it usable. These are overwhelmingly structures that survived: this measures ignition, not destruction."
+}
