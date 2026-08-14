@@ -62,6 +62,33 @@ Do not cross damage against fence type to argue that attached fences cause
 losses. The raw cross-tab appears to show the opposite, and both readings are
 artifacts of when the fence gets recorded. METHODOLOGY.md explains why.
 
+`data/fair_plan_by_county.csv` — California FAIR Plan policies in force and
+insured exposure by county, fiscal years ending 2021–2025, from the
+Association's published PDFs. County files mix residential, commercial, and
+BOP. The last two columns join our Very High detached-home and combustible-
+fence estimates for context only — a FAIR Plan policy is not a wood fence.
+`data/fair_plan_state.json` — statewide residential rollup: **621,234
+residential policies** and **$645.1 billion** of residential exposure as of
+2025-09-30, up from 236,515 policies and $155.7 billion in 2021.
+
+A later Association webpage snapshot (June 2026) puts all-lines PIF at 696,562
+and exposure at $768 billion. That vintage has no county breakout and is kept
+separate.
+
+`data/cdi_policy_counts_by_county.csv` — California Department of Insurance
+counts of new, renewed, and non-renewed voluntary-market homeowners policies,
+plus new and renewed FAIR Plan and Difference-in-Conditions policies, for all
+58 counties, calendar years 2020–2023. `data/cdi_policy_counts_state.json` —
+the published statewide line and the 2015–2023 fact-sheet series.
+
+A non-renewal is not a company drop. CDI's own fact sheet says 75–80% are
+initiated by the policyholder. In 2023 the voluntary market recorded 788,485
+non-renewals against 8.30 million new and renewed policies (9.5%). FAIR Plan
+new-plus-renewed policies were 324,954, or 3.77% of the combined voluntary and
+FAIR Plan flow, up from 1.6% in 2015. In the ten counties CDI ranks highest
+for high-fire structures, that FAIR Plan share was 33.1%, and the residual
+market in Tuolumne was almost as large as the voluntary market.
+
 `data/fence_ignition_dins.json` — where the fire started **on** the structure,
 as the inspector determined it at the scene. This is the one field in DINS that
 speaks to consequence rather than incidence, and it is not distorted by
@@ -114,6 +141,9 @@ sub-areas. Point checks describe one coordinate, not a community.
 | [Centers of Population by Block Group](https://www2.census.gov/geo/docs/reference/cenpop2020/blkgrp/CenPop2020_Mean_BG06.txt) | US Census Bureau | 2020 Census |
 | [Redistricting Data (PL 94-171), California](https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/California/ca2020.pl.zip) | US Census Bureau | 2020 Census |
 | [Table B25024, units in structure](https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25024.dat) | US Census Bureau | ACS 2020–2024 5-year |
+| [`POSTFIRE_MASTER_DATA_SHARE`](https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/POSTFIRE_MASTER_DATA_SHARE/FeatureServer/0) ([landing page](https://data.ca.gov/dataset/cal-fire-damage-inspection-dins-data)) | CAL FIRE | Damage Inspection (DINS), 2013–present |
+| [FAIR Plan Key Statistics](https://www.cfpnet.com/key-statistics-data/) | California FAIR Plan Association | County PIF and TIV, FY ending 2025-09-30 |
+| [Wildfire and insurance data](https://www.insurance.ca.gov/01-consumers/200-wrr/DataAnalysisOnWildfiresAndInsurance.cfm) | California Department of Insurance | County policy counts 2020–2023; fact sheet published 2025-01-13 |
 
 Retrieved 2026-08-14.
 
@@ -144,9 +174,14 @@ curl -O https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistri
 unzip ca2020.pl.zip -d pl2020
 curl -O https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25024.dat
 python scripts/build_housing_by_fhsz.py
+
+# insurance: FAIR Plan stock, then CDI flows
+pip install pypdf cryptography
+python scripts/build_fair_plan.py
+python scripts/build_cdi_policy_counts.py
 ```
 
-The script queries the three services above directly. It has no private inputs,
+The FHSZ script queries the three services above directly. It has no private inputs,
 no API keys, and no cached copies of the source data. If CAL FIRE republishes a
 map, re-running it produces the updated numbers and the `retrieved` date moves.
 
