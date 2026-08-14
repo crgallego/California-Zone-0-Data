@@ -1,0 +1,1307 @@
+{
+  "agoura-hills": {
+    "query_name": "Agoura Hills",
+    "census_name": "Agoura Hills city",
+    "geoid": "0600394",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 7.837,
+    "census_land_area_sqmi": 7.796,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 6.091,
+          "pct_of_boundary_area": 77.72,
+          "pct_of_census_land": 78.13
+        },
+        "High": {
+          "sq_mi": 0.647,
+          "pct_of_boundary_area": 8.25,
+          "pct_of_census_land": 8.29
+        },
+        "Moderate": {
+          "sq_mi": 0.605,
+          "pct_of_boundary_area": 7.72,
+          "pct_of_census_land": 7.76
+        },
+        "NonWildland": {
+          "sq_mi": 0.492,
+          "pct_of_boundary_area": 6.28,
+          "pct_of_census_land": 6.32
+        }
+      }
+    },
+    "slug": "agoura-hills"
+  },
+  "altadena": {
+    "query_name": "Altadena",
+    "census_name": "Altadena CDP",
+    "geoid": "0601290",
+    "boundary_source": "US Census TIGERweb Census Designated Place",
+    "boundary_area_sqmi": 8.502,
+    "census_land_area_sqmi": 8.465,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 0.904,
+          "pct_of_boundary_area": 10.63,
+          "pct_of_census_land": 10.68
+        }
+      },
+      "LRA": {
+        "Very High": {
+          "sq_mi": 1.818,
+          "pct_of_boundary_area": 21.38,
+          "pct_of_census_land": 21.48
+        },
+        "High": {
+          "sq_mi": 0.616,
+          "pct_of_boundary_area": 7.24,
+          "pct_of_census_land": 7.27
+        },
+        "Moderate": {
+          "sq_mi": 0.555,
+          "pct_of_boundary_area": 6.52,
+          "pct_of_census_land": 6.55
+        },
+        "NonWildland": {
+          "sq_mi": 4.005,
+          "pct_of_boundary_area": 47.11,
+          "pct_of_census_land": 47.32
+        }
+      }
+    },
+    "slug": "altadena"
+  },
+  "big-bear-lake": {
+    "query_name": "Big Bear Lake",
+    "census_name": "Big Bear Lake city",
+    "geoid": "0606434",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 6.455,
+    "census_land_area_sqmi": 6.255,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 0.008,
+          "pct_of_boundary_area": 0.12,
+          "pct_of_census_land": 0.12
+        }
+      },
+      "LRA": {
+        "Very High": {
+          "sq_mi": 4.345,
+          "pct_of_boundary_area": 67.32,
+          "pct_of_census_land": 69.47
+        },
+        "High": {
+          "sq_mi": 1.021,
+          "pct_of_boundary_area": 15.81,
+          "pct_of_census_land": 16.32
+        },
+        "Moderate": {
+          "sq_mi": 0.357,
+          "pct_of_boundary_area": 5.53,
+          "pct_of_census_land": 5.7
+        },
+        "NonWildland": {
+          "sq_mi": 0.658,
+          "pct_of_boundary_area": 10.19,
+          "pct_of_census_land": 10.51
+        }
+      }
+    },
+    "slug": "big-bear-lake"
+  },
+  "calabasas": {
+    "query_name": "Calabasas",
+    "census_name": "Calabasas city",
+    "geoid": "0609598",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 13.777,
+    "census_land_area_sqmi": 13.708,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 13.246,
+          "pct_of_boundary_area": 96.15,
+          "pct_of_census_land": 96.63
+        }
+      }
+    },
+    "slug": "calabasas"
+  },
+  "crestline": {
+    "query_name": "Crestline",
+    "census_name": "Crestline CDP",
+    "geoid": "0617162",
+    "boundary_source": "US Census TIGERweb Census Designated Place",
+    "boundary_area_sqmi": 14.059,
+    "census_land_area_sqmi": 13.904,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 8.491,
+          "pct_of_boundary_area": 60.4,
+          "pct_of_census_land": 61.07
+        }
+      },
+      "LRA": {}
+    },
+    "slug": "crestline"
+  },
+  "glendale": {
+    "query_name": "Glendale",
+    "census_name": "Glendale city",
+    "geoid": "0630000",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 30.683,
+    "census_land_area_sqmi": 30.479,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 20.881,
+          "pct_of_boundary_area": 68.05,
+          "pct_of_census_land": 68.51
+        },
+        "High": {
+          "sq_mi": 1.337,
+          "pct_of_boundary_area": 4.36,
+          "pct_of_census_land": 4.39
+        },
+        "Moderate": {
+          "sq_mi": 1.233,
+          "pct_of_boundary_area": 4.02,
+          "pct_of_census_land": 4.05
+        },
+        "NonWildland": {
+          "sq_mi": 7.232,
+          "pct_of_boundary_area": 23.57,
+          "pct_of_census_land": 23.73
+        }
+      }
+    },
+    "slug": "glendale"
+  },
+  "goleta": {
+    "query_name": "Goleta",
+    "census_name": "Goleta city",
+    "geoid": "0630378",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 7.944,
+    "census_land_area_sqmi": 7.852,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 0.648,
+          "pct_of_boundary_area": 8.15,
+          "pct_of_census_land": 8.25
+        },
+        "High": {
+          "sq_mi": 0.334,
+          "pct_of_boundary_area": 4.21,
+          "pct_of_census_land": 4.26
+        },
+        "Moderate": {
+          "sq_mi": 1.148,
+          "pct_of_boundary_area": 14.45,
+          "pct_of_census_land": 14.61
+        },
+        "NonWildland": {
+          "sq_mi": 5.761,
+          "pct_of_boundary_area": 72.52,
+          "pct_of_census_land": 73.37
+        }
+      }
+    },
+    "slug": "goleta"
+  },
+  "hidden-hills": {
+    "query_name": "Hidden Hills",
+    "census_name": "Hidden Hills city",
+    "geoid": "0633518",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 1.693,
+    "census_land_area_sqmi": 1.688,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 0.002,
+          "pct_of_boundary_area": 0.1,
+          "pct_of_census_land": 0.1
+        }
+      },
+      "LRA": {
+        "Very High": {
+          "sq_mi": 1.172,
+          "pct_of_boundary_area": 69.24,
+          "pct_of_census_land": 69.41
+        },
+        "High": {
+          "sq_mi": 0.26,
+          "pct_of_boundary_area": 15.37,
+          "pct_of_census_land": 15.41
+        },
+        "Moderate": {
+          "sq_mi": 0.155,
+          "pct_of_boundary_area": 9.14,
+          "pct_of_census_land": 9.16
+        },
+        "NonWildland": {
+          "sq_mi": 0.104,
+          "pct_of_boundary_area": 6.15,
+          "pct_of_census_land": 6.17
+        }
+      }
+    },
+    "slug": "hidden-hills"
+  },
+  "idyllwild": {
+    "query_name": "Idyllwild-Pine Cove",
+    "census_name": "Idyllwild-Pine Cove CDP",
+    "geoid": "0636203",
+    "boundary_source": "US Census TIGERweb Census Designated Place",
+    "boundary_area_sqmi": 13.768,
+    "census_land_area_sqmi": 13.723,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 8.226,
+          "pct_of_boundary_area": 59.74,
+          "pct_of_census_land": 59.94
+        }
+      },
+      "LRA": {}
+    },
+    "slug": "idyllwild"
+  },
+  "la-canada-flintridge": {
+    "query_name": "La Ca\u00f1ada Flintridge",
+    "census_name": "La Ca\u00f1ada Flintridge city",
+    "geoid": "0639003",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 8.669,
+    "census_land_area_sqmi": 8.631,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 8.599,
+          "pct_of_boundary_area": 99.19,
+          "pct_of_census_land": 99.62
+        }
+      }
+    },
+    "slug": "la-canada-flintridge"
+  },
+  "la-crescenta-montrose": {
+    "query_name": "La Crescenta-Montrose",
+    "census_name": "La Crescenta-Montrose CDP",
+    "geoid": "0639045",
+    "boundary_source": "US Census TIGERweb Census Designated Place",
+    "boundary_area_sqmi": 3.448,
+    "census_land_area_sqmi": 3.428,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 0.774,
+          "pct_of_boundary_area": 22.45,
+          "pct_of_census_land": 22.58
+        }
+      },
+      "LRA": {
+        "Very High": {
+          "sq_mi": 1.927,
+          "pct_of_boundary_area": 55.9,
+          "pct_of_census_land": 56.22
+        },
+        "High": {
+          "sq_mi": 0.201,
+          "pct_of_boundary_area": 5.84,
+          "pct_of_census_land": 5.88
+        },
+        "Moderate": {
+          "sq_mi": 0.193,
+          "pct_of_boundary_area": 5.6,
+          "pct_of_census_land": 5.64
+        },
+        "NonWildland": {
+          "sq_mi": 0.352,
+          "pct_of_boundary_area": 10.2,
+          "pct_of_census_land": 10.26
+        }
+      }
+    },
+    "slug": "la-crescenta-montrose"
+  },
+  "laguna-beach": {
+    "query_name": "Laguna Beach",
+    "census_name": "Laguna Beach city",
+    "geoid": "0639178",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 8.945,
+    "census_land_area_sqmi": 8.918,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 7.656,
+          "pct_of_boundary_area": 85.6,
+          "pct_of_census_land": 85.85
+        },
+        "High": {
+          "sq_mi": 0.533,
+          "pct_of_boundary_area": 5.96,
+          "pct_of_census_land": 5.97
+        },
+        "Moderate": {
+          "sq_mi": 0.315,
+          "pct_of_boundary_area": 3.52,
+          "pct_of_census_land": 3.53
+        },
+        "NonWildland": {
+          "sq_mi": 0.34,
+          "pct_of_boundary_area": 3.81,
+          "pct_of_census_land": 3.82
+        }
+      }
+    },
+    "slug": "laguna-beach"
+  },
+  "lake-arrowhead": {
+    "query_name": "Lake Arrowhead",
+    "census_name": "Lake Arrowhead CDP",
+    "geoid": "0639444",
+    "boundary_source": "US Census TIGERweb Census Designated Place",
+    "boundary_area_sqmi": 18.949,
+    "census_land_area_sqmi": 17.678,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 13.114,
+          "pct_of_boundary_area": 69.21,
+          "pct_of_census_land": 74.18
+        },
+        "High": {
+          "sq_mi": 0.043,
+          "pct_of_boundary_area": 0.23,
+          "pct_of_census_land": 0.24
+        }
+      },
+      "LRA": {}
+    },
+    "slug": "lake-arrowhead"
+  },
+  "lake-elsinore": {
+    "query_name": "Lake Elsinore",
+    "census_name": "Lake Elsinore city",
+    "geoid": "0639486",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 43.656,
+    "census_land_area_sqmi": 38.269,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 0.046,
+          "pct_of_boundary_area": 0.1,
+          "pct_of_census_land": 0.12
+        }
+      },
+      "LRA": {
+        "Very High": {
+          "sq_mi": 30.714,
+          "pct_of_boundary_area": 70.36,
+          "pct_of_census_land": 80.26
+        },
+        "High": {
+          "sq_mi": 2.093,
+          "pct_of_boundary_area": 4.79,
+          "pct_of_census_land": 5.47
+        },
+        "Moderate": {
+          "sq_mi": 1.624,
+          "pct_of_boundary_area": 3.72,
+          "pct_of_census_land": 4.24
+        },
+        "NonWildland": {
+          "sq_mi": 8.712,
+          "pct_of_boundary_area": 19.96,
+          "pct_of_census_land": 22.76
+        }
+      }
+    },
+    "slug": "lake-elsinore"
+  },
+  "malibu": {
+    "query_name": "Malibu",
+    "census_name": "Malibu city",
+    "geoid": "0645246",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 99.388,
+    "census_land_area_sqmi": 19.847,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 18.087,
+          "pct_of_boundary_area": 18.2,
+          "pct_of_census_land": 91.13
+        }
+      }
+    },
+    "slug": "malibu"
+  },
+  "menifee": {
+    "query_name": "Menifee",
+    "census_name": "Menifee city",
+    "geoid": "0646842",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 46.732,
+    "census_land_area_sqmi": 46.463,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 15.725,
+          "pct_of_boundary_area": 33.65,
+          "pct_of_census_land": 33.84
+        },
+        "High": {
+          "sq_mi": 2.999,
+          "pct_of_boundary_area": 6.42,
+          "pct_of_census_land": 6.45
+        },
+        "Moderate": {
+          "sq_mi": 2.921,
+          "pct_of_boundary_area": 6.25,
+          "pct_of_census_land": 6.29
+        },
+        "NonWildland": {
+          "sq_mi": 24.955,
+          "pct_of_boundary_area": 53.4,
+          "pct_of_census_land": 53.71
+        }
+      }
+    },
+    "slug": "menifee"
+  },
+  "mission-viejo": {
+    "query_name": "Mission Viejo",
+    "census_name": "Mission Viejo city",
+    "geoid": "0648256",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 18.077,
+    "census_land_area_sqmi": 17.659,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 1.291,
+          "pct_of_boundary_area": 7.14,
+          "pct_of_census_land": 7.31
+        },
+        "High": {
+          "sq_mi": 2.221,
+          "pct_of_boundary_area": 12.29,
+          "pct_of_census_land": 12.58
+        },
+        "Moderate": {
+          "sq_mi": 1.038,
+          "pct_of_boundary_area": 5.74,
+          "pct_of_census_land": 5.88
+        },
+        "NonWildland": {
+          "sq_mi": 13.523,
+          "pct_of_boundary_area": 74.81,
+          "pct_of_census_land": 76.58
+        }
+      }
+    },
+    "slug": "mission-viejo"
+  },
+  "modjeska-canyon": {
+    "query_name": "Modjeska",
+    "census_name": "Modjeska CDP",
+    "geoid": "0648410",
+    "boundary_source": "US Census TIGERweb Census Designated Place",
+    "boundary_area_sqmi": 2.009,
+    "census_land_area_sqmi": 2.004,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 1.541,
+          "pct_of_boundary_area": 76.71,
+          "pct_of_census_land": 76.91
+        }
+      },
+      "LRA": {}
+    },
+    "slug": "modjeska-canyon"
+  },
+  "montecito": {
+    "query_name": "Montecito",
+    "census_name": "Montecito CDP",
+    "geoid": "0648844",
+    "boundary_source": "US Census TIGERweb Census Designated Place",
+    "boundary_area_sqmi": 17.149,
+    "census_land_area_sqmi": 9.183,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 4.436,
+          "pct_of_boundary_area": 25.87,
+          "pct_of_census_land": 48.31
+        },
+        "High": {
+          "sq_mi": 0.286,
+          "pct_of_boundary_area": 1.67,
+          "pct_of_census_land": 3.11
+        },
+        "Moderate": {
+          "sq_mi": 0.303,
+          "pct_of_boundary_area": 1.77,
+          "pct_of_census_land": 3.3
+        }
+      },
+      "LRA": {
+        "Very High": {
+          "sq_mi": 0.559,
+          "pct_of_boundary_area": 3.26,
+          "pct_of_census_land": 6.08
+        },
+        "High": {
+          "sq_mi": 0.379,
+          "pct_of_boundary_area": 2.21,
+          "pct_of_census_land": 4.13
+        },
+        "Moderate": {
+          "sq_mi": 0.389,
+          "pct_of_boundary_area": 2.27,
+          "pct_of_census_land": 4.24
+        },
+        "NonWildland": {
+          "sq_mi": 2.843,
+          "pct_of_boundary_area": 16.58,
+          "pct_of_census_land": 30.96
+        }
+      }
+    },
+    "slug": "montecito"
+  },
+  "murrieta": {
+    "query_name": "Murrieta",
+    "census_name": "Murrieta city",
+    "geoid": "0650076",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 35.528,
+    "census_land_area_sqmi": 35.398,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 15.288,
+          "pct_of_boundary_area": 43.03,
+          "pct_of_census_land": 43.19
+        },
+        "High": {
+          "sq_mi": 2.128,
+          "pct_of_boundary_area": 5.99,
+          "pct_of_census_land": 6.01
+        },
+        "Moderate": {
+          "sq_mi": 1.931,
+          "pct_of_boundary_area": 5.44,
+          "pct_of_census_land": 5.46
+        },
+        "NonWildland": {
+          "sq_mi": 16.171,
+          "pct_of_boundary_area": 45.52,
+          "pct_of_census_land": 45.68
+        }
+      }
+    },
+    "slug": "murrieta"
+  },
+  "ojai": {
+    "query_name": "Ojai",
+    "census_name": "Ojai city",
+    "geoid": "0653476",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 4.382,
+    "census_land_area_sqmi": 4.356,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 0.012,
+          "pct_of_boundary_area": 0.28,
+          "pct_of_census_land": 0.28
+        }
+      },
+      "LRA": {
+        "Very High": {
+          "sq_mi": 2.619,
+          "pct_of_boundary_area": 59.76,
+          "pct_of_census_land": 60.12
+        },
+        "High": {
+          "sq_mi": 0.551,
+          "pct_of_boundary_area": 12.57,
+          "pct_of_census_land": 12.65
+        },
+        "Moderate": {
+          "sq_mi": 0.467,
+          "pct_of_boundary_area": 10.67,
+          "pct_of_census_land": 10.73
+        },
+        "NonWildland": {
+          "sq_mi": 0.729,
+          "pct_of_boundary_area": 16.63,
+          "pct_of_census_land": 16.73
+        }
+      }
+    },
+    "slug": "ojai"
+  },
+  "rancho-cucamonga": {
+    "query_name": "Rancho Cucamonga",
+    "census_name": "Rancho Cucamonga city",
+    "geoid": "0659451",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 46.648,
+    "census_land_area_sqmi": 46.522,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 13.899,
+          "pct_of_boundary_area": 29.8,
+          "pct_of_census_land": 29.88
+        },
+        "High": {
+          "sq_mi": 1.759,
+          "pct_of_boundary_area": 3.77,
+          "pct_of_census_land": 3.78
+        },
+        "Moderate": {
+          "sq_mi": 1.435,
+          "pct_of_boundary_area": 3.08,
+          "pct_of_census_land": 3.09
+        },
+        "NonWildland": {
+          "sq_mi": 29.434,
+          "pct_of_boundary_area": 63.1,
+          "pct_of_census_land": 63.27
+        }
+      }
+    },
+    "slug": "rancho-cucamonga"
+  },
+  "rancho-santa-margarita": {
+    "query_name": "Rancho Santa Margarita",
+    "census_name": "Rancho Santa Margarita city",
+    "geoid": "0659587",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 12.968,
+    "census_land_area_sqmi": 12.887,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 0.012,
+          "pct_of_boundary_area": 0.09,
+          "pct_of_census_land": 0.09
+        }
+      },
+      "LRA": {
+        "Very High": {
+          "sq_mi": 8.744,
+          "pct_of_boundary_area": 67.42,
+          "pct_of_census_land": 67.85
+        },
+        "High": {
+          "sq_mi": 2.527,
+          "pct_of_boundary_area": 19.48,
+          "pct_of_census_land": 19.61
+        },
+        "Moderate": {
+          "sq_mi": 0.787,
+          "pct_of_boundary_area": 6.07,
+          "pct_of_census_land": 6.11
+        },
+        "NonWildland": {
+          "sq_mi": 0.896,
+          "pct_of_boundary_area": 6.91,
+          "pct_of_census_land": 6.95
+        }
+      }
+    },
+    "slug": "rancho-santa-margarita"
+  },
+  "redlands": {
+    "query_name": "Redlands",
+    "census_name": "Redlands city",
+    "geoid": "0659962",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 36.361,
+    "census_land_area_sqmi": 36.01,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 12.413,
+          "pct_of_boundary_area": 34.14,
+          "pct_of_census_land": 34.47
+        },
+        "High": {
+          "sq_mi": 5.556,
+          "pct_of_boundary_area": 15.28,
+          "pct_of_census_land": 15.43
+        },
+        "Moderate": {
+          "sq_mi": 2.085,
+          "pct_of_boundary_area": 5.73,
+          "pct_of_census_land": 5.79
+        },
+        "NonWildland": {
+          "sq_mi": 15.548,
+          "pct_of_boundary_area": 42.76,
+          "pct_of_census_land": 43.18
+        }
+      }
+    },
+    "slug": "redlands"
+  },
+  "riverside": {
+    "query_name": "Riverside",
+    "census_name": "Riverside city",
+    "geoid": "0662000",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 81.665,
+    "census_land_area_sqmi": 81.149,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 17.402,
+          "pct_of_boundary_area": 21.31,
+          "pct_of_census_land": 21.44
+        },
+        "High": {
+          "sq_mi": 4.248,
+          "pct_of_boundary_area": 5.2,
+          "pct_of_census_land": 5.23
+        },
+        "Moderate": {
+          "sq_mi": 5.533,
+          "pct_of_boundary_area": 6.78,
+          "pct_of_census_land": 6.82
+        },
+        "NonWildland": {
+          "sq_mi": 54.465,
+          "pct_of_boundary_area": 66.69,
+          "pct_of_census_land": 67.12
+        }
+      }
+    },
+    "slug": "riverside"
+  },
+  "running-springs": {
+    "query_name": "Running Springs",
+    "census_name": "Running Springs CDP",
+    "geoid": "0663316",
+    "boundary_source": "US Census TIGERweb Census Designated Place",
+    "boundary_area_sqmi": 4.224,
+    "census_land_area_sqmi": 4.204,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 2.893,
+          "pct_of_boundary_area": 68.49,
+          "pct_of_census_land": 68.81
+        }
+      },
+      "LRA": {}
+    },
+    "slug": "running-springs"
+  },
+  "san-diego": {
+    "query_name": "San Diego",
+    "census_name": "San Diego city",
+    "geoid": "0666000",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 343.254,
+    "census_land_area_sqmi": 326.054,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 112.528,
+          "pct_of_boundary_area": 32.78,
+          "pct_of_census_land": 34.51
+        },
+        "High": {
+          "sq_mi": 36.548,
+          "pct_of_boundary_area": 10.65,
+          "pct_of_census_land": 11.21
+        },
+        "Moderate": {
+          "sq_mi": 16.882,
+          "pct_of_boundary_area": 4.92,
+          "pct_of_census_land": 5.18
+        },
+        "NonWildland": {
+          "sq_mi": 128.837,
+          "pct_of_boundary_area": 37.53,
+          "pct_of_census_land": 39.51
+        }
+      }
+    },
+    "slug": "san-diego"
+  },
+  "santa-barbara": {
+    "query_name": "Santa Barbara",
+    "census_name": "Santa Barbara city",
+    "geoid": "0669070",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 37.541,
+    "census_land_area_sqmi": 19.489,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 2.745,
+          "pct_of_boundary_area": 7.31,
+          "pct_of_census_land": 14.09
+        },
+        "High": {
+          "sq_mi": 1.171,
+          "pct_of_boundary_area": 3.12,
+          "pct_of_census_land": 6.01
+        },
+        "Moderate": {
+          "sq_mi": 1.153,
+          "pct_of_boundary_area": 3.07,
+          "pct_of_census_land": 5.91
+        },
+        "NonWildland": {
+          "sq_mi": 14.438,
+          "pct_of_boundary_area": 38.46,
+          "pct_of_census_land": 74.08
+        }
+      }
+    },
+    "slug": "santa-barbara"
+  },
+  "santa-paula": {
+    "query_name": "Santa Paula",
+    "census_name": "Santa Paula city",
+    "geoid": "0670042",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 5.708,
+    "census_land_area_sqmi": 5.53,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 0.004,
+          "pct_of_boundary_area": 0.08,
+          "pct_of_census_land": 0.08
+        }
+      },
+      "LRA": {
+        "Very High": {
+          "sq_mi": 1.901,
+          "pct_of_boundary_area": 33.31,
+          "pct_of_census_land": 34.38
+        },
+        "High": {
+          "sq_mi": 0.798,
+          "pct_of_boundary_area": 13.98,
+          "pct_of_census_land": 14.43
+        },
+        "Moderate": {
+          "sq_mi": 0.612,
+          "pct_of_boundary_area": 10.72,
+          "pct_of_census_land": 11.06
+        },
+        "NonWildland": {
+          "sq_mi": 2.392,
+          "pct_of_boundary_area": 41.91,
+          "pct_of_census_land": 43.26
+        }
+      }
+    },
+    "slug": "santa-paula"
+  },
+  "santa-ynez": {
+    "query_name": "Santa Ynez",
+    "census_name": "Santa Ynez CDP",
+    "geoid": "0670182",
+    "boundary_source": "US Census TIGERweb Census Designated Place",
+    "boundary_area_sqmi": 4.849,
+    "census_land_area_sqmi": 4.83,
+    "responsibility_areas": {
+      "SRA": {
+        "Moderate": {
+          "sq_mi": 4.836,
+          "pct_of_boundary_area": 99.74,
+          "pct_of_census_land": 100.12
+        }
+      },
+      "LRA": {}
+    },
+    "slug": "santa-ynez"
+  },
+  "silverado-canyon": {
+    "query_name": "Silverado",
+    "census_name": "Silverado CDP",
+    "geoid": "0671918",
+    "boundary_source": "US Census TIGERweb Census Designated Place",
+    "boundary_area_sqmi": 5.734,
+    "census_land_area_sqmi": 5.719,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 4.113,
+          "pct_of_boundary_area": 71.73,
+          "pct_of_census_land": 71.91
+        }
+      },
+      "LRA": {}
+    },
+    "slug": "silverado-canyon"
+  },
+  "simi-valley": {
+    "query_name": "Simi Valley",
+    "census_name": "Simi Valley city",
+    "geoid": "0672016",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 42.354,
+    "census_land_area_sqmi": 41.546,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 0.035,
+          "pct_of_boundary_area": 0.08,
+          "pct_of_census_land": 0.08
+        }
+      },
+      "LRA": {
+        "Very High": {
+          "sq_mi": 27.571,
+          "pct_of_boundary_area": 65.1,
+          "pct_of_census_land": 66.36
+        },
+        "High": {
+          "sq_mi": 2.421,
+          "pct_of_boundary_area": 5.72,
+          "pct_of_census_land": 5.83
+        },
+        "Moderate": {
+          "sq_mi": 1.784,
+          "pct_of_boundary_area": 4.21,
+          "pct_of_census_land": 4.29
+        },
+        "NonWildland": {
+          "sq_mi": 10.539,
+          "pct_of_boundary_area": 24.88,
+          "pct_of_census_land": 25.37
+        }
+      }
+    },
+    "slug": "simi-valley"
+  },
+  "solvang": {
+    "query_name": "Solvang",
+    "census_name": "Solvang city",
+    "geoid": "0672576",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 2.432,
+    "census_land_area_sqmi": 2.425,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 0.008,
+          "pct_of_boundary_area": 0.34,
+          "pct_of_census_land": 0.34
+        },
+        "High": {
+          "sq_mi": 0.007,
+          "pct_of_boundary_area": 0.3,
+          "pct_of_census_land": 0.3
+        },
+        "Moderate": {
+          "sq_mi": 0.029,
+          "pct_of_boundary_area": 1.21,
+          "pct_of_census_land": 1.21
+        }
+      },
+      "LRA": {
+        "Very High": {
+          "sq_mi": 0.483,
+          "pct_of_boundary_area": 19.86,
+          "pct_of_census_land": 19.92
+        },
+        "High": {
+          "sq_mi": 0.49,
+          "pct_of_boundary_area": 20.15,
+          "pct_of_census_land": 20.2
+        },
+        "Moderate": {
+          "sq_mi": 0.248,
+          "pct_of_boundary_area": 10.2,
+          "pct_of_census_land": 10.23
+        },
+        "NonWildland": {
+          "sq_mi": 1.166,
+          "pct_of_boundary_area": 47.94,
+          "pct_of_census_land": 48.08
+        }
+      }
+    },
+    "slug": "solvang"
+  },
+  "temecula": {
+    "query_name": "Temecula",
+    "census_name": "Temecula city",
+    "geoid": "0678120",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 37.27,
+    "census_land_area_sqmi": 37.162,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 11.154,
+          "pct_of_boundary_area": 29.93,
+          "pct_of_census_land": 30.02
+        },
+        "High": {
+          "sq_mi": 2.712,
+          "pct_of_boundary_area": 7.28,
+          "pct_of_census_land": 7.3
+        },
+        "Moderate": {
+          "sq_mi": 1.643,
+          "pct_of_boundary_area": 4.41,
+          "pct_of_census_land": 4.42
+        },
+        "NonWildland": {
+          "sq_mi": 19.793,
+          "pct_of_boundary_area": 53.11,
+          "pct_of_census_land": 53.26
+        }
+      }
+    },
+    "slug": "temecula"
+  },
+  "thousand-oaks": {
+    "query_name": "Thousand Oaks",
+    "census_name": "Thousand Oaks city",
+    "geoid": "0678582",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 55.541,
+    "census_land_area_sqmi": 55.257,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 38.905,
+          "pct_of_boundary_area": 70.05,
+          "pct_of_census_land": 70.41
+        },
+        "High": {
+          "sq_mi": 3.548,
+          "pct_of_boundary_area": 6.39,
+          "pct_of_census_land": 6.42
+        },
+        "Moderate": {
+          "sq_mi": 2.678,
+          "pct_of_boundary_area": 4.82,
+          "pct_of_census_land": 4.85
+        },
+        "NonWildland": {
+          "sq_mi": 10.4,
+          "pct_of_boundary_area": 18.73,
+          "pct_of_census_land": 18.82
+        }
+      }
+    },
+    "slug": "thousand-oaks"
+  },
+  "topanga": {
+    "query_name": "Topanga",
+    "census_name": "Topanga CDP",
+    "geoid": "0678960",
+    "boundary_source": "US Census TIGERweb Census Designated Place",
+    "boundary_area_sqmi": 19.183,
+    "census_land_area_sqmi": 19.127,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 18.089,
+          "pct_of_boundary_area": 94.29,
+          "pct_of_census_land": 94.57
+        }
+      },
+      "LRA": {
+        "Very High": {
+          "sq_mi": 0.683,
+          "pct_of_boundary_area": 3.56,
+          "pct_of_census_land": 3.57
+        }
+      }
+    },
+    "slug": "topanga"
+  },
+  "trabuco-canyon": {
+    "query_name": "Trabuco Canyon",
+    "census_name": "Trabuco Canyon CDP",
+    "geoid": "0680210",
+    "boundary_source": "US Census TIGERweb Census Designated Place",
+    "boundary_area_sqmi": 7.302,
+    "census_land_area_sqmi": 7.283,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 7.078,
+          "pct_of_boundary_area": 96.94,
+          "pct_of_census_land": 97.19
+        },
+        "High": {
+          "sq_mi": 0.047,
+          "pct_of_boundary_area": 0.65,
+          "pct_of_census_land": 0.65
+        },
+        "Moderate": {
+          "sq_mi": 0.012,
+          "pct_of_boundary_area": 0.17,
+          "pct_of_census_land": 0.17
+        }
+      },
+      "LRA": {
+        "Very High": {
+          "sq_mi": 0.017,
+          "pct_of_boundary_area": 0.23,
+          "pct_of_census_land": 0.23
+        }
+      }
+    },
+    "slug": "trabuco-canyon"
+  },
+  "wildomar": {
+    "query_name": "Wildomar",
+    "census_name": "Wildomar city",
+    "geoid": "0685446",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 23.806,
+    "census_land_area_sqmi": 23.744,
+    "responsibility_areas": {
+      "SRA": {},
+      "LRA": {
+        "Very High": {
+          "sq_mi": 14.462,
+          "pct_of_boundary_area": 60.75,
+          "pct_of_census_land": 60.91
+        },
+        "High": {
+          "sq_mi": 2.261,
+          "pct_of_boundary_area": 9.5,
+          "pct_of_census_land": 9.52
+        },
+        "Moderate": {
+          "sq_mi": 1.253,
+          "pct_of_boundary_area": 5.26,
+          "pct_of_census_land": 5.28
+        },
+        "NonWildland": {
+          "sq_mi": 5.266,
+          "pct_of_boundary_area": 22.12,
+          "pct_of_census_land": 22.18
+        }
+      }
+    },
+    "slug": "wildomar"
+  },
+  "yorba-linda": {
+    "query_name": "Yorba Linda",
+    "census_name": "Yorba Linda city",
+    "geoid": "0686832",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 20.024,
+    "census_land_area_sqmi": 19.953,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 0.016,
+          "pct_of_boundary_area": 0.08,
+          "pct_of_census_land": 0.08
+        }
+      },
+      "LRA": {
+        "Very High": {
+          "sq_mi": 7.477,
+          "pct_of_boundary_area": 37.34,
+          "pct_of_census_land": 37.47
+        },
+        "High": {
+          "sq_mi": 1.968,
+          "pct_of_boundary_area": 9.83,
+          "pct_of_census_land": 9.86
+        },
+        "Moderate": {
+          "sq_mi": 0.844,
+          "pct_of_boundary_area": 4.21,
+          "pct_of_census_land": 4.23
+        },
+        "NonWildland": {
+          "sq_mi": 9.719,
+          "pct_of_boundary_area": 48.54,
+          "pct_of_census_land": 48.71
+        }
+      }
+    },
+    "slug": "yorba-linda"
+  },
+  "yucaipa": {
+    "query_name": "Yucaipa",
+    "census_name": "Yucaipa city",
+    "geoid": "0687042",
+    "boundary_source": "US Census TIGERweb Incorporated Place",
+    "boundary_area_sqmi": 28.331,
+    "census_land_area_sqmi": 28.26,
+    "responsibility_areas": {
+      "SRA": {
+        "Very High": {
+          "sq_mi": 0.018,
+          "pct_of_boundary_area": 0.06,
+          "pct_of_census_land": 0.07
+        }
+      },
+      "LRA": {
+        "Very High": {
+          "sq_mi": 15.805,
+          "pct_of_boundary_area": 55.79,
+          "pct_of_census_land": 55.93
+        },
+        "High": {
+          "sq_mi": 1.475,
+          "pct_of_boundary_area": 5.21,
+          "pct_of_census_land": 5.22
+        },
+        "Moderate": {
+          "sq_mi": 1.344,
+          "pct_of_boundary_area": 4.74,
+          "pct_of_census_land": 4.76
+        },
+        "NonWildland": {
+          "sq_mi": 9.683,
+          "pct_of_boundary_area": 34.18,
+          "pct_of_census_land": 34.26
+        }
+      }
+    },
+    "slug": "yucaipa"
+  }
+}

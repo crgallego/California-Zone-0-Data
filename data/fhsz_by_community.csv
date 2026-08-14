@@ -1,0 +1,187 @@
+slug,place_name,geoid,state,boundary_source,boundary_area_sq_mi,census_land_area_sq_mi,responsibility_area,fhsz_tier,area_sq_mi,pct_of_boundary_area,fhsz_layer,fhsz_layer_vintage,retrieved
+agoura-hills,Agoura Hills city,0600394,CA,US Census TIGERweb Incorporated Place,7.837,7.796,LRA,Very High,6.091,77.72,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+agoura-hills,Agoura Hills city,0600394,CA,US Census TIGERweb Incorporated Place,7.837,7.796,LRA,High,0.647,8.25,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+agoura-hills,Agoura Hills city,0600394,CA,US Census TIGERweb Incorporated Place,7.837,7.796,LRA,Moderate,0.605,7.72,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+agoura-hills,Agoura Hills city,0600394,CA,US Census TIGERweb Incorporated Place,7.837,7.796,LRA,NonWildland,0.492,6.28,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+agoura-hills,Agoura Hills city,0600394,CA,US Census TIGERweb Incorporated Place,7.837,7.796,NONE,No mapped FHSZ polygon,0.002,0.03,,,2026-08-14
+altadena,Altadena CDP,0601290,CA,US Census TIGERweb Census Designated Place,8.502,8.465,SRA,Very High,0.904,10.63,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+altadena,Altadena CDP,0601290,CA,US Census TIGERweb Census Designated Place,8.502,8.465,LRA,Very High,1.818,21.38,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+altadena,Altadena CDP,0601290,CA,US Census TIGERweb Census Designated Place,8.502,8.465,LRA,High,0.616,7.24,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+altadena,Altadena CDP,0601290,CA,US Census TIGERweb Census Designated Place,8.502,8.465,LRA,Moderate,0.555,6.52,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+altadena,Altadena CDP,0601290,CA,US Census TIGERweb Census Designated Place,8.502,8.465,LRA,NonWildland,4.005,47.11,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+altadena,Altadena CDP,0601290,CA,US Census TIGERweb Census Designated Place,8.502,8.465,NONE,No mapped FHSZ polygon,0.605,7.12,,,2026-08-14
+big-bear-lake,Big Bear Lake city,0606434,CA,US Census TIGERweb Incorporated Place,6.455,6.255,SRA,Very High,0.008,0.12,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+big-bear-lake,Big Bear Lake city,0606434,CA,US Census TIGERweb Incorporated Place,6.455,6.255,LRA,Very High,4.345,67.32,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+big-bear-lake,Big Bear Lake city,0606434,CA,US Census TIGERweb Incorporated Place,6.455,6.255,LRA,High,1.021,15.81,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+big-bear-lake,Big Bear Lake city,0606434,CA,US Census TIGERweb Incorporated Place,6.455,6.255,LRA,Moderate,0.357,5.53,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+big-bear-lake,Big Bear Lake city,0606434,CA,US Census TIGERweb Incorporated Place,6.455,6.255,LRA,NonWildland,0.658,10.19,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+big-bear-lake,Big Bear Lake city,0606434,CA,US Census TIGERweb Incorporated Place,6.455,6.255,NONE,No mapped FHSZ polygon,0.066,1.03,,,2026-08-14
+calabasas,Calabasas city,0609598,CA,US Census TIGERweb Incorporated Place,13.777,13.708,LRA,Very High,13.246,96.15,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+calabasas,Calabasas city,0609598,CA,US Census TIGERweb Incorporated Place,13.777,13.708,NONE,No mapped FHSZ polygon,0.53,3.85,,,2026-08-14
+crestline,Crestline CDP,0617162,CA,US Census TIGERweb Census Designated Place,14.059,13.904,SRA,Very High,8.491,60.4,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+crestline,Crestline CDP,0617162,CA,US Census TIGERweb Census Designated Place,14.059,13.904,NONE,No mapped FHSZ polygon,5.567,39.6,,,2026-08-14
+glendale,Glendale city,0630000,CA,US Census TIGERweb Incorporated Place,30.683,30.479,LRA,Very High,20.881,68.05,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+glendale,Glendale city,0630000,CA,US Census TIGERweb Incorporated Place,30.683,30.479,LRA,High,1.337,4.36,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+glendale,Glendale city,0630000,CA,US Census TIGERweb Incorporated Place,30.683,30.479,LRA,Moderate,1.233,4.02,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+glendale,Glendale city,0630000,CA,US Census TIGERweb Incorporated Place,30.683,30.479,LRA,NonWildland,7.232,23.57,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+glendale,Glendale city,0630000,CA,US Census TIGERweb Incorporated Place,30.683,30.479,NONE,No mapped FHSZ polygon,0.0,0.0,,,2026-08-14
+goleta,Goleta city,0630378,CA,US Census TIGERweb Incorporated Place,7.944,7.852,LRA,Very High,0.648,8.15,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+goleta,Goleta city,0630378,CA,US Census TIGERweb Incorporated Place,7.944,7.852,LRA,High,0.334,4.21,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+goleta,Goleta city,0630378,CA,US Census TIGERweb Incorporated Place,7.944,7.852,LRA,Moderate,1.148,14.45,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+goleta,Goleta city,0630378,CA,US Census TIGERweb Incorporated Place,7.944,7.852,LRA,NonWildland,5.761,72.52,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+goleta,Goleta city,0630378,CA,US Census TIGERweb Incorporated Place,7.944,7.852,NONE,No mapped FHSZ polygon,0.053,0.67,,,2026-08-14
+hidden-hills,Hidden Hills city,0633518,CA,US Census TIGERweb Incorporated Place,1.693,1.688,SRA,Very High,0.002,0.1,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+hidden-hills,Hidden Hills city,0633518,CA,US Census TIGERweb Incorporated Place,1.693,1.688,LRA,Very High,1.172,69.24,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+hidden-hills,Hidden Hills city,0633518,CA,US Census TIGERweb Incorporated Place,1.693,1.688,LRA,High,0.26,15.37,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+hidden-hills,Hidden Hills city,0633518,CA,US Census TIGERweb Incorporated Place,1.693,1.688,LRA,Moderate,0.155,9.14,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+hidden-hills,Hidden Hills city,0633518,CA,US Census TIGERweb Incorporated Place,1.693,1.688,LRA,NonWildland,0.104,6.15,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+hidden-hills,Hidden Hills city,0633518,CA,US Census TIGERweb Incorporated Place,1.693,1.688,NONE,No mapped FHSZ polygon,0.0,0.0,,,2026-08-14
+idyllwild,Idyllwild-Pine Cove CDP,0636203,CA,US Census TIGERweb Census Designated Place,13.768,13.723,SRA,Very High,8.226,59.74,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+idyllwild,Idyllwild-Pine Cove CDP,0636203,CA,US Census TIGERweb Census Designated Place,13.768,13.723,NONE,No mapped FHSZ polygon,5.543,40.26,,,2026-08-14
+la-canada-flintridge,La Cañada Flintridge city,0639003,CA,US Census TIGERweb Incorporated Place,8.669,8.631,LRA,Very High,8.599,99.19,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+la-canada-flintridge,La Cañada Flintridge city,0639003,CA,US Census TIGERweb Incorporated Place,8.669,8.631,NONE,No mapped FHSZ polygon,0.07,0.81,,,2026-08-14
+la-crescenta-montrose,La Crescenta-Montrose CDP,0639045,CA,US Census TIGERweb Census Designated Place,3.448,3.428,SRA,Very High,0.774,22.45,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+la-crescenta-montrose,La Crescenta-Montrose CDP,0639045,CA,US Census TIGERweb Census Designated Place,3.448,3.428,LRA,Very High,1.927,55.9,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+la-crescenta-montrose,La Crescenta-Montrose CDP,0639045,CA,US Census TIGERweb Census Designated Place,3.448,3.428,LRA,High,0.201,5.84,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+la-crescenta-montrose,La Crescenta-Montrose CDP,0639045,CA,US Census TIGERweb Census Designated Place,3.448,3.428,LRA,Moderate,0.193,5.6,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+la-crescenta-montrose,La Crescenta-Montrose CDP,0639045,CA,US Census TIGERweb Census Designated Place,3.448,3.428,LRA,NonWildland,0.352,10.2,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+la-crescenta-montrose,La Crescenta-Montrose CDP,0639045,CA,US Census TIGERweb Census Designated Place,3.448,3.428,NONE,No mapped FHSZ polygon,0.0,0.01,,,2026-08-14
+laguna-beach,Laguna Beach city,0639178,CA,US Census TIGERweb Incorporated Place,8.945,8.918,LRA,Very High,7.656,85.6,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+laguna-beach,Laguna Beach city,0639178,CA,US Census TIGERweb Incorporated Place,8.945,8.918,LRA,High,0.533,5.96,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+laguna-beach,Laguna Beach city,0639178,CA,US Census TIGERweb Incorporated Place,8.945,8.918,LRA,Moderate,0.315,3.52,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+laguna-beach,Laguna Beach city,0639178,CA,US Census TIGERweb Incorporated Place,8.945,8.918,LRA,NonWildland,0.34,3.81,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+laguna-beach,Laguna Beach city,0639178,CA,US Census TIGERweb Incorporated Place,8.945,8.918,NONE,No mapped FHSZ polygon,0.099,1.11,,,2026-08-14
+lake-arrowhead,Lake Arrowhead CDP,0639444,CA,US Census TIGERweb Census Designated Place,18.949,17.678,SRA,Very High,13.114,69.21,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+lake-arrowhead,Lake Arrowhead CDP,0639444,CA,US Census TIGERweb Census Designated Place,18.949,17.678,SRA,High,0.043,0.23,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+lake-arrowhead,Lake Arrowhead CDP,0639444,CA,US Census TIGERweb Census Designated Place,18.949,17.678,NONE,No mapped FHSZ polygon,5.791,30.56,,,2026-08-14
+lake-elsinore,Lake Elsinore city,0639486,CA,US Census TIGERweb Incorporated Place,43.656,38.269,SRA,Very High,0.046,0.1,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+lake-elsinore,Lake Elsinore city,0639486,CA,US Census TIGERweb Incorporated Place,43.656,38.269,LRA,Very High,30.714,70.36,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+lake-elsinore,Lake Elsinore city,0639486,CA,US Census TIGERweb Incorporated Place,43.656,38.269,LRA,High,2.093,4.79,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+lake-elsinore,Lake Elsinore city,0639486,CA,US Census TIGERweb Incorporated Place,43.656,38.269,LRA,Moderate,1.624,3.72,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+lake-elsinore,Lake Elsinore city,0639486,CA,US Census TIGERweb Incorporated Place,43.656,38.269,LRA,NonWildland,8.712,19.96,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+lake-elsinore,Lake Elsinore city,0639486,CA,US Census TIGERweb Incorporated Place,43.656,38.269,NONE,No mapped FHSZ polygon,0.467,1.07,,,2026-08-14
+malibu,Malibu city,0645246,CA,US Census TIGERweb Incorporated Place,99.388,19.847,LRA,Very High,18.087,18.2,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+malibu,Malibu city,0645246,CA,US Census TIGERweb Incorporated Place,99.388,19.847,NONE,No mapped FHSZ polygon,81.299,81.8,,,2026-08-14
+menifee,Menifee city,0646842,CA,US Census TIGERweb Incorporated Place,46.732,46.463,LRA,Very High,15.725,33.65,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+menifee,Menifee city,0646842,CA,US Census TIGERweb Incorporated Place,46.732,46.463,LRA,High,2.999,6.42,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+menifee,Menifee city,0646842,CA,US Census TIGERweb Incorporated Place,46.732,46.463,LRA,Moderate,2.921,6.25,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+menifee,Menifee city,0646842,CA,US Census TIGERweb Incorporated Place,46.732,46.463,LRA,NonWildland,24.955,53.4,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+menifee,Menifee city,0646842,CA,US Census TIGERweb Incorporated Place,46.732,46.463,NONE,No mapped FHSZ polygon,0.131,0.28,,,2026-08-14
+mission-viejo,Mission Viejo city,0648256,CA,US Census TIGERweb Incorporated Place,18.077,17.659,LRA,Very High,1.291,7.14,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+mission-viejo,Mission Viejo city,0648256,CA,US Census TIGERweb Incorporated Place,18.077,17.659,LRA,High,2.221,12.29,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+mission-viejo,Mission Viejo city,0648256,CA,US Census TIGERweb Incorporated Place,18.077,17.659,LRA,Moderate,1.038,5.74,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+mission-viejo,Mission Viejo city,0648256,CA,US Census TIGERweb Incorporated Place,18.077,17.659,LRA,NonWildland,13.523,74.81,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+mission-viejo,Mission Viejo city,0648256,CA,US Census TIGERweb Incorporated Place,18.077,17.659,NONE,No mapped FHSZ polygon,0.004,0.02,,,2026-08-14
+modjeska-canyon,Modjeska CDP,0648410,CA,US Census TIGERweb Census Designated Place,2.009,2.004,SRA,Very High,1.541,76.71,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+modjeska-canyon,Modjeska CDP,0648410,CA,US Census TIGERweb Census Designated Place,2.009,2.004,NONE,No mapped FHSZ polygon,0.468,23.29,,,2026-08-14
+montecito,Montecito CDP,0648844,CA,US Census TIGERweb Census Designated Place,17.149,9.183,SRA,Very High,4.436,25.87,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+montecito,Montecito CDP,0648844,CA,US Census TIGERweb Census Designated Place,17.149,9.183,SRA,High,0.286,1.67,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+montecito,Montecito CDP,0648844,CA,US Census TIGERweb Census Designated Place,17.149,9.183,SRA,Moderate,0.303,1.77,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+montecito,Montecito CDP,0648844,CA,US Census TIGERweb Census Designated Place,17.149,9.183,LRA,Very High,0.559,3.26,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+montecito,Montecito CDP,0648844,CA,US Census TIGERweb Census Designated Place,17.149,9.183,LRA,High,0.379,2.21,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+montecito,Montecito CDP,0648844,CA,US Census TIGERweb Census Designated Place,17.149,9.183,LRA,Moderate,0.389,2.27,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+montecito,Montecito CDP,0648844,CA,US Census TIGERweb Census Designated Place,17.149,9.183,LRA,NonWildland,2.843,16.58,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+montecito,Montecito CDP,0648844,CA,US Census TIGERweb Census Designated Place,17.149,9.183,NONE,No mapped FHSZ polygon,7.952,46.37,,,2026-08-14
+murrieta,Murrieta city,0650076,CA,US Census TIGERweb Incorporated Place,35.528,35.398,LRA,Very High,15.288,43.03,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+murrieta,Murrieta city,0650076,CA,US Census TIGERweb Incorporated Place,35.528,35.398,LRA,High,2.128,5.99,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+murrieta,Murrieta city,0650076,CA,US Census TIGERweb Incorporated Place,35.528,35.398,LRA,Moderate,1.931,5.44,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+murrieta,Murrieta city,0650076,CA,US Census TIGERweb Incorporated Place,35.528,35.398,LRA,NonWildland,16.171,45.52,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+murrieta,Murrieta city,0650076,CA,US Census TIGERweb Incorporated Place,35.528,35.398,NONE,No mapped FHSZ polygon,0.007,0.02,,,2026-08-14
+ojai,Ojai city,0653476,CA,US Census TIGERweb Incorporated Place,4.382,4.356,SRA,Very High,0.012,0.28,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+ojai,Ojai city,0653476,CA,US Census TIGERweb Incorporated Place,4.382,4.356,LRA,Very High,2.619,59.76,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+ojai,Ojai city,0653476,CA,US Census TIGERweb Incorporated Place,4.382,4.356,LRA,High,0.551,12.57,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+ojai,Ojai city,0653476,CA,US Census TIGERweb Incorporated Place,4.382,4.356,LRA,Moderate,0.467,10.67,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+ojai,Ojai city,0653476,CA,US Census TIGERweb Incorporated Place,4.382,4.356,LRA,NonWildland,0.729,16.63,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+ojai,Ojai city,0653476,CA,US Census TIGERweb Incorporated Place,4.382,4.356,NONE,No mapped FHSZ polygon,0.004,0.09,,,2026-08-14
+rancho-cucamonga,Rancho Cucamonga city,0659451,CA,US Census TIGERweb Incorporated Place,46.648,46.522,LRA,Very High,13.899,29.8,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+rancho-cucamonga,Rancho Cucamonga city,0659451,CA,US Census TIGERweb Incorporated Place,46.648,46.522,LRA,High,1.759,3.77,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+rancho-cucamonga,Rancho Cucamonga city,0659451,CA,US Census TIGERweb Incorporated Place,46.648,46.522,LRA,Moderate,1.435,3.08,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+rancho-cucamonga,Rancho Cucamonga city,0659451,CA,US Census TIGERweb Incorporated Place,46.648,46.522,LRA,NonWildland,29.434,63.1,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+rancho-cucamonga,Rancho Cucamonga city,0659451,CA,US Census TIGERweb Incorporated Place,46.648,46.522,NONE,No mapped FHSZ polygon,0.117,0.25,,,2026-08-14
+rancho-santa-margarita,Rancho Santa Margarita city,0659587,CA,US Census TIGERweb Incorporated Place,12.968,12.887,SRA,Very High,0.012,0.09,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+rancho-santa-margarita,Rancho Santa Margarita city,0659587,CA,US Census TIGERweb Incorporated Place,12.968,12.887,LRA,Very High,8.744,67.42,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+rancho-santa-margarita,Rancho Santa Margarita city,0659587,CA,US Census TIGERweb Incorporated Place,12.968,12.887,LRA,High,2.527,19.48,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+rancho-santa-margarita,Rancho Santa Margarita city,0659587,CA,US Census TIGERweb Incorporated Place,12.968,12.887,LRA,Moderate,0.787,6.07,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+rancho-santa-margarita,Rancho Santa Margarita city,0659587,CA,US Census TIGERweb Incorporated Place,12.968,12.887,LRA,NonWildland,0.896,6.91,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+rancho-santa-margarita,Rancho Santa Margarita city,0659587,CA,US Census TIGERweb Incorporated Place,12.968,12.887,NONE,No mapped FHSZ polygon,0.004,0.03,,,2026-08-14
+redlands,Redlands city,0659962,CA,US Census TIGERweb Incorporated Place,36.361,36.01,LRA,Very High,12.413,34.14,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+redlands,Redlands city,0659962,CA,US Census TIGERweb Incorporated Place,36.361,36.01,LRA,High,5.556,15.28,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+redlands,Redlands city,0659962,CA,US Census TIGERweb Incorporated Place,36.361,36.01,LRA,Moderate,2.085,5.73,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+redlands,Redlands city,0659962,CA,US Census TIGERweb Incorporated Place,36.361,36.01,LRA,NonWildland,15.548,42.76,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+redlands,Redlands city,0659962,CA,US Census TIGERweb Incorporated Place,36.361,36.01,NONE,No mapped FHSZ polygon,0.76,2.09,,,2026-08-14
+riverside,Riverside city,0662000,CA,US Census TIGERweb Incorporated Place,81.665,81.149,LRA,Very High,17.402,21.31,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+riverside,Riverside city,0662000,CA,US Census TIGERweb Incorporated Place,81.665,81.149,LRA,High,4.248,5.2,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+riverside,Riverside city,0662000,CA,US Census TIGERweb Incorporated Place,81.665,81.149,LRA,Moderate,5.533,6.78,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+riverside,Riverside city,0662000,CA,US Census TIGERweb Incorporated Place,81.665,81.149,LRA,NonWildland,54.465,66.69,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+riverside,Riverside city,0662000,CA,US Census TIGERweb Incorporated Place,81.665,81.149,NONE,No mapped FHSZ polygon,0.016,0.02,,,2026-08-14
+running-springs,Running Springs CDP,0663316,CA,US Census TIGERweb Census Designated Place,4.224,4.204,SRA,Very High,2.893,68.49,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+running-springs,Running Springs CDP,0663316,CA,US Census TIGERweb Census Designated Place,4.224,4.204,NONE,No mapped FHSZ polygon,1.331,31.51,,,2026-08-14
+san-diego,San Diego city,0666000,CA,US Census TIGERweb Incorporated Place,343.254,326.054,LRA,Very High,112.528,32.78,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+san-diego,San Diego city,0666000,CA,US Census TIGERweb Incorporated Place,343.254,326.054,LRA,High,36.548,10.65,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+san-diego,San Diego city,0666000,CA,US Census TIGERweb Incorporated Place,343.254,326.054,LRA,Moderate,16.882,4.92,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+san-diego,San Diego city,0666000,CA,US Census TIGERweb Incorporated Place,343.254,326.054,LRA,NonWildland,128.837,37.53,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+san-diego,San Diego city,0666000,CA,US Census TIGERweb Incorporated Place,343.254,326.054,NONE,No mapped FHSZ polygon,48.467,14.12,,,2026-08-14
+santa-barbara,Santa Barbara city,0669070,CA,US Census TIGERweb Incorporated Place,37.541,19.489,LRA,Very High,2.745,7.31,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+santa-barbara,Santa Barbara city,0669070,CA,US Census TIGERweb Incorporated Place,37.541,19.489,LRA,High,1.171,3.12,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+santa-barbara,Santa Barbara city,0669070,CA,US Census TIGERweb Incorporated Place,37.541,19.489,LRA,Moderate,1.153,3.07,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+santa-barbara,Santa Barbara city,0669070,CA,US Census TIGERweb Incorporated Place,37.541,19.489,LRA,NonWildland,14.438,38.46,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+santa-barbara,Santa Barbara city,0669070,CA,US Census TIGERweb Incorporated Place,37.541,19.489,NONE,No mapped FHSZ polygon,18.035,48.04,,,2026-08-14
+santa-paula,Santa Paula city,0670042,CA,US Census TIGERweb Incorporated Place,5.708,5.53,SRA,Very High,0.004,0.08,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+santa-paula,Santa Paula city,0670042,CA,US Census TIGERweb Incorporated Place,5.708,5.53,LRA,Very High,1.901,33.31,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+santa-paula,Santa Paula city,0670042,CA,US Census TIGERweb Incorporated Place,5.708,5.53,LRA,High,0.798,13.98,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+santa-paula,Santa Paula city,0670042,CA,US Census TIGERweb Incorporated Place,5.708,5.53,LRA,Moderate,0.612,10.72,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+santa-paula,Santa Paula city,0670042,CA,US Census TIGERweb Incorporated Place,5.708,5.53,LRA,NonWildland,2.392,41.91,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+santa-paula,Santa Paula city,0670042,CA,US Census TIGERweb Incorporated Place,5.708,5.53,NONE,No mapped FHSZ polygon,0.0,0.0,,,2026-08-14
+santa-ynez,Santa Ynez CDP,0670182,CA,US Census TIGERweb Census Designated Place,4.849,4.83,SRA,Moderate,4.836,99.74,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+santa-ynez,Santa Ynez CDP,0670182,CA,US Census TIGERweb Census Designated Place,4.849,4.83,NONE,No mapped FHSZ polygon,0.013,0.26,,,2026-08-14
+silverado-canyon,Silverado CDP,0671918,CA,US Census TIGERweb Census Designated Place,5.734,5.719,SRA,Very High,4.113,71.73,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+silverado-canyon,Silverado CDP,0671918,CA,US Census TIGERweb Census Designated Place,5.734,5.719,NONE,No mapped FHSZ polygon,1.621,28.27,,,2026-08-14
+simi-valley,Simi Valley city,0672016,CA,US Census TIGERweb Incorporated Place,42.354,41.546,SRA,Very High,0.035,0.08,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+simi-valley,Simi Valley city,0672016,CA,US Census TIGERweb Incorporated Place,42.354,41.546,LRA,Very High,27.571,65.1,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+simi-valley,Simi Valley city,0672016,CA,US Census TIGERweb Incorporated Place,42.354,41.546,LRA,High,2.421,5.72,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+simi-valley,Simi Valley city,0672016,CA,US Census TIGERweb Incorporated Place,42.354,41.546,LRA,Moderate,1.784,4.21,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+simi-valley,Simi Valley city,0672016,CA,US Census TIGERweb Incorporated Place,42.354,41.546,LRA,NonWildland,10.539,24.88,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+simi-valley,Simi Valley city,0672016,CA,US Census TIGERweb Incorporated Place,42.354,41.546,NONE,No mapped FHSZ polygon,0.004,0.01,,,2026-08-14
+solvang,Solvang city,0672576,CA,US Census TIGERweb Incorporated Place,2.432,2.425,SRA,Very High,0.008,0.34,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+solvang,Solvang city,0672576,CA,US Census TIGERweb Incorporated Place,2.432,2.425,SRA,High,0.007,0.3,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+solvang,Solvang city,0672576,CA,US Census TIGERweb Incorporated Place,2.432,2.425,SRA,Moderate,0.029,1.21,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+solvang,Solvang city,0672576,CA,US Census TIGERweb Incorporated Place,2.432,2.425,LRA,Very High,0.483,19.86,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+solvang,Solvang city,0672576,CA,US Census TIGERweb Incorporated Place,2.432,2.425,LRA,High,0.49,20.15,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+solvang,Solvang city,0672576,CA,US Census TIGERweb Incorporated Place,2.432,2.425,LRA,Moderate,0.248,10.2,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+solvang,Solvang city,0672576,CA,US Census TIGERweb Incorporated Place,2.432,2.425,LRA,NonWildland,1.166,47.94,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+solvang,Solvang city,0672576,CA,US Census TIGERweb Incorporated Place,2.432,2.425,NONE,No mapped FHSZ polygon,0.0,0.0,,,2026-08-14
+temecula,Temecula city,0678120,CA,US Census TIGERweb Incorporated Place,37.27,37.162,LRA,Very High,11.154,29.93,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+temecula,Temecula city,0678120,CA,US Census TIGERweb Incorporated Place,37.27,37.162,LRA,High,2.712,7.28,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+temecula,Temecula city,0678120,CA,US Census TIGERweb Incorporated Place,37.27,37.162,LRA,Moderate,1.643,4.41,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+temecula,Temecula city,0678120,CA,US Census TIGERweb Incorporated Place,37.27,37.162,LRA,NonWildland,19.793,53.11,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+temecula,Temecula city,0678120,CA,US Census TIGERweb Incorporated Place,37.27,37.162,NONE,No mapped FHSZ polygon,1.964,5.27,,,2026-08-14
+thousand-oaks,Thousand Oaks city,0678582,CA,US Census TIGERweb Incorporated Place,55.541,55.257,LRA,Very High,38.905,70.05,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+thousand-oaks,Thousand Oaks city,0678582,CA,US Census TIGERweb Incorporated Place,55.541,55.257,LRA,High,3.548,6.39,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+thousand-oaks,Thousand Oaks city,0678582,CA,US Census TIGERweb Incorporated Place,55.541,55.257,LRA,Moderate,2.678,4.82,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+thousand-oaks,Thousand Oaks city,0678582,CA,US Census TIGERweb Incorporated Place,55.541,55.257,LRA,NonWildland,10.4,18.73,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+thousand-oaks,Thousand Oaks city,0678582,CA,US Census TIGERweb Incorporated Place,55.541,55.257,NONE,No mapped FHSZ polygon,0.006,0.01,,,2026-08-14
+topanga,Topanga CDP,0678960,CA,US Census TIGERweb Census Designated Place,19.183,19.127,SRA,Very High,18.089,94.29,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+topanga,Topanga CDP,0678960,CA,US Census TIGERweb Census Designated Place,19.183,19.127,LRA,Very High,0.683,3.56,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+topanga,Topanga CDP,0678960,CA,US Census TIGERweb Census Designated Place,19.183,19.127,NONE,No mapped FHSZ polygon,0.412,2.15,,,2026-08-14
+trabuco-canyon,Trabuco Canyon CDP,0680210,CA,US Census TIGERweb Census Designated Place,7.302,7.283,SRA,Very High,7.078,96.94,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+trabuco-canyon,Trabuco Canyon CDP,0680210,CA,US Census TIGERweb Census Designated Place,7.302,7.283,SRA,High,0.047,0.65,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+trabuco-canyon,Trabuco Canyon CDP,0680210,CA,US Census TIGERweb Census Designated Place,7.302,7.283,SRA,Moderate,0.012,0.17,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+trabuco-canyon,Trabuco Canyon CDP,0680210,CA,US Census TIGERweb Census Designated Place,7.302,7.283,LRA,Very High,0.017,0.23,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+trabuco-canyon,Trabuco Canyon CDP,0680210,CA,US Census TIGERweb Census Designated Place,7.302,7.283,NONE,No mapped FHSZ polygon,0.147,2.01,,,2026-08-14
+wildomar,Wildomar city,0685446,CA,US Census TIGERweb Incorporated Place,23.806,23.744,LRA,Very High,14.462,60.75,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+wildomar,Wildomar city,0685446,CA,US Census TIGERweb Incorporated Place,23.806,23.744,LRA,High,2.261,9.5,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+wildomar,Wildomar city,0685446,CA,US Census TIGERweb Incorporated Place,23.806,23.744,LRA,Moderate,1.253,5.26,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+wildomar,Wildomar city,0685446,CA,US Census TIGERweb Incorporated Place,23.806,23.744,LRA,NonWildland,5.266,22.12,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+wildomar,Wildomar city,0685446,CA,US Census TIGERweb Incorporated Place,23.806,23.744,NONE,No mapped FHSZ polygon,0.564,2.37,,,2026-08-14
+yorba-linda,Yorba Linda city,0686832,CA,US Census TIGERweb Incorporated Place,20.024,19.953,SRA,Very High,0.016,0.08,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+yorba-linda,Yorba Linda city,0686832,CA,US Census TIGERweb Incorporated Place,20.024,19.953,LRA,Very High,7.477,37.34,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+yorba-linda,Yorba Linda city,0686832,CA,US Census TIGERweb Incorporated Place,20.024,19.953,LRA,High,1.968,9.83,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+yorba-linda,Yorba Linda city,0686832,CA,US Census TIGERweb Incorporated Place,20.024,19.953,LRA,Moderate,0.844,4.21,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+yorba-linda,Yorba Linda city,0686832,CA,US Census TIGERweb Incorporated Place,20.024,19.953,LRA,NonWildland,9.719,48.54,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+yorba-linda,Yorba Linda city,0686832,CA,US Census TIGERweb Incorporated Place,20.024,19.953,NONE,No mapped FHSZ polygon,0.0,0.0,,,2026-08-14
+yucaipa,Yucaipa city,0687042,CA,US Census TIGERweb Incorporated Place,28.331,28.26,SRA,Very High,0.018,0.06,FHSZSRA_23_3,SRA maps effective 2024-04-01,2026-08-14
+yucaipa,Yucaipa city,0687042,CA,US Census TIGERweb Incorporated Place,28.331,28.26,LRA,Very High,15.805,55.79,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+yucaipa,Yucaipa city,0687042,CA,US Census TIGERweb Incorporated Place,28.331,28.26,LRA,High,1.475,5.21,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+yucaipa,Yucaipa city,0687042,CA,US Census TIGERweb Incorporated Place,28.331,28.26,LRA,Moderate,1.344,4.74,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+yucaipa,Yucaipa city,0687042,CA,US Census TIGERweb Incorporated Place,28.331,28.26,LRA,NonWildland,9.683,34.18,FHSZLRA25_v1_All,LRA map dated 2025-03-24,2026-08-14
+yucaipa,Yucaipa city,0687042,CA,US Census TIGERweb Incorporated Place,28.331,28.26,NONE,No mapped FHSZ polygon,0.006,0.02,,,2026-08-14

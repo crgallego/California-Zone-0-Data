@@ -1,0 +1,11 @@
+label,lon,lat,point_source,sra_result,lra_result,note,retrieved
+"Anaheim Hills, Anaheim",-117.7460,33.8353,"coordinate published on firewisefences.com/service-areas/anaheim-hills/ with the latitude corrected from 34.8353 to 33.8353",,Very High,"The latitude as published (34.8353) falls in Kern County and returns no FHSZ polygon in either layer.",2026-08-14
+"Anaheim Hills, Anaheim (coordinate exactly as published)",-117.7460,34.8353,"firewisefences.com/service-areas/anaheim-hills/",,,"No FHSZ polygon in either layer; the point is roughly 69 miles north of Anaheim Hills.",2026-08-14
+"Brentwood, Los Angeles",-118.4741,34.0521,OpenStreetMap Nominatim,,NonWildland,"Los Angeles neighbourhood, not a Census place. Hillside Brentwood is not represented by this single centroid.",2026-08-14
+"Pacific Palisades, Los Angeles",-118.5265,34.0481,OpenStreetMap Nominatim,,Very High,"Los Angeles neighbourhood, not a Census place.",2026-08-14
+"Lake Elsinore city centre",-117.3273,33.6681,"coordinate chosen for this check",,High,"Confirms the city-centre reading published on the Lake Elsinore page.",2026-08-14
+"Thousand Oaks city centre",-118.8376,34.1706,"coordinate chosen for this check",,High,"Confirms the city-centre reading published on the Thousand Oaks page.",2026-08-14
+"Thousand Oaks, Lang Ranch",-118.8180,34.2140,"coordinate chosen for this check",,Very High,"Confirms the Lang Ranch reading published on the Thousand Oaks page.",2026-08-14
+"Big Bear Lake, Village",-116.9114,34.2439,"coordinate chosen for this check",,Moderate,"Confirms the Village reading published on the Big Bear Lake page.",2026-08-14
+"Big Bear Lake, Moonridge",-116.8830,34.2320,OpenStreetMap Nominatim,,Very High,"Confirms the Moonridge reading published on the Big Bear Lake page.",2026-08-14
+"Santa Paula, city centre",-119.0593,34.3542,OpenStreetMap Nominatim,,NonWildland,"Confirms the downtown reading published on the Santa Paula page.",2026-08-14
