@@ -106,6 +106,54 @@ It is not a loss statistic. Of the 254 fence ignitions, 5 structures were
 destroyed and 221 were recorded at 0–10% damage. The fence caught; the house
 usually did not.
 
+`data/compliance_forcing_functions.json` — the rules that are already in force,
+quoted verbatim with their subdivisions. Not a measurement; a citation file.
+
+The binding insurance regulation names the product. 10 CCR 2644.9 forbids an
+admitted insurer from using a rating plan that does not reflect its mandatory
+mitigation factors, and one of those factors is *"Incorporation of only
+noncombustible materials into that portion of any improvements to the property
+on which the Building Being Evaluated is located, **including fences and
+gates**, which is situated within five (5) feet of the Building Being
+Evaluated."* The same insurer must hand the policyholder their wildfire risk
+score in writing, re-score within 30 days of a completed mitigation, and hear an
+appeal. CDI's own FAQ: *"Your insurance company must give you a detailed
+explanation for the score including how you can lower that score and how much
+you could save."*
+
+The California FAIR Plan puts it on its own discount sheet, applicable
+2025-11-15: Immediate Surroundings discount 3 is *"only noncombustible materials
+... including fences and gates, within 5 feet of the dwelling,"* and a separate
+completion bonus requires all ten property-level criteria. A combustible fence
+costs a policyholder both. Twelve discounts together reach at most **16.4%** off
+the *wildfire portion* of a Dwelling Fire premium. No per-measure percentage is
+published, by CDI or by the FAIR Plan.
+
+Point of sale is a dated deadline that already exists. Civil Code 1102.19, in
+force since 2021-07-01, requires a seller in a high or very high zone to hand the
+buyer documentation of defensible space compliance, or sign an agreement putting
+the buyer on a one-year clock. **1,577,667 housing units — 1,166,961 of them
+detached — stand inside that trigger** (SRA High and Very High, plus LRA Very
+High). Whether it also reaches LRA High, a designation that did not exist before
+the 2025 maps and covers another 458,014 units, is an open legal question and is
+recorded as open. Publish 1,577,667, not 2,035,681.
+
+Civil Code 841 presumes the neighbor owes half. For a fence dividing two
+properties, adjoining owners are *"presumed to be equally responsible for the
+reasonable costs of construction, maintenance, or necessary replacement,"* after
+30 days' written notice. The presumption is rebuttable, and it does not reach a
+run that sits wholly on one owner's land — which is what an attached fence often
+is.
+
+`data/fire_risk_reduction_communities_2026.csv` — the Board of Forestry's 2026
+Fire Risk Reduction Community List: **119 agencies**, 42 cities, 12 counties, 65
+districts and departments, adopted by Resolution No. 2026-01 effective
+2026-07-01. Being on it is one of the two ways a property earns the
+community-level credit under 2644.9 and the FAIR Plan's Community discount.
+
+It is not a list of jurisdictions with a Zone 0 ordinance or a fence rule, and it
+should never be described as one.
+
 `data/fhsz_by_community.csv` — Fire Hazard Severity Zone composition for 40
 California communities. For each community it gives, per responsibility area and
 per tier, the land area in square miles and the share of the municipal boundary
@@ -144,6 +192,10 @@ sub-areas. Point checks describe one coordinate, not a community.
 | [`POSTFIRE_MASTER_DATA_SHARE`](https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/POSTFIRE_MASTER_DATA_SHARE/FeatureServer/0) ([landing page](https://data.ca.gov/dataset/cal-fire-damage-inspection-dins-data)) | CAL FIRE | Damage Inspection (DINS), 2013–present |
 | [FAIR Plan Key Statistics](https://www.cfpnet.com/key-statistics-data/) | California FAIR Plan Association | County PIF and TIV, FY ending 2025-09-30 |
 | [Wildfire and insurance data](https://www.insurance.ca.gov/01-consumers/200-wrr/DataAnalysisOnWildfiresAndInsurance.cfm) | California Department of Insurance | County policy counts 2020–2023; fact sheet published 2025-01-13 |
+| [10 CCR 2644.9, Safer from Wildfires](https://www.insurance.ca.gov/01-consumers/200-wrr/Safer-from-Wildfires.cfm) | California Department of Insurance | Regulation text and April 2023 consumer FAQ |
+| [Wildfire Hardening Discounts](https://www.cfpnet.com/wp-content/uploads/2025/11/Discounts-for-Dwelling-Fire-Commercial-Policies-2025.11.15.pdf) | California FAIR Plan Association | Dwelling Fire and Commercial, applicable 2025-11-15 |
+| [Fire Risk Reduction Community List](https://bof.fire.ca.gov/projects-and-programs/fire-risk-reduction-community-list) | Board of Forestry and Fire Protection | 2026 list, Resolution No. 2026-01, effective 2026-07-01 |
+| [Civil Code 1102.19](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1102.19.) and [Civil Code 841](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=841) | California Legislative Counsel | Operative 2021-07-01 and 2014-01-01 |
 
 Retrieved 2026-08-14.
 
@@ -179,6 +231,10 @@ python scripts/build_housing_by_fhsz.py
 pip install pypdf cryptography
 python scripts/build_fair_plan.py
 python scripts/build_cdi_policy_counts.py
+
+# rules already in force: the community list
+pip install pypdf
+python scripts/build_frrc_list.py
 ```
 
 The FHSZ script queries the three services above directly. It has no private inputs,
