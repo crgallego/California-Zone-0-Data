@@ -1,7 +1,7 @@
 # Methodology
 
-Two datasets, two different measurements. Read the section for the one you are
-using.
+Three datasets, three different measurements. Read the section for the one you
+are using.
 
 ---
 
@@ -61,6 +61,87 @@ Zone 0 — the ember-resistant zone within 0–5 feet of a structure — is a
 date. These population figures describe **who lives in the hazard zones the
 standard would apply to**, not who is currently subject to a requirement. Any
 public use of these numbers should keep that distinction intact.
+
+---
+
+# Housing units by Fire Hazard Severity Zone
+
+`data/housing_by_fhsz_county.csv`, `data/housing_by_fhsz_state.json`
+
+## The measurement
+
+This dataset adds no geometry. It reuses the block-group tier assignments from
+the population dataset above — each block group placed by its Census center of
+population — and attaches housing counts to them. The tier assignment is
+therefore identical to the population file, and the two can be read side by side
+without reconciling two methods. Every limit of the population method applies
+here unchanged.
+
+**Housing units** and **occupied housing units** are 2020 census counts, from
+the PL 94-171 redistricting file. They are complete enumerations, not samples.
+The state totals are 14,392,140 housing units and 13,475,623 occupied.
+
+## Housing units or occupied units
+
+Occupied units are the better answer to "how many households." Total housing
+units are the better answer to anything about the physical building stock, and
+the gap between them is not evenly spread:
+
+| | Housing units | Occupied | Vacant or seasonal |
+|---|---|---|---|
+| SRA Very High | 456,674 | 356,897 | 21.8% |
+| LRA Very High | 889,146 | 822,296 | 7.5% |
+| California | 14,392,140 | 13,475,623 | 6.4% |
+
+More than one housing unit in five in the State Responsibility Area's Very High
+zone is vacant or seasonally occupied — the mountain second-home stock. Those
+buildings have the same roof, the same siding and the same fence as any other.
+Both columns are published so the question can pick its own denominator.
+
+## Detached single-family and mobile homes are estimates, not counts
+
+The decennial census does not ask what kind of building a housing unit is. These
+two columns are the only modelled figures in this repository and are named
+`_est` for that reason.
+
+Each block group's ACS 2020–2024 share of units in structure is applied to that
+block group's 2020 census housing-unit count. So the **share is measured** — a
+five-year ACS estimate with its own sampling error — and what is assumed is only
+that the share holds across the block group. Two consequences to keep:
+
+- The ACS share and the census count are different vintages. Housing built or
+  demolished between them is attributed at the older mix.
+- 129 block groups holding 648 housing units between them have no ACS
+  units-in-structure estimate and contribute zero detached units. They are
+  overwhelmingly group-quarters block groups: 115,055 people, 648 housing units.
+  The effect on any detached figure is under 0.01%.
+
+Statewide, 57.1% of California housing units are detached single-family. In the
+Very High zone it is 72.5%. The hazard zones are more single-family than the
+state is, which is why a per-home statement behaves differently there than a
+statewide average would suggest.
+
+## The `draft_scope` aggregate is an interpretation
+
+`data/housing_by_fhsz_state.json` publishes two rollups. `very_high` is a mapped
+category and needs no explanation.
+
+`draft_scope` is the whole State Responsibility Area — all tiers — plus Very
+High in the Local Responsibility Area. That follows the April 17, 2026 draft's
+own scope language: in the LRA the requirements attach to Very High, while in
+the SRA defensible space applies under PRC 4291 across tiers. It is a reading of
+a draft that is still in rulemaking and it is not a CAL FIRE category. If the
+scope language changes before adoption, this aggregate changes with it and the
+tier rows underneath it do not.
+
+## What these numbers are not
+
+They are a count of **housing units in hazard zones**. They are not a count of
+fences, of homes with fences, of combustible fences, or of anything that would
+require replacement under any rule. No public dataset counts residential fences,
+and this repository does not estimate one. Multiplying these counts by an
+assumed fence rate produces a figure whose accuracy is entirely the accuracy of
+the assumption, not of these data.
 
 ---
 
