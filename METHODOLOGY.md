@@ -1,8 +1,8 @@
 # Methodology
 
-Five datasets, five different measurements. Read the section for the one you are
-using — they do not share error bars, and two of them are estimates rather than
-counts.
+Seven measurements, seven different error bars. Read the section for the one you
+are using. Two of them — the detached-home columns and the combustible-fence
+span — are estimates rather than counts.
 
 ---
 
@@ -392,6 +392,118 @@ proportion is checkable rather than asserted.
 
 Zone 0 remains a draft. This is a count of homes the clause would reach, not of
 homes that owe anything today.
+
+---
+
+# California FAIR Plan policies and exposure
+
+`data/fair_plan_by_county.csv`, `data/fair_plan_state.json`
+
+## The measurement
+
+The California FAIR Plan Association is the residual fire insurer of last
+resort. It publishes, each fiscal year, policies in force and total insured
+value by county. `scripts/build_fair_plan.py` downloads the four public PDFs
+from [cfpnet.com/key-statistics-data](https://www.cfpnet.com/key-statistics-data/)
+and parses them. No key, no scrape of a dashboard.
+
+County tables mix **residential, commercial, and business-owners** policies.
+Residential-only statewide totals are taken from the first `Total` line of the
+dwelling ZIP rollups, not by summing county files. A one-policy Tarrant County
+row (Texas) appears in the source and is dropped; that is why the 2024
+all-lines county sum is 463,158 against a published 463,159.
+
+As of **2025-09-30**:
+
+| | Policies | Exposure |
+|---|---|---|
+| Residential only | 621,234 | $645,115,692,650 |
+| All lines (county table) | 642,010 | $693,964,308,706 |
+
+Residential PIF was 236,515 in 2021. That is a 163% increase in four years.
+
+The Association's webpage later posted a June 2026 all-lines snapshot —
+696,562 policies, $768 billion exposure, $2.04 billion written premium. That
+snapshot has no county file and is stored separately so it cannot overwrite
+the 2025-09-30 table.
+
+## What this is not
+
+**A FAIR Plan policy is not a home in Very High, and it is not a combustible
+fence.** The residual market writes for reasons other than wildfire. The
+growth is a wildfire-insurance story; the stock is not a Zone 0 inventory.
+
+The last two columns of the county CSV are joined from
+`zone0_combustible_fence_estimate.json` so a reader can put the two datasets
+on the same row. They are context. Do not divide one by the other and call it
+a penetration rate.
+
+Retrieved 2026-08-14. Re-run the script when the Association posts a new
+fiscal-year PDF.
+
+---
+
+# Residential policy counts: voluntary market, FAIR Plan, and non-renewals
+
+`data/cdi_policy_counts_by_county.csv`, `data/cdi_policy_counts_state.json`
+
+## The measurement
+
+The California Department of Insurance publishes annual counts of new, renewed,
+and non-renewed residential policies by county, plus new and renewed FAIR Plan
+and Difference-in-Conditions policies. `scripts/build_cdi_policy_counts.py`
+downloads the county PDF (report year 2024, calendar years 2020–2023) from
+[the Department's wildfire-and-insurance page](https://www.insurance.ca.gov/01-consumers/200-wrr/DataAnalysisOnWildfiresAndInsurance.cfm)
+and parses it. Statewide totals for 2015–2019, surplus-lines counts, and FAIR
+Plan non-renewals come from Appendix A of the
+[January 13, 2025 fact sheet](https://www.insurance.ca.gov/01-consumers/200-wrr/upload/CDI-Fact-Sheet-Summary-on-Residential-Insurance-Policies-and-the-FAIR-Plan-v-011325-2.pdf).
+No key, no scrape of a dashboard.
+
+Coverage is homeowners forms HO-2/3/5/8 or equivalent, dwelling-fire (not
+contents-only), landlord/business-owner policies of four units or fewer, and
+mobile homes — about 98–99% of the homeowners market. HO-4 and HO-6 are
+excluded. Starting in 2020, CDI removed some non-renewal and cancellation
+types, so the 2020–2023 series is not strictly comparable to earlier years.
+
+The **non-renewal rate** published here is CDI's own ratio: non-renewed
+divided by (new + renewed). Statewide in 2023 that is 788,485 / 8,300,730 =
+**9.5%**. In the ten counties CDI ranks highest for the share of structures at
+high fire risk, it is 21,599 / 132,328 = **16.3%**.
+
+The **FAIR Plan share** is new-plus-renewed FAIR Plan policies divided by the
+same plus the voluntary-market new-plus-renewed count. Statewide that share
+went from **1.6% in 2015** to **3.77% in 2023**. In those same ten high-fire
+counties it was **33.1%** in 2023. Tuolumne is the extreme: 11,722 FAIR Plan
+new-or-renewed policies against 12,349 voluntary, a 48.7% residual-market
+share.
+
+The 58 named counties do not sum exactly to the published State line. The
+residual is in the source — a few hundred to a couple of thousand policies a
+year are not attributed to a county. The same county rows reproduce CDI's
+own top-10 and 50th-percentile appendices exactly, so the gap is not a parse
+error. Statewide claims use the published State line.
+
+## What this is not
+
+**A non-renewal is not a company drop.** The January 13, 2025 fact sheet
+states that past research shows **75–80% of non-renewals are initiated by the
+policyholder** — they bought or sold a house, or changed company. The
+remaining 20–25% are company-initiated, for reasons that include wildfire
+risk, a claims history, and carriers leaving the market. The tables do not
+split those two. Writing "788,000 Californians were dropped in 2023" is not
+supported.
+
+**A FAIR Plan new-or-renewed count is not policies in force.** It is a flow in
+that calendar year. The Association's county PIF files are a stock as of
+fiscal year-end. The two are joined on the same row as context. They are not
+the same number and they are not the same year.
+
+**A FAIR Plan policy is still not a Very High home, and it is still not a
+combustible fence.** The last three columns of the county CSV are joins from
+the housing estimate and from the 2025 FAIR Plan stock. Do not divide one by
+the other.
+
+Retrieved 2026-08-14. Re-run the script when CDI posts a new county year.
 
 ---
 
