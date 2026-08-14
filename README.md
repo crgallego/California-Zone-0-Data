@@ -91,10 +91,11 @@ overlapping polygons are resolved, and what the numbers do not tell you.
 
 ## Scope
 
-This first release covers the 40 communities that Firewise Fences already
-publishes research pages for, so that those pages can be checked against an
-independent measurement. The intended scope is all 58 California counties, at
-state, county and city level. County-level data is the next release.
+Population is statewide and covers all 58 counties. Community composition
+covers the 40 communities that Firewise Fences already publishes research pages
+for, so those pages can be checked against an independent measurement. The
+intended scope is state, county and city level across California; the remaining
+city coverage is the next release.
 
 ## What this is not
 

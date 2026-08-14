@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Download the statewide CAL FIRE FHSZ polygons, paged, to local GeoJSON-ish JSON."""
-import json, sys, urllib.parse, urllib.request
+import json, os, sys, urllib.parse, urllib.request
 
 UA = "firewise-fhsz-verification/1.0 (+https://www.firewisefences.com)"
 SERVICES = {
@@ -32,5 +32,5 @@ for ra, url in SERVICES.items():
         if not d.get("exceededTransferLimit") or not f:
             break
         off += len(f)
-    json.dump(feats, open(f"/Users/litbox/.buzz/.scratch/fhsz_{ra}_statewide.json", "w"))
+    json.dump(feats, open(os.path.join(os.environ.get("FHSZ_WORK_DIR", os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), f"fhsz_{ra}_statewide.json"), "w"))
     print(ra, "saved", len(feats), file=sys.stderr)

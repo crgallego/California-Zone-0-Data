@@ -20,14 +20,15 @@ Sources
   FHSZ SRA   : CAL FIRE / OSFM FHSZSRA_23_3     (SRA maps effective 2024-04-01)
   FHSZ LRA   : CAL FIRE / OSFM FHSZLRA25_v1_All (LRA map dated 2025-03-24)
 """
-import csv, json, sys
+import csv, json, os, sys
 from collections import defaultdict
 from shapely.geometry import Point, Polygon
 from shapely.ops import unary_union
 from shapely.strtree import STRtree
 
 TIER_RANK = {"Very High": 3, "High": 2, "Moderate": 1, "NonWildland": 0}
-SCRATCH = "/Users/litbox/.buzz/.scratch"
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+WORK = os.environ.get("FHSZ_WORK_DIR", HERE)
 
 
 def signed_area(ring):
@@ -47,7 +48,7 @@ def esri_to_shapely(geom):
 
 
 def load(ra):
-    feats = json.load(open(f"{SCRATCH}/fhsz_{ra}_statewide.json"))
+    feats = json.load(open(f"{WORK}/fhsz_{ra}_statewide.json"))
     geoms, tiers = [], []
     for f in feats:
         try:
@@ -65,7 +66,7 @@ def load(ra):
 def main():
     layers = {ra: load(ra) for ra in ("SRA", "LRA")}
 
-    rows = list(csv.DictReader(open(f"{SCRATCH}/cenpop_bl06.txt", encoding="utf-8-sig")))
+    rows = list(csv.DictReader(open(f"{WORK}/CenPop2020_Mean_BG06.txt", encoding="utf-8-sig")))
     print(f"{len(rows)} block groups", file=sys.stderr)
 
     state = defaultdict(int)
@@ -91,8 +92,8 @@ def main():
             print(f"  {i}/{len(rows)}", file=sys.stderr, flush=True)
 
     json.dump({"state": dict(state), "county": {k: dict(v) for k, v in county.items()}},
-              open(f"{SCRATCH}/pop_in_fhsz.json", "w"), indent=2)
-    json.dump(detail, open(f"{SCRATCH}/pop_in_fhsz_blockgroups.json", "w"))
+              open(f"{WORK}/data/population_by_fhsz_raw.json", "w"), indent=2)
+    json.dump(detail, open(f"{WORK}/data/population_by_fhsz_blockgroups.json", "w"))
     total = sum(state.values())
     print(f"\nTotal population {total:,}")
     for k, v in sorted(state.items(), key=lambda kv: -kv[1]):
