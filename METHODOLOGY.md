@@ -1,8 +1,10 @@
 # Methodology
 
-Seven measurements, seven different error bars. Read the section for the one you
+Eight measurements, eight different error bars. Read the section for the one you
 are using. Two of them — the detached-home columns and the combustible-fence
-span — are estimates rather than counts.
+span — are estimates rather than counts. Year-built applies a measured ACS
+share to a census count, the same way the detached-home columns do; the share
+is not invented.
 
 ---
 
@@ -574,3 +576,106 @@ should not be read as "7.2% of California structure fires start at a fence."
 
 **It is about attachment, not fences generally.** The field records ignition at
 an *attached* fence, which is the thing the draft Zone 0 clause addresses.
+
+---
+
+# Year the housing stock was built
+
+`data/year_built_by_fhsz_state.json`, `data/year_built_by_fhsz_county.csv`,
+`data/year_built_dins.json`
+
+## Why this is here
+
+Ignition says what the fence does. Insurance says who is paying. The rules
+file says what is already in force. None of them says how old the houses are,
+and Zone 0 is a retrofit rule. Chapter 7A of the California Building Code —
+the ignition-resistant construction standard for new buildings in the
+wildland-urban interface, now relocated into the California Wildland-Urban
+Interface Code — began on permit applications in 2008. It is a
+new-construction rule for the *building*. It is not a statewide requirement
+to replace an attached wood fence.
+
+## The ACS measurement
+
+This dataset adds no geometry. It reuses the same block-group hazard
+assignments as the housing file and applies each block group's ACS 2020–2024
+share of units by year built (table B25034) to that block group's 2020 census
+housing-unit count. The share is measured. What is assumed is only that the
+share holds across the block group, the same assumption the detached-home
+columns already make.
+
+B25034's 2000–2009 cell **straddles** the 2008 start of Chapter 7A. The
+files therefore do **not** publish an ACS "built before Chapter 7A" count.
+They publish four cuts:
+
+| Cut | What it is |
+|---|---|
+| `pre_2000` | Definitely before Chapter 7A |
+| `built_2000_to_2009` | Mixed. Do not split it. |
+| `pre_2010` | Everything ACS can put before the 2010s. The clean sentence. |
+| `built_2010_or_later` | After Chapter 7A. Still not a fence-rule cohort. |
+
+In Very High, of 1,345,650 housing units with a year-built share:
+
+| | Units | Share |
+|---|---|---|
+| Built before 2000 | 1,038,779 | **77.2%** |
+| Built 2000–2009 | 197,239 | 14.7% |
+| Built before 2010 | 1,236,018 | **91.9%** |
+| Built 2010 or later | 109,632 | 8.1% |
+
+That is 170 units short of the housing file's 1,345,820 Very High count. The
+129 block groups with no ACS B25034 estimate hold 648 housing units statewide
+and are the same group-quarters cells already excluded from the detached-home
+estimate.
+
+The Civil Code 1102.19 point-of-sale trigger stock — SRA High and Very High
+plus LRA Very High, the 1,577,667 figure in the rules file — is 1,577,497
+units here after the same ACS gap. **92.0%** of it was built before 2010.
+
+Los Angeles Very High is older still (94.9% pre-2010, 86.1% pre-2000).
+Riverside Very High is the newest large county in the table and is still
+81.9% pre-2010.
+
+## The DINS measurement
+
+`YEARBUILT` is a parcel field on the same surviving single-family structures
+used for the attachment rates. Years of 0, null, or outside 1800–2026 are
+treated as undetermined. Of 32,269 surviving single-family records, **23,023
+(71.4%)** have a usable year. **94.1%** of those were built before 2008.
+
+Because DINS is a year, it can be cut at 2008. ACS cannot. The two numbers
+are not the same population: DINS is a wildfire-exposed sample, not a census
+of the zone.
+
+On structures where the inspector also determined the fence material, a
+combustible fence is attached at **34.6%** of pre-2008 houses and **18.5%**
+of 2008-or-later houses. The post-2008 determined-fence cell is 992
+structures. The drop is real in the sample and is not a finding that Chapter
+7A required the fence to change. A 2015 house with a wood fence is legal
+under 7A. Of attached fences on the newer houses, **25%** are still
+combustible.
+
+## What this is not
+
+**Not a count of houses built under a fence clause.** No statewide
+new-construction rule required a non-combustible attached fence the way the
+draft Zone 0 clause would. Chapter 7A governs the building and listed
+accessory structures that need a permit (CBC 710A: trellises, arbors, patio
+covers, gazebos). Do not write that post-2008 houses "comply with Zone 0" or
+that they "were built under the fence rule."
+
+**Not "X% built before Chapter 7A" from ACS.** The 2000–2009 bucket is
+14.7% of Very High. Some of those houses were permitted under 7A and some
+were not. Use 77% before 2000, or 92% before 2010.
+
+**Not a claim that newer houses do not have wood fences.** Eighteen percent
+of the post-2008 DINS sample still do. The 2020-or-later DINS cell is 39
+structures and is not usable.
+
+**Not a reason to apply the DINS 94% to the 1.3 million ACS count.** One is
+a parcel year on inspected survivors. The other is a decade share on the
+census stock. They agree on the direction. They are not the same number.
+
+Retrieved 2026-08-14. Re-run `scripts/build_year_built.py` when ACS 5-year
+B25034 or the DINS layer updates.

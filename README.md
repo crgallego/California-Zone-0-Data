@@ -106,6 +106,24 @@ It is not a loss statistic. Of the 254 fence ignitions, 5 structures were
 destroyed and 221 were recorded at 0–10% damage. The fence caught; the house
 usually did not.
 
+`data/year_built_by_fhsz_state.json`, `data/year_built_by_fhsz_county.csv` —
+year the housing stock was built, from ACS table B25034 on the same
+block-group hazard assignments as the housing file. Zone 0 is a retrofit
+rule because that is what the stock is.
+
+Of **1,345,650** Very High housing units with a year-built share, **91.9%
+were built before 2010** and **77.2% were built before 2000**. Only 8.1%
+were built in 2010 or later. The ACS 2000–2009 bucket (14.7%) straddles
+Chapter 7A's 2008 start and is not split. Chapter 7A is a new-construction
+standard for the building, not a statewide fence-replacement rule.
+
+`data/year_built_dins.json` — parcel year-built on the same surviving
+single-family DINS structures as the attachment file. 23,023 records have a
+usable year; **94.1% of them were built before 2008**. A combustible fence
+is still attached at 18.5% of the post-2008 sample, against 34.6% of the
+older one. The newer cell is 992 determined-fence structures. Do not
+generalise it into "new houses don't have wood fences."
+
 `data/fhsz_by_community.csv` — Fire Hazard Severity Zone composition for 40
 California communities. For each community it gives, per responsibility area and
 per tier, the land area in square miles and the share of the municipal boundary
@@ -141,6 +159,7 @@ sub-areas. Point checks describe one coordinate, not a community.
 | [Centers of Population by Block Group](https://www2.census.gov/geo/docs/reference/cenpop2020/blkgrp/CenPop2020_Mean_BG06.txt) | US Census Bureau | 2020 Census |
 | [Redistricting Data (PL 94-171), California](https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/California/ca2020.pl.zip) | US Census Bureau | 2020 Census |
 | [Table B25024, units in structure](https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25024.dat) | US Census Bureau | ACS 2020–2024 5-year |
+| [Table B25034, year structure built](https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25034.dat) | US Census Bureau | ACS 2020–2024 5-year |
 | [`POSTFIRE_MASTER_DATA_SHARE`](https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/POSTFIRE_MASTER_DATA_SHARE/FeatureServer/0) ([landing page](https://data.ca.gov/dataset/cal-fire-damage-inspection-dins-data)) | CAL FIRE | Damage Inspection (DINS), 2013–present |
 | [FAIR Plan Key Statistics](https://www.cfpnet.com/key-statistics-data/) | California FAIR Plan Association | County PIF and TIV, FY ending 2025-09-30 |
 | [Wildfire and insurance data](https://www.insurance.ca.gov/01-consumers/200-wrr/DataAnalysisOnWildfiresAndInsurance.cfm) | California Department of Insurance | County policy counts 2020–2023; fact sheet published 2025-01-13 |
@@ -179,6 +198,10 @@ python scripts/build_housing_by_fhsz.py
 pip install pypdf cryptography
 python scripts/build_fair_plan.py
 python scripts/build_cdi_policy_counts.py
+
+# year built: ACS B25034 on the same block-group assignments, plus DINS YEARBUILT
+curl -O https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25034.dat
+python scripts/build_year_built.py
 ```
 
 The FHSZ script queries the three services above directly. It has no private inputs,
