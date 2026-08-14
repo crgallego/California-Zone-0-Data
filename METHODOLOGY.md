@@ -137,11 +137,20 @@ tier rows underneath it do not.
 ## What these numbers are not
 
 They are a count of **housing units in hazard zones**. They are not a count of
-fences, of homes with fences, of combustible fences, or of anything that would
-require replacement under any rule. No public dataset counts residential fences,
-and this repository does not estimate one. Multiplying these counts by an
-assumed fence rate produces a figure whose accuracy is entirely the accuracy of
-the assumption, not of these data.
+fences, of homes with fences, or of combustible fences.
+
+An earlier version of this section said no public dataset counts residential
+fences. That was wrong, and it is worth saying so plainly rather than quietly
+deleting it. CAL FIRE's Damage Inspection database has recorded, per structure,
+whether a fence was attached and whether it was combustible, on every structure
+it has inspected since 2013. See **Fence attachment** below. The rate no longer
+has to be assumed, and this repository no longer assumes it.
+
+What remains true is the warning that followed: multiplying a housing count by
+an assumed fence rate produces a figure whose accuracy is entirely the accuracy
+of the assumption. That is why the fence rates are measured and published
+separately, and why the single figure that combines them is labelled an
+estimate.
 
 ---
 
@@ -257,3 +266,112 @@ all the measurement supports.
   that outer rings are clockwise. Malformed polygons are repaired with a zero
   buffer, which can shift an edge by a negligible amount.
 - Tiers covering less than 0.05% of a boundary are dropped as noise.
+
+---
+
+# Fence attachment
+
+`data/fence_attachment_dins.json`, `data/fence_attachment_by_county.csv`,
+`data/zone0_combustible_fence_estimate.json`
+
+## The measurement
+
+CAL FIRE's Damage Inspection (DINS) database records, for every structure it
+inspects, a field named `FENCEATTACHEDTOSTRUCTURE` with the values
+**Combustible**, **Non Combustible**, **No Fence** and **Unknown**. Inspectors
+have been filling it in since 2013. It is an open ArcGIS feature service, no key
+required, and `scripts/build_fence_attachment_dins.py` is the whole method.
+
+This is the rate the draft Zone 0 fence clause turns on, and it does not have to
+be assumed.
+
+## Surviving structures only
+
+Rates here are computed on structures recorded as **No Damage**.
+
+The fence is inspected after the fire. When a structure burns to the slab the
+fence evidence burns with it, so a combustible fence at a destroyed structure is
+frequently recorded as `No Fence` or `Unknown`. The field's own completeness
+shows it: in the 2025 Palisades and Eaton fires, **10.7%** of fence records at
+destroyed structures are `Unknown`, against **0.4%** at structures that took no
+damage.
+
+Measured both ways on the same two fires, single-family homes:
+
+| Subset | Fence attached | Of attached, combustible |
+|---|---|---|
+| Surviving (used) | 82.7% | 52.3% |
+| Destroyed (biased low) | 72.5% | 41.6% |
+
+Both are published so the bias is visible rather than asserted. Denominators
+exclude `Unknown` and null throughout.
+
+## The cross-tabulation that looks like a finding and is not
+
+Damage against fence type, 2025 Palisades and Eaton, all structure types:
+
+| Fence at structure | Share destroyed |
+|---|---|
+| Combustible | 40.0% |
+| Non-combustible | 52.1% |
+| No fence | 59.8% |
+| Unknown | 94.3% |
+
+Read at face value this says a combustible fence protects a house. **It does
+not.** It is the recording artifact above: the structures whose combustible
+fences burned away are disproportionately the destroyed ones, and they are
+counted in the `No Fence` and `Unknown` rows.
+
+**DINS cannot support a causal claim about attached fences and structure loss in
+either direction.** It supports incidence and materials. The cross-tab is
+published in `fence_attachment_dins.json` rather than omitted, because anyone
+who finds this field will run this query, and the artifact should travel with
+the numbers.
+
+## What the sample is
+
+DINS covers structures inside or within 100 metres of a fire perimeter. It is a
+**wildfire-exposed sample of California housing, not a census of it**, and it
+over-represents whatever happened to burn.
+
+The rate varies more than threefold by county, which is why the county table
+exists and why the derived estimate is county-weighted:
+
+| County | Fence attached | Of attached, combustible | Combustible and attached |
+|---|---|---|---|
+| Orange | 87.2% | 17.9% | 15.6% |
+| Los Angeles | 81.2% | 52.0% | 42.2% |
+| Sonoma | 56.0% | 90.3% | 50.5% |
+| Plumas | 17.7% | 39.6% | 7.0% |
+
+Orange County fences heavily and fences in block wall and vinyl. Sonoma fences
+in wood. Plumas largely does not fence. A single statewide rate hides all of
+this, and generalising the dense-suburban Los Angeles rate to the state is not
+supported by the other counties.
+
+DINS also records **one fence flag per structure**. A typical suburban lot has
+two side-yard fences meeting the house, so a count of homes with a fence
+attached is a count of homes, not of attachment points.
+
+## The one derived estimate
+
+`data/zone0_combustible_fence_estimate.json` is the only modelled output in this
+repository, and it is labelled as one. It applies each county's measured rate to
+that county's Very High detached-home count where the county sample reaches 100
+determined structures, and the statewide rate elsewhere — 70.8% of the homes are
+covered by a county-measured rate.
+
+**261,781 homes with a combustible fence attached to the house; 1,308,905 feet
+of five-foot span; 248 miles.**
+
+Cross-checked against a flat statewide rate, which gives 268,590 homes. The two
+methods agree within 3%, and that agreement is the main reason to trust the
+order of magnitude. Applying the Palisades/Eaton rate statewide instead would
+give roughly 422,000 homes; the county table is why that is not published.
+
+Two error sources compound here: the housing input is itself an ACS-derived
+estimate, and the rate is measured on a wildfire-exposed sample. The one-span-
+per-home assumption runs the other way and is probably conservative.
+
+Zone 0 remains a draft. This is a count of homes the clause would reach, not of
+homes that owe anything today.
