@@ -1,0 +1,91 @@
+{
+  "state": {
+    "LRA Very High": {
+      "housing_units": 889146,
+      "occupied": 822296,
+      "detached": 602038,
+      "mobile": 24327,
+      "population": 2285002
+    },
+    "SRA Very High": {
+      "housing_units": 456674,
+      "occupied": 356897,
+      "detached": 373592,
+      "mobile": 43533,
+      "population": 943947
+    },
+    "LRA High": {
+      "housing_units": 458014,
+      "occupied": 430570,
+      "detached": 312995,
+      "mobile": 11775,
+      "population": 1231934
+    },
+    "SRA High": {
+      "housing_units": 231847,
+      "occupied": 203043,
+      "detached": 191331,
+      "mobile": 21587,
+      "population": 532174
+    },
+    "LRA Moderate": {
+      "housing_units": 539325,
+      "occupied": 503580,
+      "detached": 355840,
+      "mobile": 26422,
+      "population": 1412837
+    },
+    "SRA Moderate": {
+      "housing_units": 150269,
+      "occupied": 134215,
+      "detached": 121110,
+      "mobile": 14476,
+      "population": 364378
+    },
+    "LRA NonWildland": {
+      "housing_units": 11517613,
+      "occupied": 10920735,
+      "detached": 6174450,
+      "mobile": 350594,
+      "population": 32436128
+    },
+    "No mapped FHSZ polygon": {
+      "housing_units": 149252,
+      "occupied": 104287,
+      "detached": 91097,
+      "mobile": 17327,
+      "population": 331823
+    }
+  },
+  "totals": {
+    "housing_units": 14392140,
+    "occupied": 13475623,
+    "detached": 8222453,
+    "mobile": 510042,
+    "population": 39538223
+  },
+  "aggregates": {
+    "very_high": {
+      "housing_units": 1345820,
+      "occupied": 1179193,
+      "detached": 975631,
+      "mobile": 67860,
+      "population": 3228949
+    },
+    "draft_scope": {
+      "housing_units": 1727936,
+      "occupied": 1516451,
+      "detached": 1288071,
+      "mobile": 103924,
+      "population": 4125501
+    }
+  },
+  "aggregate_basis": {
+    "very_high": "Very High Fire Hazard Severity Zone, both responsibility areas",
+    "draft_scope": "the whole State Responsibility Area plus Very High in the Local Responsibility Area; an interpretation of the April 17, 2026 draft's scope, not a mapped category"
+  },
+  "block_groups_without_acs_structure_estimate": {
+    "block_groups": 129,
+    "housing_units": 648
+  }
+}

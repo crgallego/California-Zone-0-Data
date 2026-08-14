@@ -27,6 +27,17 @@ the hazard zones it would apply to, not who is subject to a requirement today.
 California counties, with the State and Local Responsibility Area split.
 `data/population_by_fhsz_state.json` — the statewide totals.
 
+`data/housing_by_fhsz_county.csv` — housing units and occupied housing units by
+hazard tier, same 58 counties and same tier assignment, from the 2020 census
+redistricting file. Includes an estimate of detached single-family units and
+mobile homes, from ACS shares of units in structure.
+`data/housing_by_fhsz_state.json` — the statewide totals and two rollups.
+
+**1,345,820 housing units are in a Very High zone**, 1,179,193 of them occupied;
+975,631 are detached single-family. Under the April 17, 2026 draft's scope — the
+whole State Responsibility Area plus Very High in the Local Responsibility
+Area — 1,727,936 housing units, of which 1,288,071 detached.
+
 `data/fhsz_by_community.csv` — Fire Hazard Severity Zone composition for 40
 California communities. For each community it gives, per responsibility area and
 per tier, the land area in square miles and the share of the municipal boundary
@@ -60,6 +71,8 @@ sub-areas. Point checks describe one coordinate, not a community.
 | [`FHSALRA25_v1_All`](https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/ArcGIS/rest/services/FHSALRA25_v1_All/FeatureServer/0) | CAL FIRE, Office of the State Fire Marshal | Local Responsibility Area map dated 2025-03-24, all rollout phases |
 | [`Places_CouSub_ConCity_SubMCD`](https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Places_CouSub_ConCity_SubMCD/MapServer) | US Census Bureau, TIGERweb | Incorporated Places and Census Designated Places |
 | [Centers of Population by Block Group](https://www2.census.gov/geo/docs/reference/cenpop2020/blkgrp/CenPop2020_Mean_BG06.txt) | US Census Bureau | 2020 Census |
+| [Redistricting Data (PL 94-171), California](https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/California/ca2020.pl.zip) | US Census Bureau | 2020 Census |
+| [Table B25024, units in structure](https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25024.dat) | US Census Bureau | ACS 2020–2024 5-year |
 
 Retrieved 2026-08-14.
 
@@ -82,6 +95,16 @@ The population script also needs the Census centers of population file:
 curl -O https://www2.census.gov/geo/docs/reference/cenpop2020/blkgrp/CenPop2020_Mean_BG06.txt
 ```
 
+Housing units reuse the block-group assignments the population script writes, so
+run that first, then:
+
+```
+curl -O https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/California/ca2020.pl.zip
+unzip ca2020.pl.zip -d pl2020
+curl -O https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25024.dat
+python scripts/build_housing_by_fhsz.py
+```
+
 The script queries the three services above directly. It has no private inputs,
 no API keys, and no cached copies of the source data. If CAL FIRE republishes a
 map, re-running it produces the updated numbers and the `retrieved` date moves.
@@ -101,7 +124,10 @@ city coverage is the next release.
 
 Firewise Fences is a fence company. This dataset is about fire hazard
 designations, not about our products, and it makes no claim about where we
-operate or what we sell. Fire hazard designations vary within a community and
+operate or what we sell. Nothing here counts fences. The housing file counts
+housing units in hazard zones; how many of those have a fence, of what material,
+attached to the building, is not measured by any public source we know of and is
+not estimated here. Fire hazard designations vary within a community and
 change over time. **Do not use this dataset to determine the designation of a
 specific parcel.** Use the
 [official CAL FIRE FHSZ viewer](https://osfm.fire.ca.gov/what-we-do/community-wildfire-preparedness-and-mitigation/fire-hazard-severity-zones)
