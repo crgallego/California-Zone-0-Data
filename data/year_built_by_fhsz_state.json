@@ -1,0 +1,306 @@
+{
+  "what_this_is": "Year structure built for California housing units, using the same block-group Fire Hazard Severity Zone assignments as housing_by_fhsz_*. ACS B25034 decade shares are applied to each block group's 2020 census housing-unit count. The 2000-2009 bucket straddles Chapter 7A (2008) and is not split.",
+  "source": {
+    "year_built": "US Census Bureau, ACS 2020-2024 5-year, table B25034, block group",
+    "housing_units": "US Census Bureau, 2020 Census Redistricting Data (PL 94-171)",
+    "hazard_tier": "data/population_by_fhsz_blockgroups.json",
+    "chapter_7a_application": "California Building Code Chapter 7A / current California Wildland-Urban Interface Code: new buildings with a building-permit application on or after 2008-07-01 in a Fire Hazard Severity Zone or designated WUI area (SRA new buildings were brought in as of 2008-01-01). OSFM, Building in the Wildland; 2022 CBC 701A.3.1.",
+    "retrieved": "2026-08-14"
+  },
+  "state": {
+    "LRA Very High": {
+      "housing_units": 889000,
+      "pre_2000": 678173,
+      "built_2000_to_2009": 130536,
+      "pre_2010": 808709,
+      "built_2010_or_later": 80291,
+      "pct_pre_2000": 76.28,
+      "pct_2000_to_2009": 14.68,
+      "pct_pre_2010": 90.97,
+      "pct_2010_or_later": 9.03,
+      "buckets": {
+        "built_2020_or_later": 12428,
+        "built_2010_to_2019": 67864,
+        "built_2000_to_2009": 130536,
+        "built_1990_to_1999": 108288,
+        "built_1980_to_1989": 148678,
+        "built_1970_to_1979": 135544,
+        "built_1960_to_1969": 93074,
+        "built_1950_to_1959": 79926,
+        "built_1940_to_1949": 35509,
+        "built_1939_or_earlier": 77153
+      }
+    },
+    "SRA Very High": {
+      "housing_units": 456650,
+      "pre_2000": 360606,
+      "built_2000_to_2009": 66703,
+      "pre_2010": 427309,
+      "built_2010_or_later": 29341,
+      "pct_pre_2000": 78.97,
+      "pct_2000_to_2009": 14.61,
+      "pct_pre_2010": 93.57,
+      "pct_2010_or_later": 6.43,
+      "buckets": {
+        "built_2020_or_later": 6459,
+        "built_2010_to_2019": 22882,
+        "built_2000_to_2009": 66703,
+        "built_1990_to_1999": 64787,
+        "built_1980_to_1989": 89963,
+        "built_1970_to_1979": 91801,
+        "built_1960_to_1969": 46602,
+        "built_1950_to_1959": 29411,
+        "built_1940_to_1949": 14912,
+        "built_1939_or_earlier": 23130
+      }
+    },
+    "LRA High": {
+      "housing_units": 457887,
+      "pre_2000": 362598,
+      "built_2000_to_2009": 59474,
+      "pre_2010": 422072,
+      "built_2010_or_later": 35815,
+      "pct_pre_2000": 79.19,
+      "pct_2000_to_2009": 12.99,
+      "pct_pre_2010": 92.18,
+      "pct_2010_or_later": 7.82,
+      "buckets": {
+        "built_2020_or_later": 4792,
+        "built_2010_to_2019": 31022,
+        "built_2000_to_2009": 59474,
+        "built_1990_to_1999": 66189,
+        "built_1980_to_1989": 85778,
+        "built_1970_to_1979": 76574,
+        "built_1960_to_1969": 49533,
+        "built_1950_to_1959": 41006,
+        "built_1940_to_1949": 15831,
+        "built_1939_or_earlier": 27687
+      }
+    },
+    "SRA High": {
+      "housing_units": 231847,
+      "pre_2000": 183086,
+      "built_2000_to_2009": 32196,
+      "pre_2010": 215282,
+      "built_2010_or_later": 16565,
+      "pct_pre_2000": 78.97,
+      "pct_2000_to_2009": 13.89,
+      "pct_pre_2010": 92.86,
+      "pct_2010_or_later": 7.14,
+      "buckets": {
+        "built_2020_or_later": 2896,
+        "built_2010_to_2019": 13669,
+        "built_2000_to_2009": 32196,
+        "built_1990_to_1999": 34449,
+        "built_1980_to_1989": 45392,
+        "built_1970_to_1979": 43200,
+        "built_1960_to_1969": 21835,
+        "built_1950_to_1959": 14961,
+        "built_1940_to_1949": 7539,
+        "built_1939_or_earlier": 15708
+      }
+    },
+    "LRA Moderate": {
+      "housing_units": 539320,
+      "pre_2000": 419312,
+      "built_2000_to_2009": 75559,
+      "pre_2010": 494871,
+      "built_2010_or_later": 44449,
+      "pct_pre_2000": 77.75,
+      "pct_2000_to_2009": 14.01,
+      "pct_pre_2010": 91.76,
+      "pct_2010_or_later": 8.24,
+      "buckets": {
+        "built_2020_or_later": 7107,
+        "built_2010_to_2019": 37342,
+        "built_2000_to_2009": 75559,
+        "built_1990_to_1999": 73239,
+        "built_1980_to_1989": 101254,
+        "built_1970_to_1979": 90469,
+        "built_1960_to_1969": 57447,
+        "built_1950_to_1959": 49441,
+        "built_1940_to_1949": 18509,
+        "built_1939_or_earlier": 28953
+      }
+    },
+    "SRA Moderate": {
+      "housing_units": 150269,
+      "pre_2000": 115537,
+      "built_2000_to_2009": 20198,
+      "pre_2010": 135734,
+      "built_2010_or_later": 14535,
+      "pct_pre_2000": 76.89,
+      "pct_2000_to_2009": 13.44,
+      "pct_pre_2010": 90.33,
+      "pct_2010_or_later": 9.67,
+      "buckets": {
+        "built_2020_or_later": 2179,
+        "built_2010_to_2019": 12355,
+        "built_2000_to_2009": 20198,
+        "built_1990_to_1999": 18991,
+        "built_1980_to_1989": 27573,
+        "built_1970_to_1979": 28292,
+        "built_1960_to_1969": 15089,
+        "built_1950_to_1959": 11795,
+        "built_1940_to_1949": 5178,
+        "built_1939_or_earlier": 8619
+      }
+    },
+    "LRA NonWildland": {
+      "housing_units": 11517323,
+      "pre_2000": 9463928,
+      "built_2000_to_2009": 1198609,
+      "pre_2010": 10662537,
+      "built_2010_or_later": 854786,
+      "pct_pre_2000": 82.17,
+      "pct_2000_to_2009": 10.41,
+      "pct_pre_2010": 92.58,
+      "pct_2010_or_later": 7.42,
+      "buckets": {
+        "built_2020_or_later": 130729,
+        "built_2010_to_2019": 724057,
+        "built_2000_to_2009": 1198609,
+        "built_1990_to_1999": 1071755,
+        "built_1980_to_1989": 1634818,
+        "built_1970_to_1979": 1940018,
+        "built_1960_to_1969": 1513133,
+        "built_1950_to_1959": 1551975,
+        "built_1940_to_1949": 670478,
+        "built_1939_or_earlier": 1081751
+      }
+    },
+    "No mapped FHSZ polygon": {
+      "housing_units": 149196,
+      "pre_2000": 113583,
+      "built_2000_to_2009": 21490,
+      "pre_2010": 135074,
+      "built_2010_or_later": 14122,
+      "pct_pre_2000": 76.13,
+      "pct_2000_to_2009": 14.4,
+      "pct_pre_2010": 90.53,
+      "pct_2010_or_later": 9.47,
+      "buckets": {
+        "built_2020_or_later": 1960,
+        "built_2010_to_2019": 12163,
+        "built_2000_to_2009": 21490,
+        "built_1990_to_1999": 19794,
+        "built_1980_to_1989": 27503,
+        "built_1970_to_1979": 26434,
+        "built_1960_to_1969": 14685,
+        "built_1950_to_1959": 12270,
+        "built_1940_to_1949": 5130,
+        "built_1939_or_earlier": 7767
+      }
+    }
+  },
+  "totals": {
+    "housing_units": 14391492,
+    "pre_2000": 11696823,
+    "built_2000_to_2009": 1604765,
+    "pre_2010": 13301588,
+    "built_2010_or_later": 1089904,
+    "pct_pre_2000": 81.28,
+    "pct_2000_to_2009": 11.15,
+    "pct_pre_2010": 92.43,
+    "pct_2010_or_later": 7.57,
+    "buckets": {
+      "built_2020_or_later": 168551,
+      "built_2010_to_2019": 921354,
+      "built_2000_to_2009": 1604765,
+      "built_1990_to_1999": 1457493,
+      "built_1980_to_1989": 2160959,
+      "built_1970_to_1979": 2432331,
+      "built_1960_to_1969": 1811399,
+      "built_1950_to_1959": 1790786,
+      "built_1940_to_1949": 773086,
+      "built_1939_or_earlier": 1270768
+    }
+  },
+  "aggregates": {
+    "very_high": {
+      "housing_units": 1345650,
+      "pre_2000": 1038779,
+      "built_2000_to_2009": 197239,
+      "pre_2010": 1236018,
+      "built_2010_or_later": 109632,
+      "pct_pre_2000": 77.2,
+      "pct_2000_to_2009": 14.66,
+      "pct_pre_2010": 91.85,
+      "pct_2010_or_later": 8.15,
+      "buckets": {
+        "built_2020_or_later": 18887,
+        "built_2010_to_2019": 90745,
+        "built_2000_to_2009": 197239,
+        "built_1990_to_1999": 173075,
+        "built_1980_to_1989": 238641,
+        "built_1970_to_1979": 227344,
+        "built_1960_to_1969": 139677,
+        "built_1950_to_1959": 109338,
+        "built_1940_to_1949": 50421,
+        "built_1939_or_earlier": 100283
+      }
+    },
+    "draft_scope": {
+      "housing_units": 1727766,
+      "pre_2000": 1337401,
+      "built_2000_to_2009": 249633,
+      "pre_2010": 1587034,
+      "built_2010_or_later": 140732,
+      "pct_pre_2000": 77.41,
+      "pct_2000_to_2009": 14.45,
+      "pct_pre_2010": 91.85,
+      "pct_2010_or_later": 8.15,
+      "buckets": {
+        "built_2020_or_later": 23963,
+        "built_2010_to_2019": 116770,
+        "built_2000_to_2009": 249633,
+        "built_1990_to_1999": 226515,
+        "built_1980_to_1989": 311605,
+        "built_1970_to_1979": 298836,
+        "built_1960_to_1969": 176601,
+        "built_1950_to_1959": 136094,
+        "built_1940_to_1949": 63138,
+        "built_1939_or_earlier": 124611
+      }
+    },
+    "point_of_sale_trigger": {
+      "housing_units": 1577497,
+      "pre_2000": 1221864,
+      "built_2000_to_2009": 229435,
+      "pre_2010": 1451299,
+      "built_2010_or_later": 126198,
+      "pct_pre_2000": 77.46,
+      "pct_2000_to_2009": 14.54,
+      "pct_pre_2010": 92.0,
+      "pct_2010_or_later": 8.0,
+      "buckets": {
+        "built_2020_or_later": 21783,
+        "built_2010_to_2019": 104414,
+        "built_2000_to_2009": 229435,
+        "built_1990_to_1999": 207524,
+        "built_1980_to_1989": 284033,
+        "built_1970_to_1979": 270545,
+        "built_1960_to_1969": 161512,
+        "built_1950_to_1959": 124299,
+        "built_1940_to_1949": 57960,
+        "built_1939_or_earlier": 115991
+      }
+    }
+  },
+  "aggregate_basis": {
+    "very_high": "Very High Fire Hazard Severity Zone, both responsibility areas",
+    "draft_scope": "the whole State Responsibility Area plus Very High in the Local Responsibility Area; an interpretation of the April 17, 2026 draft's scope, not a mapped category",
+    "point_of_sale_trigger": "SRA High and Very High plus LRA Very High \u2014 the housing count that survives the Civil Code 1102.19 responsibility-area question in compliance_forcing_functions.json. Joined here so age and the point-of-sale clock can be read together. Not a claim that 1102.19 is a fence rule."
+  },
+  "cuts": {
+    "pre_2000": "ACS buckets 1939-or-earlier through 1990-1999. Definitely before Chapter 7A.",
+    "built_2000_to_2009": "Straddles the 2008 Chapter 7A start. Do not split this cell.",
+    "pre_2010": "Everything ACS can put before the 2010s. The clean ACS sentence.",
+    "built_2010_or_later": "After Chapter 7A. Still not a fence-rule cohort."
+  },
+  "block_groups_without_acs_year_built": {
+    "block_groups": 129,
+    "housing_units": 648
+  },
+  "what_this_is_not": "Not a count of houses built under a fence clause. Chapter 7A is a new-construction standard for the building, not a statewide requirement to replace an attached wood fence. Not a count of houses that owe Zone 0 today. The 2000-2009 ACS bucket is not a Chapter 7A cohort."
+}
