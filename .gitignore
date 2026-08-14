@@ -1,3 +1,5 @@
 venv/
 __pycache__/
 *.pyc
+fhsz_*_statewide.json
+CenPop2020_*.txt
