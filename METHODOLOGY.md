@@ -1,5 +1,73 @@
 # Methodology
 
+Two datasets, two different measurements. Read the section for the one you are
+using.
+
+---
+
+# Population by Fire Hazard Severity Zone
+
+`data/population_by_fhsz_county.csv`, `data/population_by_fhsz_state.json`
+
+## The measurement
+
+Every 2020 census block group in California is represented by its official
+Census Bureau **center of population** — the population-weighted centroid, not
+the geographic one. Each center is tested against the statewide CAL FIRE FHSZ
+polygons, and the block group's entire 2020 population is assigned to the tier
+its center falls in. Where a point falls inside overlapping polygons, the more
+hazardous tier wins.
+
+25,607 block groups. The assigned populations sum to 39,538,223, which is the
+2020 census count for California exactly.
+
+## What this method does and does not do
+
+This is **center assignment, not areal apportionment**. A block group that
+straddles a zone boundary is counted whole, on whichever side its population
+center sits.
+
+- At **state and county scale** the errors are two-sided and largely cancel.
+- For an **individual block group** they do not cancel at all.
+- The method is **coarsest exactly where hazard is highest**: rural and montane
+  block groups are geographically large, so one point stands in for a lot of
+  ground. Treat county figures for sparsely populated counties as the roughest
+  in the table.
+
+Block groups are the finest geography for which the Census Bureau publishes
+centers of population. There is no block-level equivalent, so this is the limit
+of the method without moving to areal apportionment against block geometry.
+
+## Sanity check against published figures
+
+No state agency publishes this number. The figures in circulation come from
+newsrooms:
+
+| Source | Figure |
+|---|---|
+| This dataset | 4,993,057 in Very High or High, 12.63% |
+| Washington Post analysis, 2025 | ~5.1 million, "1 in 8 Californians" |
+| CalMatters, 2025 | ~3.7 million in high or very high under CAL FIRE's direct management |
+
+The Post figure and this one agree closely, which is reassuring but not
+independent confirmation — a similar method against the same source maps should
+land in a similar place. The CalMatters figure is scoped to State Responsibility
+Area land, a narrower question; the comparable number here is 1,476,121.
+
+## Caveat on Zone 0
+
+Zone 0 — the ember-resistant zone within 0–5 feet of a structure — is a
+**draft** statewide standard, not an adopted regulation, as of the retrieval
+date. These population figures describe **who lives in the hazard zones the
+standard would apply to**, not who is currently subject to a requirement. Any
+public use of these numbers should keep that distinction intact.
+
+---
+
+# FHSZ composition by community
+
+`data/fhsz_by_community.csv`, `data/fhsz_by_community.json`
+
 ## The measurement
 
 For each community:

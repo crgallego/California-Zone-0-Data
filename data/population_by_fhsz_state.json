@@ -1,0 +1,19 @@
+{
+  "population_2020": 39538223,
+  "pop_very_high": 3228949,
+  "pop_high": 1764108,
+  "pop_very_high_or_high": 4993057,
+  "pct_very_high": 8.17,
+  "pct_very_high_or_high": 12.63,
+  "by_assignment": {
+    "LRA Moderate": 1412837,
+    "LRA NonWildland": 32436128,
+    "LRA High": 1231934,
+    "LRA Very High": 2285002,
+    "No mapped FHSZ polygon": 331823,
+    "SRA Moderate": 364378,
+    "SRA High": 532174,
+    "SRA Very High": 943947
+  },
+  "retrieved": "2026-08-14"
+}
