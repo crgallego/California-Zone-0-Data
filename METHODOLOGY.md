@@ -1,7 +1,8 @@
 # Methodology
 
-Three datasets, three different measurements. Read the section for the one you
-are using.
+Five datasets, five different measurements. Read the section for the one you are
+using — they do not share error bars, and two of them are estimates rather than
+counts.
 
 ---
 
@@ -391,3 +392,73 @@ proportion is checkable rather than asserted.
 
 Zone 0 remains a draft. This is a count of homes the clause would reach, not of
 homes that owe anything today.
+
+---
+
+# Where the fire started on the structure
+
+`data/fence_ignition_dins.json`
+
+## Why this is different from everything above
+
+The attachment rates answer "how many." This answers "so what," and it is the
+only thing in DINS that does.
+
+`WHEREFIRESTARTEDONSTRUCTURE` is the inspector's determination of which part of
+the building the fire started at. It is a direct observation written down at the
+scene, not an inference drawn from a cross-tabulation, and that is what makes it
+usable where the damage cross-tab is not.
+
+Critically, it is **not** wrecked by post-fire evidence loss. 97% of the
+fence-ignition records are structures that were **not** destroyed, so the fence
+was still standing when the inspector looked at it.
+
+## The measurement
+
+Among structures where an ignition point on the building was determined, and the
+fence material was recorded:
+
+| Fence at the structure | Structures | Fire started at the fence | Share |
+|---|---|---|---|
+| **Combustible** | 983 | 214 | **21.8%** |
+| Non-combustible | 988 | 32 | 3.2% |
+| No fence | 1,508 | 8 | 0.5% |
+
+A combustible attached fence is the ignition point **6.7 times** as often as a
+non-combustible one, and **41 times** as often as no fence at all.
+
+Ranked against every other recorded ignition point on a structure, the attached
+fence is **fourth of nine**, above the roof:
+
+| Ignition point | Records | Share |
+|---|---|---|
+| Siding | 1,485 | 42.3% |
+| Window | 715 | 20.4% |
+| Eaves | 298 | 8.5% |
+| **Attached fence** | **254** | **7.2%** |
+| Deck, elevated | 220 | 6.3% |
+| Roof | 213 | 6.1% |
+| Attached patio cover / carport | 173 | 4.9% |
+| Deck, on grade | 127 | 3.6% |
+| Vent | 19 | 0.5% |
+
+The 254 fence ignitions are spread across **30 separate incidents** — Eaton 80,
+Palisades 74, Camp 21, Carr 18, Woolsey 12, and 25 more. This is not one
+anomalous fire.
+
+## What it does not say
+
+**It is not a loss statistic.** Of the 254 structures where the fire started at
+the attached fence, **5 were destroyed** and 221 were recorded as Affected
+(0–10% damage). The fence caught; the house mostly did not. Saying "a fence
+burned down N houses" is not supported and should not be written.
+
+**It is a small and non-random subset.** Only 3,504 of roughly 132,000 DINS
+records carry a determined ignition point. An inspector may more readily
+attribute ignition to a visibly burned fence line than to siding, which would
+inflate the fence count. The comparison *between materials* is drawn inside that
+same subset, which is what keeps it meaningful — but the absolute 7.2% share
+should not be read as "7.2% of California structure fires start at a fence."
+
+**It is about attachment, not fences generally.** The field records ignition at
+an *attached* fence, which is the thing the draft Zone 0 clause addresses.
