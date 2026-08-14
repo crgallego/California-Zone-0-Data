@@ -13,6 +13,19 @@
     "minimum_county_sample": 100,
     "span_feet_per_home": 5
   },
+  "by_responsibility_area": {
+    "why_this_matters": "The draft times the two responsibility areas differently. Existing structures in the Local Responsibility Area comply within three years of the effective date, or five on a local agency's timeline (Sec. 1298.04(c)(3)). In the State Responsibility Area the default is five years, with three the floor the Director cannot go below (Sec. 1299.03(e)(3)). A single statewide figure quoted against the three-year clock therefore over-covers by the SRA share below.",
+    "LRA": {
+      "homes_combustible_fence_attached": 175505,
+      "non_combustible_span_feet": 877525,
+      "share_of_estimate_pct": 67.0
+    },
+    "SRA": {
+      "homes_combustible_fence_attached": 86276,
+      "non_combustible_span_feet": 431380,
+      "share_of_estimate_pct": 33.0
+    }
+  },
   "cross_check": {
     "flat_statewide_rate": 268590,
     "note": "The flat and county-weighted methods agree within 3%, which is the main reason to trust the order of magnitude. Applying the Palisades/Eaton rate statewide instead gives roughly 422,000, but the county table shows that generalising one dense suburban sample is not supported: Riverside measures 10.9% and Orange 15.6% against Los Angeles at 42.2%."

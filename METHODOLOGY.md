@@ -373,5 +373,21 @@ Two error sources compound here: the housing input is itself an ACS-derived
 estimate, and the rate is measured on a wildfire-exposed sample. The one-span-
 per-home assumption runs the other way and is probably conservative.
 
+### Split by responsibility area, because the clocks differ
+
+| | Homes | Feet | Share |
+|---|---|---|---|
+| Local Responsibility Area | 175,505 | 877,525 | 67.0% |
+| State Responsibility Area | 86,276 | 431,380 | 33.0% |
+
+The draft times the two differently. LRA existing structures comply **within
+three years** of the effective date, or five on a local agency's timeline
+(§ 1298.04(c)(3)). SRA existing structures get **five years by default**, with
+three the floor the Director cannot go below (§ 1299.03(e)(3)).
+
+A single statewide figure quoted against the three-year clock therefore
+over-covers by the SRA third. Published in `by_responsibility_area` so the
+proportion is checkable rather than asserted.
+
 Zone 0 remains a draft. This is a count of homes the clause would reach, not of
 homes that owe anything today.

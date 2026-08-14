@@ -153,12 +153,16 @@ def write_zone0_estimate(counties, samples):
         return
 
     detached = {}
+    detached_by_ra = {}
     with open(housing) as f:
         for row in csv.DictReader(f):
             if row["fhsz_tier"] == "Very High":
                 name = row["county_name"].replace(" County", "").strip()
-                detached[name] = detached.get(name, 0) + int(
-                    row["detached_single_family_est"]
+                units = int(row["detached_single_family_est"])
+                detached[name] = detached.get(name, 0) + units
+                ra = row["responsibility_area"]
+                detached_by_ra.setdefault(name, {})[ra] = (
+                    detached_by_ra.setdefault(name, {}).get(ra, 0) + units
                 )
 
     county_rate = {}
@@ -173,11 +177,14 @@ def write_zone0_estimate(counties, samples):
     statewide = samples["statewide_all_years"]["pct_combustible_fence_attached"] / 100
     total = measured_homes = 0.0
     per_county = {}
+    by_ra = {}
     for county, homes in detached.items():
         rate, n = county_rate.get(county, (statewide, None))
         total += homes * rate
         if n:
             measured_homes += homes
+        for ra, ra_homes in detached_by_ra.get(county, {}).items():
+            by_ra[ra] = by_ra.get(ra, 0.0) + ra_homes * rate
         per_county[county] = {
             "detached_very_high": homes,
             "rate_used": round(rate, 4),
@@ -207,6 +214,26 @@ def write_zone0_estimate(counties, samples):
             "statewide_fallback_rate": round(statewide, 4),
             "minimum_county_sample": MIN_COUNTY_SAMPLE,
             "span_feet_per_home": SPAN_FEET,
+        },
+        "by_responsibility_area": {
+            "why_this_matters": (
+                "The draft times the two responsibility areas differently. "
+                "Existing structures in the Local Responsibility Area comply "
+                "within three years of the effective date, or five on a local "
+                "agency's timeline (Sec. 1298.04(c)(3)). In the State "
+                "Responsibility Area the default is five years, with three the "
+                "floor the Director cannot go below (Sec. 1299.03(e)(3)). A "
+                "single statewide figure quoted against the three-year clock "
+                "therefore over-covers by the SRA share below."
+            ),
+            **{
+                ra: {
+                    "homes_combustible_fence_attached": round(homes),
+                    "non_combustible_span_feet": round(homes) * SPAN_FEET,
+                    "share_of_estimate_pct": round(100 * homes / total, 1),
+                }
+                for ra, homes in sorted(by_ra.items(), key=lambda kv: -kv[1])
+            },
         },
         "cross_check": {
             "flat_statewide_rate": round(all_homes * statewide),
