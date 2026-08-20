@@ -168,8 +168,8 @@ def main():
         "aggregate_basis": {
             "very_high": "Very High Fire Hazard Severity Zone, both responsibility areas",
             "draft_scope": "the whole State Responsibility Area plus Very High in the "
-                           "Local Responsibility Area; an interpretation of the April 17, "
-                           "2026 draft's scope, not a mapped category",
+                           "Local Responsibility Area; an interpretation of the August 19, "
+                           "2026 final draft's scope, not a mapped category",
         },
         "block_groups_without_acs_structure_estimate": unshared,
     }, open(f"{WORK}/data/housing_by_fhsz_state.json", "w"), indent=2)

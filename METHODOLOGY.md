@@ -57,11 +57,13 @@ Area land, a narrower question; the comparable number here is 1,476,121.
 
 ## Caveat on Zone 0
 
-Zone 0 — the ember-resistant zone within 0–5 feet of a structure — is a
-**draft** statewide standard, not an adopted regulation, as of the retrieval
-date. These population figures describe **who lives in the hazard zones the
-standard would apply to**, not who is currently subject to a requirement. Any
-public use of these numbers should keep that distinction intact.
+Zone 0 — the ember-resistant zone within 0–5 feet of a structure — had its
+**final draft approved** by the Board of Forestry on August 19, 2026. It is
+pending OAL review and has no effective date. These population figures
+describe **who lives in the hazard zones the standard would apply to**, not
+who is currently subject to a requirement. The mapped zones themselves did
+not change with the August 19 vote. Any public use of these numbers should
+keep that distinction intact.
 
 ---
 
@@ -128,12 +130,12 @@ statewide average would suggest.
 category and needs no explanation.
 
 `draft_scope` is the whole State Responsibility Area — all tiers — plus Very
-High in the Local Responsibility Area. That follows the April 17, 2026 draft's
-own scope language: in the LRA the requirements attach to Very High, while in
-the SRA defensible space applies under PRC 4291 across tiers. It is a reading of
-a draft that is still in rulemaking and it is not a CAL FIRE category. If the
-scope language changes before adoption, this aggregate changes with it and the
-tier rows underneath it do not.
+High in the Local Responsibility Area. That follows the August 19, 2026 final
+draft's own scope language: in the LRA the requirements attach to Very High,
+while in the SRA defensible space applies under PRC 4291 across tiers. It is a
+reading of a rule package that is approved pending OAL and it is not a CAL
+FIRE category. If the scope language changes before an effective date, this
+aggregate changes with it and the tier rows underneath it do not.
 
 ## What these numbers are not
 
@@ -283,7 +285,7 @@ inspects, a field named `FENCEATTACHEDTOSTRUCTURE` with the values
 have been filling it in since 2013. It is an open ArcGIS feature service, no key
 required, and `scripts/build_fence_attachment_dins.py` is the whole method.
 
-This is the rate the draft Zone 0 fence clause turns on, and it does not have to
+This is the rate the Zone 0 fence clause turns on, and it does not have to
 be assumed.
 
 ## Surviving structures only
@@ -381,17 +383,18 @@ per-home assumption runs the other way and is probably conservative.
 | Local Responsibility Area | 175,505 | 877,525 | 67.0% |
 | State Responsibility Area | 86,276 | 431,380 | 33.0% |
 
-The draft times the two differently. LRA existing structures comply **within
-three years** of the effective date, or five on a local agency's timeline
-(§ 1298.04(c)(3)). SRA existing structures get **five years by default**, with
-three the floor the Director cannot go below (§ 1299.03(e)(3)).
+The August 19, 2026 text times the two differently. LRA existing structures
+comply **within three years** of the effective date, or five on a local
+agency's timeline (§ 1298.04(c)(4)). SRA existing structures get **five years
+by default**, with three the floor the Director cannot go below
+(§ 1299.03(e)(4)).
 
 A single statewide figure quoted against the three-year clock therefore
 over-covers by the SRA third. Published in `by_responsibility_area` so the
 proportion is checkable rather than asserted.
 
-Zone 0 remains a draft. This is a count of homes the clause would reach, not of
-homes that owe anything today.
+Zone 0’s final draft is approved pending OAL. This is a count of homes the
+clause would reach, not of homes that owe anything today.
 
 ---
 
@@ -573,4 +576,4 @@ same subset, which is what keeps it meaningful — but the absolute 7.2% share
 should not be read as "7.2% of California structure fires start at a fence."
 
 **It is about attachment, not fences generally.** The field records ignition at
-an *attached* fence, which is the thing the draft Zone 0 clause addresses.
+an *attached* fence, which is the thing the Zone 0 clause addresses.
