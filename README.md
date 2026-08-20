@@ -21,8 +21,11 @@ statewide maps, retrieved 2026-08-14. All 58 counties are in
 `data/population_by_fhsz_county.csv`. Method, limits and comparison to published
 estimates: [METHODOLOGY.md](METHODOLOGY.md).
 
-Zone 0 is still a draft statewide standard. These figures describe who lives in
-the hazard zones it would apply to, not who is subject to a requirement today.
+The Board of Forestry approved the final draft of Zone 0 on August 19, 2026.
+It is pending OAL review, a five-day comment window, and Secretary of State
+filing. There is still no statewide effective date. These figures describe who
+lives in the hazard zones the rule would apply to, not who is subject to a
+requirement today.
 
 ## What is in the first release
 
@@ -37,9 +40,9 @@ mobile homes, from ACS shares of units in structure.
 `data/housing_by_fhsz_state.json` — the statewide totals and two rollups.
 
 **1,345,820 housing units are in a Very High zone**, 1,179,193 of them occupied;
-975,631 are detached single-family. Under the April 17, 2026 draft's scope — the
-whole State Responsibility Area plus Very High in the Local Responsibility
-Area — 1,727,936 housing units, of which 1,288,071 detached.
+975,631 are detached single-family. Under the August 19, 2026 final draft's
+scope — the whole State Responsibility Area plus Very High in the Local
+Responsibility Area — 1,727,936 housing units, of which 1,288,071 detached.
 
 `data/fence_attachment_dins.json` — how many homes have a fence attached to the
 house and what it is made of, from CAL FIRE's Damage Inspection (DINS) database,
@@ -56,7 +59,7 @@ attached, so the county file matters more than the statewide one.
 `data/zone0_combustible_fence_estimate.json` — the one derived figure here.
 County-weighted, it puts **261,781 homes** in a Very High zone with a
 combustible fence attached to the house: **1,308,905 feet, 248 miles** of
-five-foot non-combustible span, if Zone 0 is adopted as drafted.
+five-foot non-combustible span, if the five-foot span is required as written.
 
 Do not cross damage against fence type to argue that attached fences cause
 losses. The raw cross-tab appears to show the opposite, and both readings are
@@ -144,6 +147,7 @@ sub-areas. Point checks describe one coordinate, not a community.
 | [`POSTFIRE_MASTER_DATA_SHARE`](https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/POSTFIRE_MASTER_DATA_SHARE/FeatureServer/0) ([landing page](https://data.ca.gov/dataset/cal-fire-damage-inspection-dins-data)) | CAL FIRE | Damage Inspection (DINS), 2013–present |
 | [FAIR Plan Key Statistics](https://www.cfpnet.com/key-statistics-data/) | California FAIR Plan Association | County PIF and TIV, FY ending 2025-09-30 |
 | [Wildfire and insurance data](https://www.insurance.ca.gov/01-consumers/200-wrr/DataAnalysisOnWildfiresAndInsurance.cfm) | California Department of Insurance | County policy counts 2020–2023; fact sheet published 2025-01-13 |
+| [August 2026 Zone 0 regulation summary and rule plead](https://34c031f8-c9fd-4018-8c5a-4159cdff6b0d-cdn-endpoint.azureedge.net/-/media/bof-website/board-meeting-information/monthly-board-binder-materials/archive/2026-monthly-board-binder-materials-workshop-archives/august-2026/full/full-8a-zone-0-regulation-summary--rule-plead-august-2026.pdf?rev=61084bcd20c94b9e9ece954da2c656f1&hash=6995E1441E12F3A819EE0167DD33306C) | California Board of Forestry and Fire Protection | August 19, 2026 final draft as posted in meeting materials |
 
 Retrieved 2026-08-14.
 
