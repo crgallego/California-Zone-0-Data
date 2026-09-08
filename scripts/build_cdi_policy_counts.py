@@ -3,10 +3,10 @@
 California Department of Insurance residential policy counts by county.
 
 Why this dataset exists
-  The FAIR Plan stock tells you who is already in the residual market. CDI
-  publishes the flow that puts them there: new, renewed, and non-renewed
-  homeowners policies in the voluntary market, plus new and renewed FAIR Plan
-  and Difference-in-Conditions policies, for every county.
+  CDI publishes the flow of policies into and out of the residual market:
+  new, renewed, and non-renewed homeowners policies in the voluntary market,
+  plus new and renewed FAIR Plan and Difference-in-Conditions policies, for
+  every county.
 
   This is not a count of homes dropped because of wildfire. CDI's own fact
   sheet says 75-80% of non-renewals are initiated by the policyholder
