@@ -247,9 +247,24 @@ DATED_REASON_RE = re.compile(r"^\d{4}-\d{2}-\d{2}:\s+\S")
 # exempt, with no exempt() call) rather than a silent, untested hole.
 _RECORDED_EXEMPTIONS = []
 
+# Files the domain-reference scan could not read as UTF-8 text, so it
+# could not check them for the withdrawn domain string at all. This is a
+# scope limit, not a policy exemption -- nobody decided these files should
+# be allowed to reference the domain, the scan simply cannot see inside
+# them -- so it is tracked separately from _RECORDED_EXEMPTIONS and does
+# not go through exempt() or its dated-reason requirement. It is not a
+# failure either: established empirically (2026-09-08) that every
+# concrete case tried (a UTF-16 file, a Latin-1 file with one stray
+# non-ASCII byte) either gets caught by another check for an unrelated
+# reason or is genuinely invisible to every other check too. Recording and
+# naming these files, the same way exemptions are named, is what turns
+# "silently skipped" into "skipped, and you can see that it happened."
+_UNDECODABLE_AS_TEXT = []
+
 
 def reset_exemptions():
     _RECORDED_EXEMPTIONS.clear()
+    _UNDECODABLE_AS_TEXT.clear()
 
 
 def exempt(kind, path, reason, errors):
@@ -540,6 +555,7 @@ def check_forbidden_source_domains(files, errors):
         try:
             text = path.read_text(encoding="utf-8")
         except (OSError, UnicodeDecodeError):
+            _UNDECODABLE_AS_TEXT.append(f)
             continue
         text_l = text.lower()
         for domain, reason in FORBIDDEN_SOURCE_DOMAINS.items():
@@ -688,13 +704,16 @@ def main():
             print(f"  - {e}", file=sys.stderr)
         return 1
 
-    suffix = ""
+    parts = []
     if _RECORDED_EXEMPTIONS:
         by_kind = {}
         for kind, path, _reason in _RECORDED_EXEMPTIONS:
             by_kind.setdefault(kind, []).append(path)
-        parts = [f"{kind}: {', '.join(sorted(paths))}" for kind, paths in sorted(by_kind.items())]
-        suffix = f" (exemptions: {'; '.join(parts)})"
+        exemption_parts = [f"{kind}: {', '.join(sorted(paths))}" for kind, paths in sorted(by_kind.items())]
+        parts.append(f"exemptions: {'; '.join(exemption_parts)}")
+    if _UNDECODABLE_AS_TEXT:
+        parts.append(f"not scanned for domain (undecodable as UTF-8 text): {', '.join(sorted(_UNDECODABLE_AS_TEXT))}")
+    suffix = f" ({'; '.join(parts)})" if parts else ""
     print(f"PASS: {len(files)} tracked files validated, 0 errors{suffix}")
     return 0
 
