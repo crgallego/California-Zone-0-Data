@@ -65,18 +65,21 @@ Do not cross damage against fence type to argue that attached fences cause
 losses. The raw cross-tab appears to show the opposite, and both readings are
 artifacts of when the fence gets recorded. METHODOLOGY.md explains why.
 
-`data/fair_plan_by_county.csv` — California FAIR Plan policies in force and
-insured exposure by county, fiscal years ending 2021–2025, from the
-Association's published PDFs. County files mix residential, commercial, and
-BOP. The last two columns join our Very High detached-home and combustible-
-fence estimates for context only — a FAIR Plan policy is not a wood fence.
-`data/fair_plan_state.json` — statewide residential rollup: **621,234
-residential policies** and **$645.1 billion** of residential exposure as of
-2025-09-30, up from 236,515 policies and $155.7 billion in 2021.
+**Withdrawn 2026-09-08: `data/fair_plan_by_county.csv` and
+`data/fair_plan_state.json`.** These files republished California FAIR Plan
+Association policies-in-force and insured-exposure figures by county, parsed
+from PDFs at cfpnet.com. The source site's own terms of use do not permit
+reproducing, distributing, or scraping information obtained from it, and this
+repository does not publish data against a source's explicit terms. The
+figures are unchanged and remain available directly from the Association at
+[cfpnet.com/key-statistics-data](https://www.cfpnet.com/key-statistics-data/).
+`scripts/build_fair_plan.py`, the script that downloaded and parsed those
+PDFs, has also been removed. See `CHANGELOG.md` for the dated entry.
 
-A later Association webpage snapshot (June 2026) puts all-lines PIF at 696,562
-and exposure at $768 billion. That vintage has no county breakout and is kept
-separate.
+The California Department of Insurance's own **flow** counts of new and
+renewed FAIR Plan policies (a different measurement — see below) remain in
+`data/cdi_policy_counts_by_county.csv` and are unaffected; CDI is a public
+agency and not the source this withdrawal concerns.
 
 `data/cdi_policy_counts_by_county.csv` — California Department of Insurance
 counts of new, renewed, and non-renewed voluntary-market homeowners policies,
@@ -145,7 +148,6 @@ sub-areas. Point checks describe one coordinate, not a community.
 | [Redistricting Data (PL 94-171), California](https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/California/ca2020.pl.zip) | US Census Bureau | 2020 Census |
 | [Table B25024, units in structure](https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25024.dat) | US Census Bureau | ACS 2020–2024 5-year |
 | [`POSTFIRE_MASTER_DATA_SHARE`](https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/POSTFIRE_MASTER_DATA_SHARE/FeatureServer/0) ([landing page](https://data.ca.gov/dataset/cal-fire-damage-inspection-dins-data)) | CAL FIRE | Damage Inspection (DINS), 2013–present |
-| [FAIR Plan Key Statistics](https://www.cfpnet.com/key-statistics-data/) | California FAIR Plan Association | County PIF and TIV, FY ending 2025-09-30 |
 | [Wildfire and insurance data](https://www.insurance.ca.gov/01-consumers/200-wrr/DataAnalysisOnWildfiresAndInsurance.cfm) | California Department of Insurance | County policy counts 2020–2023; fact sheet published 2025-01-13 |
 | [August 2026 Zone 0 regulation summary and rule plead](https://34c031f8-c9fd-4018-8c5a-4159cdff6b0d-cdn-endpoint.azureedge.net/-/media/bof-website/board-meeting-information/monthly-board-binder-materials/archive/2026-monthly-board-binder-materials-workshop-archives/august-2026/full/full-8a-zone-0-regulation-summary--rule-plead-august-2026.pdf?rev=61084bcd20c94b9e9ece954da2c656f1&hash=6995E1441E12F3A819EE0167DD33306C) | California Board of Forestry and Fire Protection | August 19, 2026 final draft as posted in meeting materials |
 
@@ -179,9 +181,8 @@ unzip ca2020.pl.zip -d pl2020
 curl -O https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25024.dat
 python scripts/build_housing_by_fhsz.py
 
-# insurance: FAIR Plan stock, then CDI flows
-pip install pypdf cryptography
-python scripts/build_fair_plan.py
+# insurance: CDI flows
+pip install pypdf
 python scripts/build_cdi_policy_counts.py
 ```
 

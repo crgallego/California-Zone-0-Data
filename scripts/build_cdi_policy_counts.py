@@ -248,13 +248,6 @@ def main():
     estimate = json.load(open(estimate_path)) if os.path.exists(estimate_path) else {}
     by_county_est = estimate.get("by_county", {})
 
-    fair_path = os.path.join(OUT, "fair_plan_by_county.csv")
-    fair_pif = {}
-    if os.path.exists(fair_path):
-        with open(fair_path) as f:
-            for rec in csv.DictReader(f):
-                fair_pif[rec["county"]] = int(rec["pif_2025"])
-
     csv_path = os.path.join(OUT, "cdi_policy_counts_by_county.csv")
     csv_fields = (
         ["county", "year"]
@@ -265,7 +258,6 @@ def main():
             "fair_plan_share_of_new_plus_renewed_pct",
             "detached_very_high_est",
             "homes_combustible_fence_attached_est",
-            "fair_plan_pif_all_lines_2025",
         ]
     )
     with open(csv_path, "w", newline="") as f:
@@ -291,7 +283,6 @@ def main():
                     "homes_combustible_fence_attached_est": fence.get(
                         "homes_combustible_fence_attached", ""
                     ),
-                    "fair_plan_pif_all_lines_2025": fair_pif.get(county, ""),
                 })
 
     residual = {}
@@ -340,7 +331,6 @@ def main():
             "detached_very_high_est": by_county_est.get(county, {}).get(
                 "detached_very_high"
             ),
-            "fair_plan_pif_all_lines_2025": fair_pif.get(county),
         })
 
     state = {

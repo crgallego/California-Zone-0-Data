@@ -398,51 +398,21 @@ clause would reach, not of homes that owe anything today.
 
 ---
 
-# California FAIR Plan policies and exposure
+# California FAIR Plan policies and exposure — withdrawn
 
-`data/fair_plan_by_county.csv`, `data/fair_plan_state.json`
-
-## The measurement
-
-The California FAIR Plan Association is the residual fire insurer of last
-resort. It publishes, each fiscal year, policies in force and total insured
-value by county. `scripts/build_fair_plan.py` downloads the four public PDFs
-from [cfpnet.com/key-statistics-data](https://www.cfpnet.com/key-statistics-data/)
-and parses them. No key, no scrape of a dashboard.
-
-County tables mix **residential, commercial, and business-owners** policies.
-Residential-only statewide totals are taken from the first `Total` line of the
-dwelling ZIP rollups, not by summing county files. A one-policy Tarrant County
-row (Texas) appears in the source and is dropped; that is why the 2024
-all-lines county sum is 463,158 against a published 463,159.
-
-As of **2025-09-30**:
-
-| | Policies | Exposure |
-|---|---|---|
-| Residential only | 621,234 | $645,115,692,650 |
-| All lines (county table) | 642,010 | $693,964,308,706 |
-
-Residential PIF was 236,515 in 2021. That is a 163% increase in four years.
-
-The Association's webpage later posted a June 2026 all-lines snapshot —
-696,562 policies, $768 billion exposure, $2.04 billion written premium. That
-snapshot has no county file and is stored separately so it cannot overwrite
-the 2025-09-30 table.
-
-## What this is not
-
-**A FAIR Plan policy is not a home in Very High, and it is not a combustible
-fence.** The residual market writes for reasons other than wildfire. The
-growth is a wildfire-insurance story; the stock is not a Zone 0 inventory.
-
-The last two columns of the county CSV are joined from
-`zone0_combustible_fence_estimate.json` so a reader can put the two datasets
-on the same row. They are context. Do not divide one by the other and call it
-a penetration rate.
-
-Retrieved 2026-08-14. Re-run the script when the Association posts a new
-fiscal-year PDF.
+`data/fair_plan_by_county.csv` and `data/fair_plan_state.json` were withdrawn
+2026-09-08. They republished California FAIR Plan Association
+policies-in-force and insured-exposure figures by county, parsed from PDFs at
+cfpnet.com by `scripts/build_fair_plan.py`. The source site's terms of use do
+not permit reproducing, distributing, or scraping information obtained from
+it, and this repository does not publish data against a source's explicit
+terms. The figures are unchanged and remain available directly from the
+Association at
+[cfpnet.com/key-statistics-data](https://www.cfpnet.com/key-statistics-data/).
+See `CHANGELOG.md` for the dated entry and `README.md` for what remains: the
+California Department of Insurance's own flow counts of new and renewed FAIR
+Plan policies, which are a different measurement from the withdrawn
+policies-in-force stock and were never sourced from cfpnet.com.
 
 ---
 
