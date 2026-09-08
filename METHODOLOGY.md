@@ -467,14 +467,18 @@ split those two. Writing "788,000 Californians were dropped in 2023" is not
 supported.
 
 **A FAIR Plan new-or-renewed count is not policies in force.** It is a flow in
-that calendar year. The Association's county PIF files are a stock as of
-fiscal year-end. The two are joined on the same row as context. They are not
-the same number and they are not the same year.
+that calendar year, not a stock as of a fiscal year-end. This file does not
+join the two: the Association's own policies-in-force figures were withdrawn
+2026-09-08 (see the note above) and are not published in this repository. If
+a reader compares this file's `fair_plan_new_plus_renewed` against a stock
+figure obtained elsewhere (for example directly from cfpnet.com), the two are
+not the same number and not the same year.
 
 **A FAIR Plan policy is still not a Very High home, and it is still not a
-combustible fence.** The last three columns of the county CSV are joins from
-the housing estimate and from the 2025 FAIR Plan stock. Do not divide one by
-the other.
+combustible fence.** The last two columns of the county CSV,
+`detached_very_high_est` and `homes_combustible_fence_attached_est`, are
+joined from the housing and combustible-fence estimates above, for context
+only. Do not divide one by the other.
 
 Retrieved 2026-08-14. Re-run the script when CDI posts a new county year.
 
