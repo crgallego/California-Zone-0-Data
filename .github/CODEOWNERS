@@ -1,0 +1,15 @@
+# Security-sensitive paths in this repository. Changes here carry the
+# highest risk of accidentally publishing private data or weakening the
+# publication-safety gate, and should get an explicit second look.
+#
+# This file does not yet gate merges (required reviews are held at zero
+# until a genuinely separate reviewer identity exists -- see
+# PLANS/FIREWISE_PUBLIC_DATA_REPO_SECURITY_AND_RELEASE_EXECUTION_PLAN_2026-09-08.md,
+# Phase 2, step 2). It documents ownership now so "Require review from Code
+# Owners" can be turned on later without re-deriving this list.
+
+/data/                          @crgallego @firewisefences
+/scripts/                       @crgallego @firewisefences
+/.github/workflows/             @crgallego @firewisefences
+/.gitignore                     @crgallego @firewisefences
+/SECURITY.md                    @crgallego @firewisefences
