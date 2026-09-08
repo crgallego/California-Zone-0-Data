@@ -7,7 +7,10 @@ no network access, no timestamps in its own output: given the same tree, it
 always produces the same result.
 
 Checks, in order:
-  1. forbidden paths      -- private C-13/CSLB inputs must never be tracked
+  1. forbidden paths      -- exact paths the one known C-13/CSLB commit
+                             shipped (enumerated from that commit, not
+                             hand-maintained), plus pattern rules for
+                             filenames that don't exist yet but shouldn't
   2. file-type allowlist  -- rejects unexpected binaries, archives,
                              spreadsheets, and databases by extension
   3. binary content       -- rejects a disguised binary hiding behind an
@@ -25,22 +28,30 @@ Checks, in order:
                              approved output list
  10. fhsz join            -- fhsz_by_community.csv and .json describe the
                              same set of community slugs
- 11. forbidden source domain -- no script may reference a source domain
-                             this repository has withdrawn from (currently
-                             cfpnet.com; see CHANGELOG.md 2026-09-08)
+ 11. forbidden source domain -- no script or data file may reference a
+                             domain this repository has withdrawn from
+                             (currently cfpnet.com; see CHANGELOG.md
+                             2026-09-08), case-insensitively. Documentation
+                             (.md) is exempt -- a dated withdrawal note is
+                             expected to cite the withdrawn source.
  12. provenance checksum  -- any ``sha256`` key found anywhere in a
                              ``data/*.json`` file must be a non-empty
                              string, not a blank or stub value.
- 13. fetch provenance coverage -- every script that performs a network
-                             fetch must either use ``provenance.fetch`` or
-                             be named on the dated exception list in this
-                             file. Checks 12 and 13 together are what keep
-                             partial provenance coverage honest: 12 alone
-                             would be silently satisfied by a fetch script
-                             that records no checksum at all, so 13 is the
-                             check that makes an un-instrumented fetch
-                             script fail loudly instead of passing by
-                             omission.
+ 13. script fetch classification -- every ``scripts/*.py`` file (other
+                             than the fetch helper and this validator) must
+                             be declared instrumented, exempt with a dated
+                             reason, or non-fetching; an unclassified
+                             script fails regardless of what it does. An
+                             "instrumented" script must actually call
+                             ``provenance.fetch`` (checked via AST, not a
+                             text search) and its declared output(s) must
+                             carry a non-empty checksum. A "non-fetching"
+                             script whose AST contains a real network-fetch
+                             call fails as a classification lie. This is
+                             deliberately not a denylist of fetch-call
+                             spellings to detect -- classification is
+                             mandatory up front, and AST inspection is only
+                             a liar-catcher afterward.
 
 Small-cell suppression for individually identifying counts (the CSLB/C-13
 "controlled" tier in the release plan) is enforced by check 1: that data
@@ -51,6 +62,7 @@ legitimately contain single-digit cells (e.g. a handful of DIC-renewed
 policies in a small county), and flagging those would be a false positive,
 not a privacy finding.
 """
+import ast
 import csv
 import json
 import re
@@ -68,6 +80,29 @@ FORBIDDEN_PATH_PATTERNS = [
     re.compile(r"(^|/)c13-census-"),
     re.compile(r"(^|/)c13_census_"),
 ]
+
+# Every path this repository's one known C-13/CSLB commit actually added,
+# enumerated from the commit itself rather than hand-maintained from memory
+# of .gitignore -- a hand-maintained list is exactly how tests/test_c13_locator.py
+# slipped past FORBIDDEN_PATH_PATTERNS above (that list was copied from
+# .gitignore's *patterns*, which never named the test file, since .gitignore
+# has no reason to ignore a file that was never meant to be committed at
+# all). Re-derive with:
+#   git diff --name-status 84eb9b8abb6dafa074eaf617490062d8f2615d6d^ \
+#       84eb9b8abb6dafa074eaf617490062d8f2615d6d
+# and take only the "A" (added) rows -- the one "M" row in that commit is
+# README.md, a shared file whose *name* is not forbidden.
+FORBIDDEN_COMMIT_SHA = "84eb9b8abb6dafa074eaf617490062d8f2615d6d"
+FORBIDDEN_EXACT_PATHS = {
+    "data/c13/README.md",
+    "data/c13/contractors-c13-2026-09-07.json",
+    "data/c13/contractors.schema.json",
+    "data/c13/receipts/c13-2026-09-07.json",
+    "scripts/build_c13_locator.py",
+    "tests/fixtures/c13_census_batch.csv",
+    "tests/fixtures/c13_cslb_export.csv",
+    "tests/test_c13_locator.py",
+}
 
 ALLOWED_EXTENSIONS = {".md", ".py", ".yml", ".yaml", ".json", ".csv", ".tsv", ".cff", ".txt"}
 ALLOWED_EXACT_NAMES = {"LICENSE", ".gitignore", "CODEOWNERS"}
@@ -121,42 +156,110 @@ FORBIDDEN_SOURCE_DOMAINS = {
                   "site terms prohibit reproduction/scraping",
 }
 
-# Every script that performs a network fetch must either use
-# provenance.fetch (so its source is checksummed and drift-checked) or be
-# named here with a dated reason. A fetch script that is neither fails
-# check_fetch_provenance_coverage -- "non-empty when present" alone would be
-# satisfied by silence, so this is the check that keeps an un-instrumented
-# fetch script visible instead of quietly exempt by omission.
-NETWORK_FETCH_MARKERS = (
-    "urllib.request.urlopen",
-    "urllib.request.Request",
-    "requests.get(",
-    "requests.post(",
-    "http.client.",
-)
-PROVENANCE_MARKER = "provenance.fetch"
-FETCH_PROVENANCE_SELF_EXEMPT = {"scripts/provenance.py", "scripts/validate_repo.py"}
-FETCH_PROVENANCE_EXCEPTIONS = {
-    "scripts/build_fence_attachment_dins.py": (
-        "2026-09-08: makes many small server-side aggregate queries against "
-        "the DINS ArcGIS feature service rather than fetching one discrete "
-        "file; a single sha256 of \"the downloaded bytes\" does not map onto "
-        "this control flow without a larger redesign than porting the call "
-        "site."
-    ),
-    "scripts/build_fhsz_by_community.py": (
-        "2026-09-08: queries CAL FIRE FHSZ feature services live, paginated "
-        "per community boundary; same shape of problem as the DINS scripts "
-        "above, not yet designed."
-    ),
-    "scripts/fetch_statewide_fhsz.py": (
-        "2026-09-08: its output file is read directly by "
-        "build_population_by_fhsz.py as a bare feature list; wrapping it in "
-        "a provenance envelope means updating both files together and "
-        "proving it with a full, network- and geometry-heavy pipeline run, "
-        "which was not verified end-to-end in this pass."
-    ),
+# ---- Fetch-script classification --------------------------------------
+#
+# Detecting "does this script fetch the network" by pattern-matching source
+# text against import/call spellings is a denylist of ways to make an HTTP
+# request, and that denylist is never finished: the next script gets
+# written in whatever style its author reaches for -- a different import
+# alias, requests instead of urllib, a subprocess call to curl -- and an
+# unmatched style silently reads as "doesn't fetch."
+#
+# So this inverts the check: every .py file under scripts/, other than the
+# frozen pair below, must be explicitly classified as instrumented, exempt
+# (with a dated reason), or non-fetching, and the validator fails on any
+# unclassified script regardless of what it actually does. AST inspection
+# below is used only as a liar-catcher afterward, to confirm a script's
+# classification is not contradicted by its own code -- it is not how
+# membership in the classification dict gets decided, and it does not
+# excuse a script from needing an entry.
+FETCH_PROVENANCE_SELF_EXEMPT = frozenset({"scripts/provenance.py", "scripts/validate_repo.py"})
+# Frozen deliberately, not a set meant to grow: this is the fetch helper
+# and the validator that enforces its use, not a build script with a
+# dataset to account for. Every other script earns its way out of
+# classification through a dated "exempt" reason below, not by joining
+# this pair.
+
+DATED_REASON_RE = re.compile(r"^\d{4}-\d{2}-\d{2}:\s+\S")
+
+SCRIPT_FETCH_CLASSIFICATION = {
+    "scripts/build_cdi_policy_counts.py": {
+        "status": "instrumented",
+        "outputs": ("data/cdi_policy_counts_state.json",),
+    },
+    "scripts/build_fence_attachment_dins.py": {
+        "status": "exempt",
+        "reason": (
+            "2026-09-08: makes many small server-side aggregate queries against "
+            "the DINS ArcGIS feature service rather than fetching one discrete "
+            "file; a single sha256 of \"the downloaded bytes\" does not map onto "
+            "this control flow without a larger redesign than porting the call "
+            "site."
+        ),
+    },
+    "scripts/build_fhsz_by_community.py": {
+        "status": "exempt",
+        "reason": (
+            "2026-09-08: queries CAL FIRE FHSZ feature services live, paginated "
+            "per community boundary; same shape of problem as the DINS scripts "
+            "above, not yet designed."
+        ),
+    },
+    "scripts/fetch_statewide_fhsz.py": {
+        "status": "exempt",
+        "reason": (
+            "2026-09-08: its output file is read directly by "
+            "build_population_by_fhsz.py as a bare feature list; wrapping it in "
+            "a provenance envelope means updating both files together and "
+            "proving it with a full, network- and geometry-heavy pipeline run, "
+            "which was not verified end-to-end in this pass."
+        ),
+    },
+    "scripts/build_housing_by_fhsz.py": {"status": "non-fetching"},
+    "scripts/build_population_by_fhsz.py": {"status": "non-fetching"},
 }
+
+
+def parse_ast_safely(path):
+    try:
+        return ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+    except (OSError, UnicodeDecodeError, SyntaxError):
+        return None
+
+
+def calls_provenance_fetch(tree):
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call):
+            continue
+        fn = node.func
+        if isinstance(fn, ast.Attribute) and fn.attr == "fetch" \
+                and isinstance(fn.value, ast.Name) and fn.value.id == "provenance":
+            return True
+    return False
+
+
+def calls_network_fetch(tree):
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call):
+            continue
+        fn = node.func
+        # bare urlopen(...), from `from urllib.request import urlopen`
+        if isinstance(fn, ast.Name) and fn.id == "urlopen":
+            return True
+        if isinstance(fn, ast.Attribute):
+            # <anything>.urlopen(...) -- urlopen is not an ambiguous method
+            # name the way get/post are, so no base-name check is needed
+            if fn.attr == "urlopen":
+                return True
+            # requests.get(...) / requests.post(...) specifically, so this
+            # does not also match dict.get(...) or similar unrelated calls
+            if fn.attr in ("get", "post") and isinstance(fn.value, ast.Name) and fn.value.id == "requests":
+                return True
+            # http.client.HTTPConnection(...) and siblings
+            if isinstance(fn.value, ast.Attribute) and isinstance(fn.value.value, ast.Name) \
+                    and fn.value.value.id == "http" and fn.value.attr == "client":
+                return True
+    return False
 
 
 def tracked_files():
@@ -168,6 +271,11 @@ def tracked_files():
 
 def check_forbidden_paths(files, errors):
     for f in files:
+        if f in FORBIDDEN_EXACT_PATHS:
+            errors.append(
+                f"forbidden-path: {f} is one of the exact paths commit "
+                f"{FORBIDDEN_COMMIT_SHA} shipped"
+            )
         for pat in FORBIDDEN_PATH_PATTERNS:
             if pat.search(f):
                 errors.append(f"forbidden-path: {f} matches private C-13/CSLB pattern {pat.pattern}")
@@ -319,16 +427,27 @@ def check_fhsz_join(errors):
 
 
 def check_forbidden_source_domains(files, errors):
+    # Code and data must never reference a withdrawn domain -- as code, it
+    # could fetch from it again; as data, it could falsely cite it as a
+    # source. Documentation (.md) is exempt: the dated withdrawal notes in
+    # README.md/METHODOLOGY.md/CHANGELOG.md legitimately name and link the
+    # withdrawn domain as the authoritative source for a reader, and that
+    # citation is the point, not a violation.
     for f in files:
-        if not f.endswith(".py") or f == "scripts/validate_repo.py":
-            continue  # this file's own denylist necessarily names the domain
+        if f in ("scripts/validate_repo.py", "tests/test_validate_repo.py"):
+            continue  # the denylist and its regression test necessarily name the domain
+        if f.endswith(".md"):
+            continue  # documentation may cite a withdrawn source
+        if not (f.endswith(".py") or (f.startswith("data/") and f.endswith((".json", ".csv", ".tsv")))):
+            continue
         path = REPO_ROOT / f
         try:
             text = path.read_text(encoding="utf-8")
         except (OSError, UnicodeDecodeError):
             continue
+        text_l = text.lower()
         for domain, reason in FORBIDDEN_SOURCE_DOMAINS.items():
-            if domain in text:
+            if domain.lower() in text_l:
                 errors.append(f"forbidden-source-domain: {f} references {domain} ({reason})")
 
 
@@ -360,28 +479,95 @@ def check_provenance_checksums(files, errors):
                 errors.append(f"empty-provenance-checksum: {source}{where} is present but empty")
 
 
-def check_fetch_provenance_coverage(files, errors):
-    for f in files:
-        if not f.startswith("scripts/") or not f.endswith(".py"):
-            continue
-        if f in FETCH_PROVENANCE_SELF_EXEMPT:
-            continue
-        path = REPO_ROOT / f
-        try:
-            text = path.read_text(encoding="utf-8")
-        except (OSError, UnicodeDecodeError):
-            continue
-        if not any(marker in text for marker in NETWORK_FETCH_MARKERS):
-            continue  # not a fetch script at all
-        if PROVENANCE_MARKER in text:
-            continue  # instrumented
-        if f in FETCH_PROVENANCE_EXCEPTIONS:
-            continue  # explicit, dated, reasoned exception
+def check_script_fetch_classification(files, errors):
+    """Every scripts/*.py file (other than the frozen self-exempt pair)
+    must have an entry in SCRIPT_FETCH_CLASSIFICATION. Returns the list of
+    scripts classified "exempt", so main() can name them in the PASS line
+    -- a widening of the exemption list should be visible in the one line
+    everyone actually reads, not just in a diff someone has to go look at.
+    """
+    if FETCH_PROVENANCE_SELF_EXEMPT != {"scripts/provenance.py", "scripts/validate_repo.py"}:
         errors.append(
-            f"fetch-without-provenance: {f} performs a network fetch but "
-            "does not use provenance.fetch and is not on the dated "
-            "exception list in scripts/validate_repo.py"
+            "self-exempt-widened: FETCH_PROVENANCE_SELF_EXEMPT no longer "
+            "matches the frozen pair it is defined to be "
+            f"({sorted(FETCH_PROVENANCE_SELF_EXEMPT)!r}) -- add a dated "
+            "\"exempt\" entry in SCRIPT_FETCH_CLASSIFICATION instead of "
+            "widening this set"
         )
+
+    exempt_scripts = []
+    for f in files:
+        if not (f.startswith("scripts/") and f.endswith(".py")):
+            continue
+        if f in {"scripts/provenance.py", "scripts/validate_repo.py"}:
+            continue
+
+        entry = SCRIPT_FETCH_CLASSIFICATION.get(f)
+        if entry is None:
+            errors.append(
+                f"unclassified-script: {f} has no entry in "
+                "SCRIPT_FETCH_CLASSIFICATION and is not in the frozen "
+                "self-exempt pair -- every script must be declared "
+                "instrumented, exempt (with a dated reason), or non-fetching"
+            )
+            continue
+
+        status = entry.get("status")
+        tree = parse_ast_safely(REPO_ROOT / f)
+
+        if status == "non-fetching":
+            if tree is not None and calls_network_fetch(tree):
+                errors.append(
+                    f"classification-lie: {f} is declared non-fetching but "
+                    "its own code contains a network-fetch call"
+                )
+
+        elif status == "instrumented":
+            if tree is not None and not calls_provenance_fetch(tree):
+                errors.append(
+                    f"classification-lie: {f} is declared instrumented but "
+                    "never actually calls provenance.fetch (a comment or "
+                    "docstring mentioning it does not count)"
+                )
+            outputs = entry.get("outputs") or ()
+            if not outputs:
+                errors.append(f"classification-incomplete: {f} is instrumented but declares no outputs")
+            for out in outputs:
+                out_path = REPO_ROOT / out
+                if not out_path.exists():
+                    errors.append(f"missing-declared-output: {f} declares output {out}, which does not exist")
+                    continue
+                try:
+                    doc = json.loads(out_path.read_text(encoding="utf-8"))
+                except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+                    errors.append(f"missing-declared-output: {out} (declared output of {f}) is not valid JSON")
+                    continue
+                found = []
+                collect_sha256_values(doc, out, "", found)
+                if not any(isinstance(v, str) and v.strip() for _, _, v in found):
+                    errors.append(
+                        f"missing-provenance-checksum: {out} is the declared "
+                        f"output of instrumented script {f} but carries no "
+                        "non-empty sha256 anywhere"
+                    )
+
+        elif status == "exempt":
+            reason = entry.get("reason", "")
+            if not isinstance(reason, str) or not DATED_REASON_RE.match(reason):
+                errors.append(
+                    f"exception-not-dated: {f}'s exempt reason must start "
+                    "with \"YYYY-MM-DD: \" followed by a non-empty "
+                    f"explanation; got {reason!r}"
+                )
+            exempt_scripts.append(f)
+
+        else:
+            errors.append(
+                f"unknown-classification: {f} has status {status!r}, "
+                "expected instrumented, exempt, or non-fetching"
+            )
+
+    return sorted(exempt_scripts)
 
 
 def main():
@@ -397,7 +583,7 @@ def main():
     check_fhsz_join(errors)
     check_forbidden_source_domains(files, errors)
     check_provenance_checksums(files, errors)
-    check_fetch_provenance_coverage(files, errors)
+    exempt_scripts = check_script_fetch_classification(files, errors)
 
     if errors:
         print(f"FAIL: {len(errors)} validation error(s)", file=sys.stderr)
@@ -405,7 +591,10 @@ def main():
             print(f"  - {e}", file=sys.stderr)
         return 1
 
-    print(f"PASS: {len(files)} tracked files validated, 0 errors")
+    suffix = ""
+    if exempt_scripts:
+        suffix = f" (fetch-provenance exemptions: {', '.join(exempt_scripts)})"
+    print(f"PASS: {len(files)} tracked files validated, 0 errors{suffix}")
     return 0
 
 
