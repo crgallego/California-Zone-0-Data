@@ -87,12 +87,25 @@ FORBIDDEN_PATH_PATTERNS = [
 # slipped past FORBIDDEN_PATH_PATTERNS above (that list was copied from
 # .gitignore's *patterns*, which never named the test file, since .gitignore
 # has no reason to ignore a file that was never meant to be committed at
-# all). Re-derive with:
+# all).
+#
+# FORBIDDEN_COMMIT_SHA is LOCAL-ONLY and deliberately not published: it was
+# never pushed to this public repository (confirmed 2026-09-08: GitHub's
+# commit API returns 422 "No commit found" for it), and it lives on a local
+# branch whose disposition -- archive, or delete -- is still an open
+# decision with the repository owner. A reader cannot fetch or verify this
+# SHA against the public remote, and that is expected, not a broken link.
+# The list below is recorded here verbatim precisely so this file does not
+# depend on that commit surviving or being reachable -- it is the complete
+# record, not a pointer to one. It was derived, when the commit still
+# existed in this working copy, with:
 #   git diff --name-status 84eb9b8abb6dafa074eaf617490062d8f2615d6d^ \
 #       84eb9b8abb6dafa074eaf617490062d8f2615d6d
-# and take only the "A" (added) rows -- the one "M" row in that commit is
-# README.md, a shared file whose *name* is not forbidden.
-FORBIDDEN_COMMIT_SHA = "84eb9b8abb6dafa074eaf617490062d8f2615d6d"
+# taking only the "A" (added) rows -- the one "M" row in that commit is
+# README.md, a shared file whose *name* is not forbidden. If that local
+# branch is ever deleted, re-deriving this exact list is no longer
+# possible; this literal set is the only remaining record of it.
+FORBIDDEN_COMMIT_SHA = "84eb9b8abb6dafa074eaf617490062d8f2615d6d"  # local-only, not on the public remote
 FORBIDDEN_EXACT_PATHS = {
     "data/c13/README.md",
     "data/c13/contractors-c13-2026-09-07.json",
@@ -274,7 +287,8 @@ def check_forbidden_paths(files, errors):
         if f in FORBIDDEN_EXACT_PATHS:
             errors.append(
                 f"forbidden-path: {f} is one of the exact paths commit "
-                f"{FORBIDDEN_COMMIT_SHA} shipped"
+                f"{FORBIDDEN_COMMIT_SHA} shipped (that commit is local-only, "
+                "not on the public remote -- see FORBIDDEN_EXACT_PATHS above)"
             )
         for pat in FORBIDDEN_PATH_PATTERNS:
             if pat.search(f):
