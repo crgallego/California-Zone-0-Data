@@ -1,259 +1,247 @@
 #!/usr/bin/env python3
-"""Regression tests for scripts/validate_repo.py.
+"""End-to-end regression tests for scripts/validate_repo.py.
 
-One test per hole an independent review actually found and proved with an
-injected case -- not a general test framework for the validator. Each test
-builds the minimal synthetic tree needed to reproduce its specific finding,
-points validate_repo.REPO_ROOT at it, and asserts the check that should
-catch it does. Every one of these failed to catch its case before the fix
-that accompanies this file; they exist so a future change (including an
-accidental one, like a stray ``git checkout --`` undoing a fix) cannot
-silently remove the catch and have every other check still report PASS,
-because a check that is not there cannot fail.
+Every case builds a real, throwaway git repository containing a COPY of
+the validator (and its provenance.py helper), the fixture files for that
+case, runs ``git add``, then invokes ``python3 scripts/validate_repo.py``
+as a real subprocess inside that repository -- the same entry point CI
+runs, with a real exit code and real stdout/stderr as the assertions.
+
+This is deliberate, not incidental. An earlier version of this suite
+called check_* functions directly, and every one of those tests kept
+passing when a check's call site was commented out of main() -- calling
+a function proves the function works, not that the entry point still
+calls it. It also could not express "the exemption rules in this file
+were edited," since an in-process monkeypatch of a Python constant is not
+what a changed source file looks like. Building a real fixture tree and
+running the real script is the only way to make both of those failure
+shapes visible to a test.
+
+One test per hole an independent review found and proved with an injected
+case, plus the structural cases (entry-point wiring, sibling-name
+patterns) that direct function calls could not express. Not a general
+test framework for the validator.
 
 Runs with the validator: ``python3 -m unittest tests/test_validate_repo.py``.
-Stdlib only, no network access.
+Stdlib only, no network access (subprocess and git are local-only).
 """
-import json
-import os
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "scripts"))
-import validate_repo  # noqa: E402
+REAL_SCRIPTS_DIR = Path(__file__).resolve().parent.parent / "scripts"
 
 
-class ValidateRepoRegressionTests(unittest.TestCase):
+class ValidatorEndToEndTests(unittest.TestCase):
     def setUp(self):
-        self._real_repo_root = validate_repo.REPO_ROOT
-        self._tmp = tempfile.mkdtemp(prefix="validate_repo_test_")
-        validate_repo.REPO_ROOT = Path(self._tmp)
+        self._tmp = tempfile.mkdtemp(prefix="validate_repo_e2e_")
+        self.repo = Path(self._tmp)
+        subprocess.run(["git", "init", "-q"], cwd=self.repo, check=True)
+        (self.repo / "scripts").mkdir(parents=True, exist_ok=True)
+        shutil.copy(REAL_SCRIPTS_DIR / "validate_repo.py", self.repo / "scripts" / "validate_repo.py")
+        shutil.copy(REAL_SCRIPTS_DIR / "provenance.py", self.repo / "scripts" / "provenance.py")
 
     def tearDown(self):
-        validate_repo.REPO_ROOT = self._real_repo_root
         shutil.rmtree(self._tmp, ignore_errors=True)
 
-    def _write(self, rel_path, content):
-        path = validate_repo.REPO_ROOT / rel_path
+    def write(self, rel_path, content):
+        path = self.repo / rel_path
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(content, encoding="utf-8")
-        return rel_path
 
-    # -- finding 1: an instrumented script's output can lose its checksum
-    #    and check_provenance_checksums stays silent, since "non-empty when
-    #    present" is satisfied by absence --------------------------------
+    def edit_validator_source(self, old, new, count=1):
+        """Simulate someone editing scripts/validate_repo.py itself inside
+        the fixture repo -- the only way to express "a constant or
+        mechanism in this file was changed," since an in-process
+        monkeypatch of the imported module does not represent that.
+        """
+        vpath = self.repo / "scripts" / "validate_repo.py"
+        text = vpath.read_text(encoding="utf-8")
+        new_text = text.replace(old, new, count)
+        self.assertNotEqual(new_text, text, f"edit did not match anything: {old!r}")
+        vpath.write_text(new_text, encoding="utf-8")
+
+    def run_validator(self):
+        subprocess.run(["git", "add", "-A"], cwd=self.repo, check=True)
+        return subprocess.run(
+            [sys.executable, "scripts/validate_repo.py"],
+            cwd=self.repo, capture_output=True, text=True,
+        )
+
+    def assertFails(self, result, needle):
+        combined = result.stdout + result.stderr
+        self.assertNotEqual(result.returncode, 0, f"expected failure, got PASS: {combined}")
+        self.assertIn(needle, combined, f"expected {needle!r} in output: {combined}")
+
+    def assertPasses(self, result):
+        combined = result.stdout + result.stderr
+        self.assertEqual(result.returncode, 0, f"expected PASS, got: {combined}")
+        return combined
+
+    # -- finding 1: an instrumented script's output can lose its checksum,
+    #    and the check stayed silent since "non-empty when present" is
+    #    satisfied by absence -----------------------------------------
     def test_instrumented_output_missing_checksum_fails(self):
-        self._write(
-            "data/cdi_policy_counts_state.json",
-            json.dumps({"source": {"publisher": "CDI"}}),  # no county_pdf_provenance at all
-        )
-        errors = []
-        exempt = validate_repo.check_script_fetch_classification(
-            ["scripts/build_cdi_policy_counts.py"], errors
-        )
-        self.assertTrue(
-            any("missing-provenance-checksum" in e for e in errors),
-            f"expected a missing-provenance-checksum error, got: {errors}",
-        )
+        # SCRIPT_FETCH_CLASSIFICATION only evaluates a script that is
+        # actually tracked in this fixture, so the "instrumented" entry
+        # for build_cdi_policy_counts.py needs the file present (any
+        # content -- classification keys off the path in `files`, not
+        # what the script does) to exercise its output-checksum check.
+        self.write("scripts/build_cdi_policy_counts.py", "import provenance\ndef go(): pass\n")
+        self.write("data/cdi_policy_counts_state.json", '{"source": {"publisher": "CDI"}}')
+        result = self.run_validator()
+        self.assertFails(result, "missing-provenance-checksum")
 
-    # -- finding 2: "uses provenance.fetch" as a substring match is
-    #    satisfied by a comment, and a bare `urlopen` (import-alias style)
-    #    was invisible to the old marker list -----------------------------
-    def test_unclassified_new_script_fails_regardless_of_fetch_style(self):
-        self._write(
+    # -- finding 2: "uses provenance.fetch" was a substring match; a
+    #    comment or an import-alias fetch style both slipped through -----
+    def test_unclassified_script_fails_regardless_of_fetch_style(self):
+        self.write(
             "scripts/build_new_fetch.py",
             "import urllib.request\n"
             "# later we will switch this to provenance.fetch\n"
             "def go():\n"
             "    return urllib.request.urlopen('https://example.com').read()\n",
         )
-        errors = []
-        validate_repo.check_script_fetch_classification(["scripts/build_new_fetch.py"], errors)
-        self.assertTrue(
-            any("unclassified-script" in e and "build_new_fetch.py" in e for e in errors),
-            f"expected unclassified-script, got: {errors}",
-        )
+        result = self.run_validator()
+        self.assertFails(result, "unclassified-script")
+        self.assertIn("build_new_fetch.py", result.stdout + result.stderr)
 
     def test_import_alias_urlopen_is_not_silently_non_fetching(self):
-        self._write(
+        self.write(
             "scripts/build_alias_fetch.py",
             "from urllib.request import urlopen\n"
             "def go():\n"
             "    return urlopen('https://example.com').read()\n",
         )
-        # If a future change ever mis-classifies this as non-fetching, the
-        # AST liar-catcher (not a text search) must still catch it.
-        validate_repo.SCRIPT_FETCH_CLASSIFICATION["scripts/build_alias_fetch.py"] = {"status": "non-fetching"}
-        try:
-            errors = []
-            validate_repo.check_script_fetch_classification(["scripts/build_alias_fetch.py"], errors)
-            self.assertTrue(
-                any("classification-lie" in e for e in errors),
-                f"expected a classification-lie error, got: {errors}",
-            )
-        finally:
-            del validate_repo.SCRIPT_FETCH_CLASSIFICATION["scripts/build_alias_fetch.py"]
+        self.edit_validator_source(
+            'SCRIPT_FETCH_CLASSIFICATION = {',
+            'SCRIPT_FETCH_CLASSIFICATION = {\n'
+            '    "scripts/build_alias_fetch.py": {"status": "non-fetching"},',
+        )
+        result = self.run_validator()
+        self.assertFails(result, "classification-lie")
 
-    # -- finding 3: an exemption's "reason" was a membership check, not a
-    #    dated policy -- empty and undated strings both passed ------------
-    def test_empty_or_undated_exempt_reason_fails(self):
-        validate_repo.SCRIPT_FETCH_CLASSIFICATION["scripts/build_empty_reason.py"] = {
-            "status": "exempt", "reason": "",
-        }
-        validate_repo.SCRIPT_FETCH_CLASSIFICATION["scripts/build_undated.py"] = {
-            "status": "exempt", "reason": "ok",
-        }
-        self._write("scripts/build_empty_reason.py", "def go(): pass\n")
-        self._write("scripts/build_undated.py", "def go(): pass\n")
-        try:
-            errors = []
-            validate_repo.check_script_fetch_classification(
-                ["scripts/build_empty_reason.py", "scripts/build_undated.py"], errors
-            )
-            self.assertTrue(
-                any("exception-not-dated" in e and "build_empty_reason.py" in e for e in errors),
-                f"expected exception-not-dated for the empty reason, got: {errors}",
-            )
-            self.assertTrue(
-                any("exception-not-dated" in e and "build_undated.py" in e for e in errors),
-                f"expected exception-not-dated for the undated reason, got: {errors}",
-            )
-        finally:
-            del validate_repo.SCRIPT_FETCH_CLASSIFICATION["scripts/build_empty_reason.py"]
-            del validate_repo.SCRIPT_FETCH_CLASSIFICATION["scripts/build_undated.py"]
+    # -- finding 3: an exemption's "reason" was a membership check, never
+    #    read -- empty and undated strings both passed -------------------
+    def test_empty_or_undated_fetch_exemption_reason_fails(self):
+        self.write("scripts/build_empty_reason.py", "def go(): pass\n")
+        self.write("scripts/build_undated.py", "def go(): pass\n")
+        self.edit_validator_source(
+            'SCRIPT_FETCH_CLASSIFICATION = {',
+            'SCRIPT_FETCH_CLASSIFICATION = {\n'
+            '    "scripts/build_empty_reason.py": {"status": "exempt", "reason": ""},\n'
+            '    "scripts/build_undated.py": {"status": "exempt", "reason": "ok"},',
+        )
+        result = self.run_validator()
+        combined = result.stdout + result.stderr
+        self.assertFails(result, "exemption-not-dated")
+        self.assertIn("build_empty_reason.py", combined)
+        self.assertIn("build_undated.py", combined)
 
-    # -- finding 3, second instance: an earlier fix checked a named
-    #    "frozen" constant, but a second, unwatched literal a few lines
-    #    away was what actually granted the skip -- widening that second
-    #    literal (not the constant) silently exempted any script, reopening
-    #    finding 1. The fix removed the special case entirely: there is now
-    #    exactly one mechanism (SCRIPT_FETCH_CLASSIFICATION), so there is no
-    #    constant to watch and no second literal to find. These tests
-    #    assert on validator *output* for a constructed tree, not on the
-    #    value of any module-level constant -- "is this dict still equal to
-    #    that literal" only proves a variable has not moved; it was never
-    #    the question that mattered. -------------------------------------
-    def test_no_fetch_script_can_pass_unclassified_no_matter_its_name(self):
-        # Stands in for "someone finds a third way to skip classification":
-        # whatever the mechanism, an unclassified script that actually
-        # fetches must fail. This name was never special-cased by anything
-        # in this file, which is the point.
-        self._write(
+    # -- finding 3, second instance: a "frozen" self-exempt constant was
+    #    watched by a test, but a second, unwatched literal a few lines
+    #    away was what actually granted the skip. Fixed by deleting the
+    #    special case entirely: every script, including the fetch helper
+    #    and the validator, earns clearance through the one classification
+    #    dict. A never-special-cased fetch script must still fail. ------
+    def test_no_fetch_script_passes_by_special_case_no_matter_its_name(self):
+        self.write(
             "scripts/build_whatever_new_script_shows_up.py",
             "import urllib.request\n"
             "def go():\n"
             "    return urllib.request.urlopen('https://example.com').read()\n",
         )
-        errors = []
-        validate_repo.check_script_fetch_classification(
-            ["scripts/build_whatever_new_script_shows_up.py"], errors
-        )
-        self.assertTrue(
-            any(
-                "unclassified-script" in e and "build_whatever_new_script_shows_up.py" in e
-                for e in errors
-            ),
-            f"expected unclassified-script, got: {errors}",
-        )
+        result = self.run_validator()
+        self.assertFails(result, "unclassified-script")
+        self.assertIn("build_whatever_new_script_shows_up.py", result.stdout + result.stderr)
 
-    def test_fetch_helper_and_validator_pass_only_through_real_classification(self):
-        # Copies the actual scripts/provenance.py and scripts/validate_repo.py
-        # source into the synthetic tree and runs the real check against
-        # them -- proving they clear the gate because they are correctly
-        # classified in SCRIPT_FETCH_CLASSIFICATION (provenance.py: exempt,
-        # it is the helper; validate_repo.py: non-fetching, confirmed by
-        # the same AST check every other script gets), not because either
-        # filename is special-cased in the loop.
-        real_scripts_dir = Path(validate_repo.__file__).resolve().parent
-        for name in ("provenance.py", "validate_repo.py"):
-            self._write(f"scripts/{name}", (real_scripts_dir / name).read_text(encoding="utf-8"))
-        errors = []
-        exempt = validate_repo.check_script_fetch_classification(
-            ["scripts/provenance.py", "scripts/validate_repo.py"], errors
-        )
-        self.assertEqual(errors, [], f"expected no errors, got: {errors}")
-        self.assertIn("scripts/provenance.py", exempt)
+    def test_fetch_helper_and_validator_clear_only_through_classification(self):
+        # The real provenance.py and validate_repo.py, unmodified, must
+        # clear the gate and be named in the PASS line -- through
+        # SCRIPT_FETCH_CLASSIFICATION, not a special case.
+        result = self.run_validator()
+        combined = self.assertPasses(result)
+        self.assertIn("scripts/provenance.py", combined)
 
-    # -- finding 4: the forbidden-domain check was case-sensitive and
-    #    scanned only .py files, missing an uppercase spelling and a data
-    #    file citing the domain as if it were a legitimate source ---------
+    # -- finding 3, domain-check instance: DOMAIN_CHECK_SELF_REFERENCE's
+    #    reason values were never read, and the PASS line did not name
+    #    domain exemptions, so a widening was invisible -------------------
+    def test_empty_or_undated_domain_exemption_reason_fails(self):
+        self.edit_validator_source(
+            '"tests/test_validate_repo.py": "2026-09-08: regression-tests the domain denylist with literal fixtures",',
+            '"tests/test_validate_repo.py": "2026-09-08: regression-tests the domain denylist with literal fixtures",\n'
+            '    "scripts/build_widened.py": "",',
+        )
+        self.write("scripts/build_widened.py", "# cfpnet.com\n")
+        result = self.run_validator()
+        self.assertFails(result, "exemption-not-dated")
+
+    def test_domain_self_reference_widening_to_unrelated_file_still_fails(self):
+        # Grok's exact case: widen DOMAIN_CHECK_SELF_REFERENCE to an
+        # unrelated file with a throwaway reason, and append the domain to
+        # that file. Must fail on the reason, not pass silently.
+        self.edit_validator_source(
+            '"tests/test_validate_repo.py": "2026-09-08: regression-tests the domain denylist with literal fixtures",',
+            '"tests/test_validate_repo.py": "2026-09-08: regression-tests the domain denylist with literal fixtures",\n'
+            '    "scripts/build_housing_by_fhsz.py": "ok",',
+        )
+        self.write("scripts/build_housing_by_fhsz.py", "# https://www.CFPNET.COM/oops\n")
+        result = self.run_validator()
+        self.assertFails(result, "exemption-not-dated")
+        self.assertIn("build_housing_by_fhsz.py", result.stdout + result.stderr)
+
     def test_uppercase_domain_reference_fails(self):
-        self._write("scripts/build_upper_domain.py", "# https://www.CFPNET.COM/oops\n")
-        errors = []
-        validate_repo.check_forbidden_source_domains(["scripts/build_upper_domain.py"], errors)
-        self.assertTrue(
-            any("forbidden-source-domain" in e for e in errors),
-            f"expected forbidden-source-domain for uppercase domain, got: {errors}",
-        )
+        self.write("scripts/build_upper_domain.py", "# https://www.CFPNET.COM/oops\n")
+        result = self.run_validator()
+        self.assertFails(result, "forbidden-source-domain")
 
     def test_domain_reference_inside_data_json_fails(self):
-        self._write(
+        self.write(
             "data/cdi_policy_counts_state.json",
-            json.dumps({"source": {"page": "https://www.cfpnet.com/sneaky"}}),
+            '{"source": {"page": "https://www.cfpnet.com/sneaky"}}',
         )
-        errors = []
-        validate_repo.check_forbidden_source_domains(["data/cdi_policy_counts_state.json"], errors)
-        self.assertTrue(
-            any("forbidden-source-domain" in e for e in errors),
-            f"expected forbidden-source-domain for the data-file reference, got: {errors}",
-        )
+        result = self.run_validator()
+        self.assertFails(result, "forbidden-source-domain")
 
-    def test_domain_self_reference_is_exempt_only_by_exact_name_not_by_type(self):
-        # The domain check's own tooling (validate_repo.py, its test file)
-        # must reference the withdrawn domain without failing. A third
-        # .py file with the identical content must still fail -- the
-        # exemption is scoped to those exact two filenames in
-        # DOMAIN_CHECK_SELF_REFERENCE, not to "any script."
-        content = "FORBIDDEN_SOURCE_DOMAINS = {'cfpnet.com': 'withdrawn'}\n"
-        self._write("scripts/validate_repo.py", content)
-        self._write("scripts/some_other_script.py", content)
-        errors = []
-        validate_repo.check_forbidden_source_domains(
-            ["scripts/validate_repo.py", "scripts/some_other_script.py"], errors
-        )
-        self.assertTrue(
-            any("some_other_script.py" in e for e in errors),
-            f"expected the unrelated script to fail, got: {errors}",
-        )
-        self.assertFalse(
-            any("scripts/validate_repo.py" in e for e in errors),
-            f"validate_repo.py should be exempt by name, got: {errors}",
-        )
+    def test_domain_reference_in_a_text_file_of_any_extension_fails(self):
+        # The scan used to be an extension allowlist (.py, data/*.json/csv/
+        # tsv); a plain tracked .txt file with the domain passed. The scan
+        # is now every tracked file that decodes as text.
+        self.write("NOTES.txt", "See https://www.cfpnet.com/key-statistics-data/\n")
+        result = self.run_validator()
+        self.assertFails(result, "forbidden-source-domain")
+        self.assertIn("NOTES.txt", result.stdout + result.stderr)
 
     def test_markdown_documentation_may_cite_the_domain_but_a_script_may_not(self):
-        # The .md carve-out is a type-based exemption, not a specific-file
-        # one -- proving the boundary sits exactly at file extension, not
-        # somewhere broader, since the identical content in a script
-        # (which is in scope for this check) must still fail.
-        content = "# See https://www.cfpnet.com/key-statistics-data/ for the withdrawn figures.\n"
-        self._write("CHANGELOG.md", content)
-        self._write("scripts/unrelated_script.py", content)
-        errors = []
-        validate_repo.check_forbidden_source_domains(["CHANGELOG.md", "scripts/unrelated_script.py"], errors)
-        self.assertFalse(
-            any("CHANGELOG.md" in e for e in errors),
-            f"a .md file should be exempt, got: {errors}",
-        )
-        self.assertTrue(
-            any("unrelated_script.py" in e for e in errors),
-            f"a script with the same content should still fail, got: {errors}",
-        )
+        content = "See https://www.cfpnet.com/key-statistics-data/ for the withdrawn figures.\n"
+        self.write("CHANGELOG.md", content)
+        self.write("scripts/unrelated_script.py", "# " + content)
+        result = self.run_validator()
+        combined = result.stdout + result.stderr
+        self.assertFails(result, "forbidden-source-domain")
+        self.assertIn("unrelated_script.py", combined)
+        self.assertNotIn("forbidden-source-domain: CHANGELOG.md", combined)
 
     # -- finding 5: the forbidden-path list was copied from .gitignore's
-    #    patterns rather than derived from what the C-13 commit actually
-    #    shipped, so it never named tests/test_c13_locator.py -------------
-    def test_c13_test_fixture_path_is_forbidden(self):
-        self._write("tests/test_c13_locator.py", "def test_nothing(): pass\n")
-        errors = []
-        validate_repo.check_forbidden_paths(["tests/test_c13_locator.py"], errors)
-        self.assertTrue(
-            any("forbidden-path" in e and "test_c13_locator.py" in e for e in errors),
-            f"expected forbidden-path for the C-13 test fixture, got: {errors}",
-        )
+    #    patterns, so it never named the sibling test file that the C-13
+    #    commit actually shipped -----------------------------------------
+    def test_c13_exact_fixture_path_is_forbidden(self):
+        self.write("tests/test_c13_locator.py", "def test_nothing(): pass\n")
+        result = self.run_validator()
+        self.assertFails(result, "forbidden-path")
+        self.assertIn("test_c13_locator.py", result.stdout + result.stderr)
 
+    def test_c13_sibling_named_file_is_forbidden_by_pattern_not_just_exact_list(self):
+        # Not the exact file from commit 84eb9b8 -- a sibling name that
+        # only the ^tests/test_c13_ pattern rule catches, proving the
+        # pattern works independently of FORBIDDEN_EXACT_PATHS.
+        self.write("tests/test_c13_other.py", "def test_nothing(): pass\n")
+        result = self.run_validator()
+        self.assertFails(result, "forbidden-path")
+        self.assertIn("test_c13_other.py", result.stdout + result.stderr)
 
 if __name__ == "__main__":
     unittest.main()

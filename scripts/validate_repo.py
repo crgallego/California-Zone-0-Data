@@ -28,19 +28,24 @@ Checks, in order:
                              approved output list
  10. fhsz join            -- fhsz_by_community.csv and .json describe the
                              same set of community slugs
- 11. forbidden source domain -- no script or data file may reference a
-                             domain this repository has withdrawn from
-                             (currently cfpnet.com; see CHANGELOG.md
-                             2026-09-08), case-insensitively. Documentation
-                             (.md) is exempt -- a dated withdrawal note is
-                             expected to cite the withdrawn source.
+ 11. forbidden source domain -- every tracked file that decodes as text
+                             (not a fixed set of extensions) is scanned,
+                             case-insensitively, for a domain this
+                             repository has withdrawn from (currently
+                             cfpnet.com; see CHANGELOG.md 2026-09-08). A
+                             hit is either an error, or -- through the
+                             exempt() primitive below, never a silent
+                             carve-out -- a recorded, dated exemption for
+                             documentation citing the withdrawn source, or
+                             for the two files that must name the domain
+                             to define/test this very check.
  12. provenance checksum  -- any ``sha256`` key found anywhere in a
                              ``data/*.json`` file must be a non-empty
                              string, not a blank or stub value.
  13. script fetch classification -- every ``scripts/*.py`` file, with no
                              exceptions carved into this loop, must be
                              declared instrumented, exempt with a dated
-                             reason, or non-fetching in
+                             reason (through exempt()), or non-fetching in
                              SCRIPT_FETCH_CLASSIFICATION; an unclassified
                              script fails regardless of what it does. An
                              "instrumented" script must actually call
@@ -53,6 +58,16 @@ Checks, in order:
                              spellings to detect -- classification is
                              mandatory up front, and AST inspection is only
                              a liar-catcher afterward.
+
+Every deliberate, policy-level carve-out in this file -- not a "this check
+doesn't apply to this file type" scope filter, but "this file would fail
+the rule and we are choosing to let it through" -- goes through the single
+exempt() primitive (see its docstring). That function validates the dated-
+reason form, records the exemption, and main()'s PASS line names every
+recorded exemption by construction, so a future carve-out inherits all
+three properties without its author needing to reimplement (and
+potentially half-implement) them, and a carve-out that bypasses exempt()
+is a visible code-review smell rather than a silent, untested hole.
 
 Small-cell suppression for individually identifying counts (the CSLB/C-13
 "controlled" tier in the release plan) is enforced by check 1: that data
@@ -171,16 +186,13 @@ FORBIDDEN_SOURCE_DOMAINS = {
                   "site terms prohibit reproduction/scraping",
 }
 
-# Files allowed to contain a forbidden-domain string despite check_forbidden_
-# source_domains scanning .py files generally: the domain denylist above and
-# its regression test necessarily name the withdrawn domain as literal text.
-# This is the ONLY place that grants this exemption -- there is no second
-# copy of this list anywhere else in this file. An earlier version of this
-# same idea for fetch classification (see below) had a second, unwatched
-# literal that actually granted the skip while a test watched a different,
-# decorative constant; the fix there was one mechanism, and this dict is
-# that same discipline applied here, from the start, rather than after a
-# review found the second copy.
+# Files allowed to contain a forbidden-domain string despite
+# check_forbidden_source_domains scanning every tracked text file: the
+# domain denylist above and its regression test necessarily name the
+# withdrawn domain as literal text. Values are dated reasons validated and
+# recorded through exempt() below, same as every other carve-out in this
+# file -- there is no second, unwatched mechanism that actually grants
+# this skip.
 DOMAIN_CHECK_SELF_REFERENCE = {
     "scripts/validate_repo.py": "2026-09-08: defines the domain denylist itself",
     "tests/test_validate_repo.py": "2026-09-08: regression-tests the domain denylist with literal fixtures",
@@ -214,6 +226,49 @@ DOMAIN_CHECK_SELF_REFERENCE = {
 # membership in this dict gets decided, and it does not excuse a script
 # from needing an entry.
 DATED_REASON_RE = re.compile(r"^\d{4}-\d{2}-\d{2}:\s+\S")
+
+# ---- The one exemption primitive ---------------------------------------
+#
+# Four rounds of review found the same defect wearing a different name:
+# a named exemption dict or constant that a test watched, while the actual
+# skip lived somewhere else -- a second literal, a membership check whose
+# value was never read -- that nothing watched. This function is now the
+# ONLY sanctioned way any check in this file may skip a file it would
+# otherwise flag for a deliberate, policy reason. It is not for "this
+# check doesn't apply to this file type" (an ordinary `continue` stays an
+# ordinary `continue` for that) -- it is specifically for "this file would
+# fail the rule, and we are choosing, on the record, to let it through."
+#
+# Every call validates the dated-reason form, records the exemption, and
+# is picked up by main()'s PASS line automatically -- an author adding a
+# new carve-out gets all three properties without needing to know they
+# exist, and a carve-out that does NOT go through this function is a
+# review smell (a `continue` next to a comment claiming something is
+# exempt, with no exempt() call) rather than a silent, untested hole.
+_RECORDED_EXEMPTIONS = []
+
+
+def reset_exemptions():
+    _RECORDED_EXEMPTIONS.clear()
+
+
+def exempt(kind, path, reason, errors):
+    """Record a deliberate, policy-level exemption for `path` under `kind`.
+    Always returns True (the caller should skip) and always records the
+    exemption, even a malformed one -- hiding a bad exemption from the
+    PASS-line accounting would defeat the point of recording it at all.
+    A reason that is not a dated, non-empty explanation is its own
+    validation error, so a bad exemption still fails the run.
+    """
+    if not isinstance(reason, str) or not DATED_REASON_RE.match(reason):
+        errors.append(
+            f"exemption-not-dated: {kind} exemption for {path} must start "
+            "with \"YYYY-MM-DD: \" followed by a non-empty explanation; "
+            f"got {reason!r}"
+        )
+    _RECORDED_EXEMPTIONS.append((kind, path, reason))
+    return True
+
 
 SCRIPT_FETCH_CLASSIFICATION = {
     "scripts/provenance.py": {
@@ -473,19 +528,14 @@ def check_fhsz_join(errors):
 def check_forbidden_source_domains(files, errors):
     # Code and data must never reference a withdrawn domain -- as code, it
     # could fetch from it again; as data, it could falsely cite it as a
-    # source. Documentation (.md) is exempt by file type, not by name: a
-    # dated withdrawal note in README.md/METHODOLOGY.md/CHANGELOG.md is
-    # *expected* to name and link the withdrawn domain as the authoritative
-    # source for a reader, and that citation is the point, not a violation.
-    # DOMAIN_CHECK_SELF_REFERENCE (above) is the only other exemption, and
-    # it is scoped to exact filenames, not a type.
+    # source. Scans every tracked file that decodes as text, not a fixed
+    # set of extensions: an extension denylist here is the same mistake as
+    # the fetch-detection denylist elsewhere in this file, just wearing a
+    # ".txt and .yml pass today" shape instead of "subprocess passes
+    # today." A file that fails to decode as UTF-8 cannot contain the
+    # domain as text and is skipped -- that is scope, not exemption, so it
+    # stays a plain continue rather than going through exempt().
     for f in files:
-        if f in DOMAIN_CHECK_SELF_REFERENCE:
-            continue
-        if f.endswith(".md"):
-            continue  # documentation may cite a withdrawn source
-        if not (f.endswith(".py") or (f.startswith("data/") and f.endswith((".json", ".csv", ".tsv")))):
-            continue
         path = REPO_ROOT / f
         try:
             text = path.read_text(encoding="utf-8")
@@ -493,8 +543,29 @@ def check_forbidden_source_domains(files, errors):
             continue
         text_l = text.lower()
         for domain, reason in FORBIDDEN_SOURCE_DOMAINS.items():
-            if domain.lower() in text_l:
-                errors.append(f"forbidden-source-domain: {f} references {domain} ({reason})")
+            if domain.lower() not in text_l:
+                continue
+            self_ref_reason = DOMAIN_CHECK_SELF_REFERENCE.get(f)
+            if self_ref_reason is not None:
+                # This exact file is known, by name, to need to name the
+                # domain (the denylist itself; its regression test).
+                exempt("domain-check-self-reference", f, self_ref_reason, errors)
+                continue
+            if f.endswith(".md"):
+                # Documentation is *expected* to cite a withdrawn source in
+                # a dated note -- that citation is the point, not a
+                # violation. Still routed through exempt(), so it is
+                # recorded and named in the PASS line like every other
+                # carve-out, not a silent type-based bypass.
+                exempt(
+                    "domain-check-doc-citation", f,
+                    f"2026-09-08: {f} is documentation; citing a withdrawn "
+                    "source by name and link is expected here, not a "
+                    "violation",
+                    errors,
+                )
+                continue
+            errors.append(f"forbidden-source-domain: {f} references {domain} ({reason})")
 
 
 def collect_sha256_values(node, source, path_hint, out):
@@ -528,13 +599,10 @@ def check_provenance_checksums(files, errors):
 def check_script_fetch_classification(files, errors):
     """Every scripts/*.py file must have an entry in
     SCRIPT_FETCH_CLASSIFICATION -- no file is exempted by being a special
-    case in this loop; see the comment on that dict for why. Returns the
-    list of scripts classified "exempt", so main() can name them in the
-    PASS line -- a widening of the exemption list should be visible in the
-    one line everyone actually reads, not just in a diff someone has to go
-    look at.
+    case in this loop; see the comment on that dict for why. "exempt"
+    entries are recorded through exempt() so main()'s PASS line names
+    them automatically.
     """
-    exempt_scripts = []
     for f in files:
         if not (f.startswith("scripts/") and f.endswith(".py")):
             continue
@@ -589,14 +657,7 @@ def check_script_fetch_classification(files, errors):
                     )
 
         elif status == "exempt":
-            reason = entry.get("reason", "")
-            if not isinstance(reason, str) or not DATED_REASON_RE.match(reason):
-                errors.append(
-                    f"exception-not-dated: {f}'s exempt reason must start "
-                    "with \"YYYY-MM-DD: \" followed by a non-empty "
-                    f"explanation; got {reason!r}"
-                )
-            exempt_scripts.append(f)
+            exempt("fetch-classification", f, entry.get("reason", ""), errors)
 
         else:
             errors.append(
@@ -604,10 +665,9 @@ def check_script_fetch_classification(files, errors):
                 "expected instrumented, exempt, or non-fetching"
             )
 
-    return sorted(exempt_scripts)
-
 
 def main():
+    reset_exemptions()
     errors = []
     files = tracked_files()
 
@@ -620,7 +680,7 @@ def main():
     check_fhsz_join(errors)
     check_forbidden_source_domains(files, errors)
     check_provenance_checksums(files, errors)
-    exempt_scripts = check_script_fetch_classification(files, errors)
+    check_script_fetch_classification(files, errors)
 
     if errors:
         print(f"FAIL: {len(errors)} validation error(s)", file=sys.stderr)
@@ -629,8 +689,12 @@ def main():
         return 1
 
     suffix = ""
-    if exempt_scripts:
-        suffix = f" (fetch-provenance exemptions: {', '.join(exempt_scripts)})"
+    if _RECORDED_EXEMPTIONS:
+        by_kind = {}
+        for kind, path, _reason in _RECORDED_EXEMPTIONS:
+            by_kind.setdefault(kind, []).append(path)
+        parts = [f"{kind}: {', '.join(sorted(paths))}" for kind, paths in sorted(by_kind.items())]
+        suffix = f" (exemptions: {'; '.join(parts)})"
     print(f"PASS: {len(files)} tracked files validated, 0 errors{suffix}")
     return 0
 
