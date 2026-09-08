@@ -25,6 +25,7 @@ test framework for the validator.
 Runs with the validator: ``python3 -m unittest tests/test_validate_repo.py``.
 Stdlib only, no network access (subprocess and git are local-only).
 """
+import ast
 import shutil
 import subprocess
 import sys
@@ -33,6 +34,62 @@ import unittest
 from pathlib import Path
 
 REAL_SCRIPTS_DIR = Path(__file__).resolve().parent.parent / "scripts"
+
+
+class ValidatorWiringTests(unittest.TestCase):
+    """Static check, not a fixture run: every check_* function defined in
+    validate_repo.py must actually be called from main(). This is the
+    permanent version of a proof done once by hand -- running the e2e
+    suite against a copy of the validator with one check's call site
+    commented out, and watching tests fail. That proved today's suite is
+    sensitive to today's unwiring; it does not keep a *future* unwiring
+    from passing silently if nobody repeats the experiment. Parsing
+    main()'s own body for what it actually calls does not need repeating
+    -- it runs every time this file runs.
+    """
+
+    def test_every_check_function_is_reachable_from_main(self):
+        # Reachability, not "is a direct child of main()": some check_*
+        # functions are top-level entry points main() calls directly
+        # (check_json_files), and some are helpers a top-level check calls
+        # internally (check_percent_value, called from check_csv_files and
+        # from walk_json). Both must trace back to main() through some
+        # call chain, or the function is either unwired or dead code --
+        # either way, a check that cannot be reached from the entry point
+        # is exactly the failure mode this test exists to catch.
+        source = (REAL_SCRIPTS_DIR / "validate_repo.py").read_text(encoding="utf-8")
+        tree = ast.parse(source, filename="validate_repo.py")
+
+        defined_checks = set()
+        call_graph = {}  # function name -> set of names it calls
+        for node in tree.body:
+            if isinstance(node, ast.FunctionDef):
+                if node.name.startswith("check_"):
+                    defined_checks.add(node.name)
+                calls = set()
+                for inner in ast.walk(node):
+                    if isinstance(inner, ast.Call) and isinstance(inner.func, ast.Name):
+                        calls.add(inner.func.id)
+                call_graph[node.name] = calls
+
+        self.assertIn("main", call_graph, "validate_repo.py must define main()")
+        self.assertTrue(defined_checks, "expected at least one check_* function")
+
+        reachable = set()
+        frontier = ["main"]
+        while frontier:
+            name = frontier.pop()
+            if name in reachable:
+                continue
+            reachable.add(name)
+            frontier.extend(call_graph.get(name, ()))
+
+        unreachable = defined_checks - reachable
+        self.assertEqual(
+            unreachable, set(),
+            f"check_* function(s) defined but not reachable from main() "
+            f"through any call chain: {sorted(unreachable)}",
+        )
 
 
 class ValidatorEndToEndTests(unittest.TestCase):
@@ -213,6 +270,20 @@ class ValidatorEndToEndTests(unittest.TestCase):
         self.write("NOTES.txt", "See https://www.cfpnet.com/key-statistics-data/\n")
         result = self.run_validator()
         self.assertFails(result, "forbidden-source-domain")
+
+    def test_non_utf8_file_is_named_not_silently_skipped(self):
+        # Established empirically: a Latin-1-encoded file with one stray
+        # non-ASCII byte carries the domain string right past the scan
+        # (it cannot decode as UTF-8, so the scan cannot see inside it)
+        # without tripping any other check either. That must still be
+        # visible in a passing run, not just absent from the error list.
+        (self.repo / "NOTES.txt").write_bytes(
+            "# cfpnet.com note r\xe9sum\xe9\n".encode("latin-1")
+        )
+        result = self.run_validator()
+        combined = self.assertPasses(result)
+        self.assertIn("NOTES.txt", combined)
+        self.assertIn("undecodable", combined)
         self.assertIn("NOTES.txt", result.stdout + result.stderr)
 
     def test_markdown_documentation_may_cite_the_domain_but_a_script_may_not(self):
