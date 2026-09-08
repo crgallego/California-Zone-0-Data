@@ -37,10 +37,11 @@ Checks, in order:
  12. provenance checksum  -- any ``sha256`` key found anywhere in a
                              ``data/*.json`` file must be a non-empty
                              string, not a blank or stub value.
- 13. script fetch classification -- every ``scripts/*.py`` file (other
-                             than the fetch helper and this validator) must
-                             be declared instrumented, exempt with a dated
-                             reason, or non-fetching; an unclassified
+ 13. script fetch classification -- every ``scripts/*.py`` file, with no
+                             exceptions carved into this loop, must be
+                             declared instrumented, exempt with a dated
+                             reason, or non-fetching in
+                             SCRIPT_FETCH_CLASSIFICATION; an unclassified
                              script fails regardless of what it does. An
                              "instrumented" script must actually call
                              ``provenance.fetch`` (checked via AST, not a
@@ -76,6 +77,7 @@ FORBIDDEN_PATH_PATTERNS = [
     re.compile(r"^data/c13/"),
     re.compile(r"^scripts/build_c13_locator\.py$"),
     re.compile(r"^tests/fixtures/c13_.*\.csv$"),
+    re.compile(r"^tests/test_c13_"),
     re.compile(r"(^|/)CSLBSearchData"),
     re.compile(r"(^|/)c13-census-"),
     re.compile(r"(^|/)c13_census_"),
@@ -169,6 +171,21 @@ FORBIDDEN_SOURCE_DOMAINS = {
                   "site terms prohibit reproduction/scraping",
 }
 
+# Files allowed to contain a forbidden-domain string despite check_forbidden_
+# source_domains scanning .py files generally: the domain denylist above and
+# its regression test necessarily name the withdrawn domain as literal text.
+# This is the ONLY place that grants this exemption -- there is no second
+# copy of this list anywhere else in this file. An earlier version of this
+# same idea for fetch classification (see below) had a second, unwatched
+# literal that actually granted the skip while a test watched a different,
+# decorative constant; the fix there was one mechanism, and this dict is
+# that same discipline applied here, from the start, rather than after a
+# review found the second copy.
+DOMAIN_CHECK_SELF_REFERENCE = {
+    "scripts/validate_repo.py": "2026-09-08: defines the domain denylist itself",
+    "tests/test_validate_repo.py": "2026-09-08: regression-tests the domain denylist with literal fixtures",
+}
+
 # ---- Fetch-script classification --------------------------------------
 #
 # Detecting "does this script fetch the network" by pattern-matching source
@@ -178,24 +195,37 @@ FORBIDDEN_SOURCE_DOMAINS = {
 # alias, requests instead of urllib, a subprocess call to curl -- and an
 # unmatched style silently reads as "doesn't fetch."
 #
-# So this inverts the check: every .py file under scripts/, other than the
-# frozen pair below, must be explicitly classified as instrumented, exempt
-# (with a dated reason), or non-fetching, and the validator fails on any
-# unclassified script regardless of what it actually does. AST inspection
-# below is used only as a liar-catcher afterward, to confirm a script's
+# So this inverts the check: every .py file under scripts/ must be
+# explicitly classified as instrumented, exempt (with a dated reason), or
+# non-fetching, and the validator fails on any unclassified script
+# regardless of what it actually does -- no file, including the fetch
+# helper and this validator itself, is exempted by being a special case in
+# the loop. An earlier version of this file tried exactly that (a frozen
+# "self-exempt" pair checked against a named constant) and it was wrong in
+# a specific way: the constant was watched by a test, but the actual skip
+# was a second, unwatched literal a few lines away, and widening that
+# second literal (not the constant) silently granted the exemption to any
+# file, reopening the provenance-checksum hole this classification exists
+# to close. There is now exactly one mechanism -- this dict -- and
+# provenance.py and validate_repo.py earn their way out of instrumentation
+# through it like every other script, below. AST inspection further down
+# is used only as a liar-catcher afterward, to confirm a script's
 # classification is not contradicted by its own code -- it is not how
-# membership in the classification dict gets decided, and it does not
-# excuse a script from needing an entry.
-FETCH_PROVENANCE_SELF_EXEMPT = frozenset({"scripts/provenance.py", "scripts/validate_repo.py"})
-# Frozen deliberately, not a set meant to grow: this is the fetch helper
-# and the validator that enforces its use, not a build script with a
-# dataset to account for. Every other script earns its way out of
-# classification through a dated "exempt" reason below, not by joining
-# this pair.
-
+# membership in this dict gets decided, and it does not excuse a script
+# from needing an entry.
 DATED_REASON_RE = re.compile(r"^\d{4}-\d{2}-\d{2}:\s+\S")
 
 SCRIPT_FETCH_CLASSIFICATION = {
+    "scripts/provenance.py": {
+        "status": "exempt",
+        "reason": (
+            "2026-09-08: this is the fetch helper itself -- it is what "
+            "\"instrumented\" means for every other script, so it has "
+            "nothing to call provenance.fetch on and no dataset output of "
+            "its own to check a checksum against."
+        ),
+    },
+    "scripts/validate_repo.py": {"status": "non-fetching"},
     "scripts/build_cdi_policy_counts.py": {
         "status": "instrumented",
         "outputs": ("data/cdi_policy_counts_state.json",),
@@ -443,13 +473,15 @@ def check_fhsz_join(errors):
 def check_forbidden_source_domains(files, errors):
     # Code and data must never reference a withdrawn domain -- as code, it
     # could fetch from it again; as data, it could falsely cite it as a
-    # source. Documentation (.md) is exempt: the dated withdrawal notes in
-    # README.md/METHODOLOGY.md/CHANGELOG.md legitimately name and link the
-    # withdrawn domain as the authoritative source for a reader, and that
-    # citation is the point, not a violation.
+    # source. Documentation (.md) is exempt by file type, not by name: a
+    # dated withdrawal note in README.md/METHODOLOGY.md/CHANGELOG.md is
+    # *expected* to name and link the withdrawn domain as the authoritative
+    # source for a reader, and that citation is the point, not a violation.
+    # DOMAIN_CHECK_SELF_REFERENCE (above) is the only other exemption, and
+    # it is scoped to exact filenames, not a type.
     for f in files:
-        if f in ("scripts/validate_repo.py", "tests/test_validate_repo.py"):
-            continue  # the denylist and its regression test necessarily name the domain
+        if f in DOMAIN_CHECK_SELF_REFERENCE:
+            continue
         if f.endswith(".md"):
             continue  # documentation may cite a withdrawn source
         if not (f.endswith(".py") or (f.startswith("data/") and f.endswith((".json", ".csv", ".tsv")))):
@@ -494,35 +526,26 @@ def check_provenance_checksums(files, errors):
 
 
 def check_script_fetch_classification(files, errors):
-    """Every scripts/*.py file (other than the frozen self-exempt pair)
-    must have an entry in SCRIPT_FETCH_CLASSIFICATION. Returns the list of
-    scripts classified "exempt", so main() can name them in the PASS line
-    -- a widening of the exemption list should be visible in the one line
-    everyone actually reads, not just in a diff someone has to go look at.
+    """Every scripts/*.py file must have an entry in
+    SCRIPT_FETCH_CLASSIFICATION -- no file is exempted by being a special
+    case in this loop; see the comment on that dict for why. Returns the
+    list of scripts classified "exempt", so main() can name them in the
+    PASS line -- a widening of the exemption list should be visible in the
+    one line everyone actually reads, not just in a diff someone has to go
+    look at.
     """
-    if FETCH_PROVENANCE_SELF_EXEMPT != {"scripts/provenance.py", "scripts/validate_repo.py"}:
-        errors.append(
-            "self-exempt-widened: FETCH_PROVENANCE_SELF_EXEMPT no longer "
-            "matches the frozen pair it is defined to be "
-            f"({sorted(FETCH_PROVENANCE_SELF_EXEMPT)!r}) -- add a dated "
-            "\"exempt\" entry in SCRIPT_FETCH_CLASSIFICATION instead of "
-            "widening this set"
-        )
-
     exempt_scripts = []
     for f in files:
         if not (f.startswith("scripts/") and f.endswith(".py")):
-            continue
-        if f in {"scripts/provenance.py", "scripts/validate_repo.py"}:
             continue
 
         entry = SCRIPT_FETCH_CLASSIFICATION.get(f)
         if entry is None:
             errors.append(
                 f"unclassified-script: {f} has no entry in "
-                "SCRIPT_FETCH_CLASSIFICATION and is not in the frozen "
-                "self-exempt pair -- every script must be declared "
-                "instrumented, exempt (with a dated reason), or non-fetching"
+                "SCRIPT_FETCH_CLASSIFICATION -- every script must be "
+                "declared instrumented, exempt (with a dated reason), or "
+                "non-fetching"
             )
             continue
 
