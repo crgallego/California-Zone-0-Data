@@ -1,0 +1,8 @@
+This file exists only to trip the forbidden-path check in
+scripts/validate_repo.py (FORBIDDEN_PATH_PATTERNS: ^data/c13/).
+
+It is not real C-13/CSLB data. This branch exists solely to prove that
+GitHub's required-status-check rule on main actually blocks a merge
+when the validator fails -- a negative test of the enforcement
+mechanism, not of the validator itself. It is not meant to be merged
+and will be deleted once that proof is captured.
