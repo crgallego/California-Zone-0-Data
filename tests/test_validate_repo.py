@@ -125,30 +125,57 @@ class ValidateRepoRegressionTests(unittest.TestCase):
             del validate_repo.SCRIPT_FETCH_CLASSIFICATION["scripts/build_empty_reason.py"]
             del validate_repo.SCRIPT_FETCH_CLASSIFICATION["scripts/build_undated.py"]
 
-    def test_self_exempt_widening_fails(self):
-        original = validate_repo.FETCH_PROVENANCE_SELF_EXEMPT
-        validate_repo.FETCH_PROVENANCE_SELF_EXEMPT = frozenset(
-            original | {"scripts/build_sneaky.py"}
-        )
+    # -- finding 3, second instance: an earlier fix checked a named
+    #    "frozen" constant, but a second, unwatched literal a few lines
+    #    away was what actually granted the skip -- widening that second
+    #    literal (not the constant) silently exempted any script, reopening
+    #    finding 1. The fix removed the special case entirely: there is now
+    #    exactly one mechanism (SCRIPT_FETCH_CLASSIFICATION), so there is no
+    #    constant to watch and no second literal to find. These tests
+    #    assert on validator *output* for a constructed tree, not on the
+    #    value of any module-level constant -- "is this dict still equal to
+    #    that literal" only proves a variable has not moved; it was never
+    #    the question that mattered. -------------------------------------
+    def test_no_fetch_script_can_pass_unclassified_no_matter_its_name(self):
+        # Stands in for "someone finds a third way to skip classification":
+        # whatever the mechanism, an unclassified script that actually
+        # fetches must fail. This name was never special-cased by anything
+        # in this file, which is the point.
         self._write(
-            "scripts/build_sneaky.py",
+            "scripts/build_whatever_new_script_shows_up.py",
             "import urllib.request\n"
             "def go():\n"
             "    return urllib.request.urlopen('https://example.com').read()\n",
         )
-        try:
-            errors = []
-            validate_repo.check_script_fetch_classification(["scripts/build_sneaky.py"], errors)
-            self.assertTrue(
-                any("self-exempt-widened" in e for e in errors),
-                f"expected self-exempt-widened, got: {errors}",
-            )
-            self.assertTrue(
-                any("unclassified-script" in e and "build_sneaky.py" in e for e in errors),
-                f"widening self-exempt must not itself grant the exemption; got: {errors}",
-            )
-        finally:
-            validate_repo.FETCH_PROVENANCE_SELF_EXEMPT = original
+        errors = []
+        validate_repo.check_script_fetch_classification(
+            ["scripts/build_whatever_new_script_shows_up.py"], errors
+        )
+        self.assertTrue(
+            any(
+                "unclassified-script" in e and "build_whatever_new_script_shows_up.py" in e
+                for e in errors
+            ),
+            f"expected unclassified-script, got: {errors}",
+        )
+
+    def test_fetch_helper_and_validator_pass_only_through_real_classification(self):
+        # Copies the actual scripts/provenance.py and scripts/validate_repo.py
+        # source into the synthetic tree and runs the real check against
+        # them -- proving they clear the gate because they are correctly
+        # classified in SCRIPT_FETCH_CLASSIFICATION (provenance.py: exempt,
+        # it is the helper; validate_repo.py: non-fetching, confirmed by
+        # the same AST check every other script gets), not because either
+        # filename is special-cased in the loop.
+        real_scripts_dir = Path(validate_repo.__file__).resolve().parent
+        for name in ("provenance.py", "validate_repo.py"):
+            self._write(f"scripts/{name}", (real_scripts_dir / name).read_text(encoding="utf-8"))
+        errors = []
+        exempt = validate_repo.check_script_fetch_classification(
+            ["scripts/provenance.py", "scripts/validate_repo.py"], errors
+        )
+        self.assertEqual(errors, [], f"expected no errors, got: {errors}")
+        self.assertIn("scripts/provenance.py", exempt)
 
     # -- finding 4: the forbidden-domain check was case-sensitive and
     #    scanned only .py files, missing an uppercase spelling and a data
@@ -172,6 +199,47 @@ class ValidateRepoRegressionTests(unittest.TestCase):
         self.assertTrue(
             any("forbidden-source-domain" in e for e in errors),
             f"expected forbidden-source-domain for the data-file reference, got: {errors}",
+        )
+
+    def test_domain_self_reference_is_exempt_only_by_exact_name_not_by_type(self):
+        # The domain check's own tooling (validate_repo.py, its test file)
+        # must reference the withdrawn domain without failing. A third
+        # .py file with the identical content must still fail -- the
+        # exemption is scoped to those exact two filenames in
+        # DOMAIN_CHECK_SELF_REFERENCE, not to "any script."
+        content = "FORBIDDEN_SOURCE_DOMAINS = {'cfpnet.com': 'withdrawn'}\n"
+        self._write("scripts/validate_repo.py", content)
+        self._write("scripts/some_other_script.py", content)
+        errors = []
+        validate_repo.check_forbidden_source_domains(
+            ["scripts/validate_repo.py", "scripts/some_other_script.py"], errors
+        )
+        self.assertTrue(
+            any("some_other_script.py" in e for e in errors),
+            f"expected the unrelated script to fail, got: {errors}",
+        )
+        self.assertFalse(
+            any("scripts/validate_repo.py" in e for e in errors),
+            f"validate_repo.py should be exempt by name, got: {errors}",
+        )
+
+    def test_markdown_documentation_may_cite_the_domain_but_a_script_may_not(self):
+        # The .md carve-out is a type-based exemption, not a specific-file
+        # one -- proving the boundary sits exactly at file extension, not
+        # somewhere broader, since the identical content in a script
+        # (which is in scope for this check) must still fail.
+        content = "# See https://www.cfpnet.com/key-statistics-data/ for the withdrawn figures.\n"
+        self._write("CHANGELOG.md", content)
+        self._write("scripts/unrelated_script.py", content)
+        errors = []
+        validate_repo.check_forbidden_source_domains(["CHANGELOG.md", "scripts/unrelated_script.py"], errors)
+        self.assertFalse(
+            any("CHANGELOG.md" in e for e in errors),
+            f"a .md file should be exempt, got: {errors}",
+        )
+        self.assertTrue(
+            any("unrelated_script.py" in e for e in errors),
+            f"a script with the same content should still fail, got: {errors}",
         )
 
     # -- finding 5: the forbidden-path list was copied from .gitignore's
