@@ -283,8 +283,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 21.62,
       "fair_plan_new_plus_renewed": 11722,
       "fair_plan_share_of_new_plus_renewed_pct": 48.7,
-      "detached_very_high_est": 14786,
-      "fair_plan_pif_all_lines_2025": 14071
+      "detached_very_high_est": 14786
     },
     {
       "county": "Nevada",
@@ -298,8 +297,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 20.7,
       "fair_plan_new_plus_renewed": 16560,
       "fair_plan_share_of_new_plus_renewed_pct": 38.68,
-      "detached_very_high_est": 31911,
-      "fair_plan_pif_all_lines_2025": 23438
+      "detached_very_high_est": 31911
     },
     {
       "county": "Lake",
@@ -313,8 +311,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 16.88,
       "fair_plan_new_plus_renewed": 3364,
       "fair_plan_share_of_new_plus_renewed_pct": 14.47,
-      "detached_very_high_est": 14943,
-      "fair_plan_pif_all_lines_2025": 5739
+      "detached_very_high_est": 14943
     },
     {
       "county": "Calaveras",
@@ -328,8 +325,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 16.74,
       "fair_plan_new_plus_renewed": 8351,
       "fair_plan_share_of_new_plus_renewed_pct": 36.05,
-      "detached_very_high_est": 13447,
-      "fair_plan_pif_all_lines_2025": 10572
+      "detached_very_high_est": 13447
     },
     {
       "county": "Plumas",
@@ -343,8 +339,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 16.74,
       "fair_plan_new_plus_renewed": 1877,
       "fair_plan_share_of_new_plus_renewed_pct": 21.65,
-      "detached_very_high_est": 10353,
-      "fair_plan_pif_all_lines_2025": 3941
+      "detached_very_high_est": 10353
     },
     {
       "county": "Butte",
@@ -358,8 +353,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 15.74,
       "fair_plan_new_plus_renewed": 6214,
       "fair_plan_share_of_new_plus_renewed_pct": 10.87,
-      "detached_very_high_est": 8165,
-      "fair_plan_pif_all_lines_2025": 9392
+      "detached_very_high_est": 8165
     },
     {
       "county": "Shasta",
@@ -373,8 +367,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 15.31,
       "fair_plan_new_plus_renewed": 4201,
       "fair_plan_share_of_new_plus_renewed_pct": 7.0,
-      "detached_very_high_est": 18169,
-      "fair_plan_pif_all_lines_2025": 6505
+      "detached_very_high_est": 18169
     },
     {
       "county": "Amador",
@@ -388,8 +381,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 15.22,
       "fair_plan_new_plus_renewed": 4620,
       "fair_plan_share_of_new_plus_renewed_pct": 30.99,
-      "detached_very_high_est": 9882,
-      "fair_plan_pif_all_lines_2025": 6186
+      "detached_very_high_est": 9882
     },
     {
       "county": "Lassen",
@@ -403,8 +395,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 14.32,
       "fair_plan_new_plus_renewed": 1270,
       "fair_plan_share_of_new_plus_renewed_pct": 12.41,
-      "detached_very_high_est": 2577,
-      "fair_plan_pif_all_lines_2025": 1064
+      "detached_very_high_est": 2577
     },
     {
       "county": "Trinity",
@@ -418,8 +409,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 14.01,
       "fair_plan_new_plus_renewed": 1020,
       "fair_plan_share_of_new_plus_renewed_pct": 22.76,
-      "detached_very_high_est": 2581,
-      "fair_plan_pif_all_lines_2025": 1440
+      "detached_very_high_est": 2581
     }
   ],
   "top_counties_2023_by_fair_plan_share": [
@@ -435,8 +425,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 21.62,
       "fair_plan_new_plus_renewed": 11722,
       "fair_plan_share_of_new_plus_renewed_pct": 48.7,
-      "detached_very_high_est": 14786,
-      "fair_plan_pif_all_lines_2025": 14071
+      "detached_very_high_est": 14786
     },
     {
       "county": "Mariposa",
@@ -450,8 +439,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 11.86,
       "fair_plan_new_plus_renewed": 2471,
       "fair_plan_share_of_new_plus_renewed_pct": 42.11,
-      "detached_very_high_est": 2095,
-      "fair_plan_pif_all_lines_2025": 3404
+      "detached_very_high_est": 2095
     },
     {
       "county": "Nevada",
@@ -465,8 +453,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 20.7,
       "fair_plan_new_plus_renewed": 16560,
       "fair_plan_share_of_new_plus_renewed_pct": 38.68,
-      "detached_very_high_est": 31911,
-      "fair_plan_pif_all_lines_2025": 23438
+      "detached_very_high_est": 31911
     },
     {
       "county": "Calaveras",
@@ -480,8 +467,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 16.74,
       "fair_plan_new_plus_renewed": 8351,
       "fair_plan_share_of_new_plus_renewed_pct": 36.05,
-      "detached_very_high_est": 13447,
-      "fair_plan_pif_all_lines_2025": 10572
+      "detached_very_high_est": 13447
     },
     {
       "county": "Alpine",
@@ -495,8 +481,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 13.7,
       "fair_plan_new_plus_renewed": 231,
       "fair_plan_share_of_new_plus_renewed_pct": 33.43,
-      "detached_very_high_est": null,
-      "fair_plan_pif_all_lines_2025": 392
+      "detached_very_high_est": null
     },
     {
       "county": "Amador",
@@ -510,8 +495,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 15.22,
       "fair_plan_new_plus_renewed": 4620,
       "fair_plan_share_of_new_plus_renewed_pct": 30.99,
-      "detached_very_high_est": 9882,
-      "fair_plan_pif_all_lines_2025": 6186
+      "detached_very_high_est": 9882
     },
     {
       "county": "Sierra",
@@ -525,8 +509,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 13.4,
       "fair_plan_new_plus_renewed": 370,
       "fair_plan_share_of_new_plus_renewed_pct": 25.61,
-      "detached_very_high_est": 1165,
-      "fair_plan_pif_all_lines_2025": 541
+      "detached_very_high_est": 1165
     },
     {
       "county": "El Dorado",
@@ -540,8 +523,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 13.5,
       "fair_plan_new_plus_renewed": 18167,
       "fair_plan_share_of_new_plus_renewed_pct": 25.37,
-      "detached_very_high_est": 36909,
-      "fair_plan_pif_all_lines_2025": 28167
+      "detached_very_high_est": 36909
     },
     {
       "county": "Trinity",
@@ -555,8 +537,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 14.01,
       "fair_plan_new_plus_renewed": 1020,
       "fair_plan_share_of_new_plus_renewed_pct": 22.76,
-      "detached_very_high_est": 2581,
-      "fair_plan_pif_all_lines_2025": 1440
+      "detached_very_high_est": 2581
     },
     {
       "county": "Plumas",
@@ -570,8 +551,7 @@
       "voluntary_nonrenewal_rate_cdi_pct": 16.74,
       "fair_plan_new_plus_renewed": 1877,
       "fair_plan_share_of_new_plus_renewed_pct": 21.65,
-      "detached_very_high_est": 10353,
-      "fair_plan_pif_all_lines_2025": 3941
+      "detached_very_high_est": 10353
     }
   ]
 }
