@@ -31,6 +31,8 @@ Outputs
 """
 import csv, json, os, re, sys, urllib.request
 
+import provenance
+
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(HERE, "data")
 
@@ -167,9 +169,10 @@ DISTRESSED_P50 = [
 
 
 def fetch(url):
-    req = urllib.request.Request(url, headers={"User-Agent": "California-Zone-0-Data/1"})
-    with urllib.request.urlopen(req, timeout=120) as r:
-        return r.read()
+    raw, prov = provenance.fetch(
+        url, headers={"User-Agent": "California-Zone-0-Data/1"}, timeout=120
+    )
+    return raw, prov
 
 
 def pdf_text(raw):
@@ -229,7 +232,9 @@ def add_rows(rows, counties, year):
 
 
 def main():
-    raw = fetch(COUNTY_PDF)
+    json_path = os.path.join(OUT, "cdi_policy_counts_state.json")
+    raw, county_pdf_provenance = fetch(COUNTY_PDF)
+    provenance.check_unchanged(county_pdf_provenance, json_path, ("source", "county_pdf_provenance"))
     rows = parse_county_pdf(pdf_text(raw))
 
     # Pin the published State line and the fact-sheet high-fire rollups.
@@ -343,6 +348,7 @@ def main():
             "county_table_calendar_years": YEARS,
             "fact_sheet_published": "2025-01-13",
             "retrieved": RETRIEVED,
+            "county_pdf_provenance": county_pdf_provenance,
         },
         "what_this_is": (
             "Annual counts of new, renewed, and non-renewed residential "
@@ -401,7 +407,6 @@ def main():
         )[:10],
     }
 
-    json_path = os.path.join(OUT, "cdi_policy_counts_state.json")
     with open(json_path, "w") as f:
         json.dump(state, f, indent=2)
         f.write("\n")
