@@ -157,6 +157,16 @@ PRIVATE_FIELD_NAMES = {
     "workers_compensation", "password", "secret", "api_key", "apikey", "token",
     "ip_address", "home_address", "contact", "contact_name", "contact_email",
     "contact_phone",
+    # Property/contractor/customer/inspector-identifying fields the public-
+    # repo release plan's stop conditions prohibit outright (person,
+    # property, contractor, customer, inspector, address, APN, contact, or
+    # licence-number data) -- see PLANS/FIREWISE_PUBLIC_DATA_REPO_SECURITY_
+    # AND_RELEASE_EXECUTION_PLAN_2026-09-08.md in the owning workspace.
+    "address", "property_address", "site_address", "mailing_address",
+    "apn", "parcel_number", "assessors_parcel_number",
+    "license_number", "licence_number", "contractor_license_number",
+    "customer_name", "customer_address", "owner_name", "property_owner",
+    "inspector_name", "inspector_id",
 }
 
 GENERATED_OUTPUT_ALLOWLIST = {
@@ -351,27 +361,84 @@ def calls_provenance_fetch(tree):
     return False
 
 
+# Fully-qualified names of the stdlib/requests network-fetch entry points
+# this classification cares about. Matched against a call's qualified name
+# after resolving *how it was imported* (see resolve_qualified_call below),
+# so a fresh import alias or a `from ... import ...` spelling of the same
+# underlying function is not a new spelling to add here -- it resolves to
+# the same qualified name this set already lists. Adding a genuinely new
+# network API (not a new way to spell an existing one) still means adding
+# a line here.
+NETWORK_FETCH_QUALNAMES = {
+    "urllib.request.urlopen",
+    "urllib.request.urlretrieve",
+    "requests.get",
+    "requests.post",
+    "requests.put",
+    "requests.delete",
+    "requests.patch",
+    "requests.head",
+    "requests.request",
+    "http.client.HTTPConnection",
+    "http.client.HTTPSConnection",
+}
+
+
+def build_import_aliases(tree):
+    """Map every local name an import binds to its fully-qualified target.
+
+    `import a.b.c` binds the top-level local name `a` to itself (Python
+    resolves `a.b.c.whatever` by attribute lookup at runtime, not by the
+    import statement rewriting the name) -- but `import a.b.c as x` and
+    `from a.b import c [as x]` both bind a local name directly to the
+    qualified path. Resolving both forms here is what lets a single call
+    site below recognize a spelling regardless of which import style or
+    alias introduced it.
+    """
+    aliases = {}
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                if alias.asname:
+                    aliases[alias.asname] = alias.name
+                else:
+                    top = alias.name.split(".")[0]
+                    aliases[top] = top
+        elif isinstance(node, ast.ImportFrom) and node.module:
+            for alias in node.names:
+                local = alias.asname or alias.name
+                aliases[local] = f"{node.module}.{alias.name}"
+    return aliases
+
+
+def resolve_qualified_call(func_node, aliases):
+    """Best-effort fully-qualified dotted name for a Call's `func`, with the
+    leftmost (root) name resolved through `aliases`. Returns None for any
+    call shape that isn't a plain Name/Attribute chain (e.g. the result of
+    another call), which is exactly the case classification cannot see
+    through -- it is not treated as a match.
+    """
+    parts = []
+    node = func_node
+    while isinstance(node, ast.Attribute):
+        parts.append(node.attr)
+        node = node.value
+    if not isinstance(node, ast.Name):
+        return None
+    parts.append(node.id)
+    parts.reverse()
+    resolved_root = aliases.get(parts[0], parts[0])
+    return ".".join([resolved_root] + parts[1:])
+
+
 def calls_network_fetch(tree):
+    aliases = build_import_aliases(tree)
     for node in ast.walk(tree):
         if not isinstance(node, ast.Call):
             continue
-        fn = node.func
-        # bare urlopen(...), from `from urllib.request import urlopen`
-        if isinstance(fn, ast.Name) and fn.id == "urlopen":
+        qualified = resolve_qualified_call(node.func, aliases)
+        if qualified in NETWORK_FETCH_QUALNAMES:
             return True
-        if isinstance(fn, ast.Attribute):
-            # <anything>.urlopen(...) -- urlopen is not an ambiguous method
-            # name the way get/post are, so no base-name check is needed
-            if fn.attr == "urlopen":
-                return True
-            # requests.get(...) / requests.post(...) specifically, so this
-            # does not also match dict.get(...) or similar unrelated calls
-            if fn.attr in ("get", "post") and isinstance(fn.value, ast.Name) and fn.value.id == "requests":
-                return True
-            # http.client.HTTPConnection(...) and siblings
-            if isinstance(fn.value, ast.Attribute) and isinstance(fn.value.value, ast.Name) \
-                    and fn.value.value.id == "http" and fn.value.attr == "client":
-                return True
     return False
 
 
@@ -432,8 +499,9 @@ def check_percent_value(source, where, value, errors):
 
 def check_date_value(source, where, value, errors):
     if not isinstance(value, str):
+        errors.append(f"unparseable-date: {source}{where} = {value!r} (expected an ISO 8601 date string)")
         return
-    if not re.match(r"^\d{4}-\d{2}-\d{2}", value) and not re.search(r"(19|20)\d{2}", value):
+    if not re.match(r"^\d{4}-\d{2}-\d{2}", value):
         errors.append(f"unparseable-date: {source}{where} = {value!r}")
 
 
@@ -444,7 +512,14 @@ def walk_json(source, node, errors, path_hint=""):
             here = f"{path_hint}/{key}"
             if key_l in PRIVATE_FIELD_NAMES:
                 errors.append(f"private-field: {source}{here} is a disallowed private-field name")
-            if PCT_FIELD_RE.search(key_l) and isinstance(value, (int, float)) and not isinstance(value, bool):
+            # A percent field's value is always a scalar; the dict/list
+            # exclusion is not a type-check bypass, it is here because
+            # PCT_FIELD_RE also matches "percentile" (e.g. the real key
+            # counties_at_or_above_50th_percentile_high_fire_risk), whose
+            # value is legitimately a container, not a number. A scalar of
+            # the wrong type (string, bool, ...) still reaches and fails
+            # check_percent_value below.
+            if PCT_FIELD_RE.search(key_l) and not isinstance(value, (dict, list)):
                 check_percent_value(source, here, value, errors)
             if DATE_FIELD_RE.search(key_l):
                 check_date_value(source, here, value, errors)
