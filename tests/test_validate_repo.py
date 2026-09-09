@@ -400,5 +400,59 @@ class ValidatorEndToEndTests(unittest.TestCase):
         result = self.run_validator()
         self.assertPasses(result)
 
+    # -- Luna's PR #5 HOLD, round 2, finding 1: private-field matching was
+    #    plain .lower(), so a camelCase or hyphenated spelling of an
+    #    already-listed field escaped it entirely ------------------------
+    def test_camelcase_and_hyphenated_private_fields_fail(self):
+        self.write(
+            "data/fence_attachment_dins.json",
+            '{"leak": {"licenseNumber": "X", "mailing-address": "1 Main"}}',
+        )
+        result = self.run_validator()
+        combined = result.stdout + result.stderr
+        self.assertFails(result, "private-field")
+        self.assertIn("licenseNumber", combined)
+        self.assertIn("mailing-address", combined)
+
+    # -- round 2, finding 2: the dict/list exclusion added to protect the
+    #    "percentile" key exempted every container under any pct/percent
+    #    key, not just percentile ones -- a genuine percent field with a
+    #    container value must still fail --------------------------------
+    def test_percent_field_with_container_value_fails(self):
+        self.write("data/fence_attachment_dins.json", '{"loss_pct": {"nested": 1}}')
+        result = self.run_validator()
+        self.assertFails(result, "percent-not-numeric")
+
+    # -- round 2, finding 3: the JSON date check only matched a leading
+    #    prefix, so an invalid calendar date or trailing garbage after a
+    #    valid prefix both passed; the CSV path kept its own copy of the
+    #    already-removed loose year-substring fallback -------------------
+    def test_json_invalid_calendar_date_fails(self):
+        self.write("data/population_by_fhsz_state.json", '{"retrieved": "2026-99-99"}')
+        result = self.run_validator()
+        self.assertFails(result, "unparseable-date")
+
+    def test_json_date_with_trailing_garbage_fails(self):
+        self.write("data/population_by_fhsz_state.json", '{"retrieved": "2026-01-01garbage"}')
+        result = self.run_validator()
+        self.assertFails(result, "unparseable-date")
+
+    def test_csv_date_like_string_that_is_not_a_real_date_fails(self):
+        self.write("data/point_checks.csv", "county,date_submitted\nAlameda,not-a-date-2026\n")
+        result = self.run_validator()
+        self.assertFails(result, "unparseable-date")
+
+    def test_csv_and_json_valid_iso_datetime_still_passes(self):
+        # Compatibility guard: the real "retrieved" values in this repo
+        # include a bare date and a full "...T...Z" timestamp -- both must
+        # keep passing under the stricter parser.
+        self.write(
+            "data/population_by_fhsz_state.json",
+            '{"retrieved": "2026-08-14", "nested": {"retrieved": "2026-09-08T22:14:30Z"}}',
+        )
+        self.write("data/point_checks.csv", "county,date_submitted\nAlameda,2026-08-14\n")
+        result = self.run_validator()
+        self.assertPasses(result)
+
 if __name__ == "__main__":
     unittest.main()

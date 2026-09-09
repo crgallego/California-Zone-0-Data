@@ -80,6 +80,7 @@ not a privacy finding.
 """
 import ast
 import csv
+import datetime
 import json
 import re
 import subprocess
@@ -169,6 +170,24 @@ PRIVATE_FIELD_NAMES = {
     "inspector_name", "inspector_id",
 }
 
+
+def normalize_field_name(key):
+    """Fold a JSON key or CSV header to one canonical lowercase snake_case
+    form, so a policy spelled once in PRIVATE_FIELD_NAMES also catches
+    camelCase, hyphenated, space-separated, or otherwise differently-
+    punctuated spellings of the same field. Plain `.lower()` is a denylist
+    of exactly one separator style -- the same fail-closed problem this
+    file already solved for network-fetch call spellings via import-alias
+    resolution, here applied to field names instead of call sites: a
+    reviewed name gets matched by its meaning, not by whether the author
+    happened to write it with underscores.
+    """
+    s = str(key)
+    s = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", "_", s)
+    s = re.sub(r"[^0-9a-zA-Z]+", "_", s)
+    return s.strip("_").lower()
+
+
 GENERATED_OUTPUT_ALLOWLIST = {
     "data/cdi_policy_counts_by_county.csv",
     "data/cdi_policy_counts_state.json",
@@ -186,6 +205,14 @@ GENERATED_OUTPUT_ALLOWLIST = {
 }
 
 PCT_FIELD_RE = re.compile(r"(pct|percent)", re.IGNORECASE)
+# "percentile" contains "percent" as a substring but names a rank/threshold,
+# not a percentage value (e.g. counties_at_or_above_50th_percentile_...,
+# whose value is legitimately a container). Checked separately from
+# PCT_FIELD_RE so the distinction is by what the key actually means, not by
+# what type the value happens to be -- a genuine pct/percent field must
+# still fail on a container value, it just can't be told apart from a
+# percentile field by shape alone.
+PERCENTILE_FIELD_RE = re.compile(r"percentile", re.IGNORECASE)
 DATE_FIELD_RE = re.compile(r"(retrieved|_date$|^date_|submitted)", re.IGNORECASE)
 PCT_MAX = 100.5
 
@@ -498,30 +525,47 @@ def check_percent_value(source, where, value, errors):
 
 
 def check_date_value(source, where, value, errors):
+    """Genuinely parse `value` as an ISO 8601 date or date+time, not just
+    match a leading prefix -- `re.match(r"^\\d{4}-\\d{2}-\\d{2}")` accepts
+    an invalid calendar date like "2026-99-99" (the digits are the right
+    shape, the date is not real) and any garbage appended after a valid
+    prefix like "2026-01-01garbage" (the regex never anchors the end).
+    Delegating to datetime.date/datetime.fromisoformat validates both the
+    calendar and the full string in one place shared by every caller (JSON
+    and CSV alike), instead of each call site re-implementing its own
+    date-shaped regex and re-discovering the same gaps independently.
+    """
     if not isinstance(value, str):
         errors.append(f"unparseable-date: {source}{where} = {value!r} (expected an ISO 8601 date string)")
         return
-    if not re.match(r"^\d{4}-\d{2}-\d{2}", value):
+    candidate = value[:-1] + "+00:00" if value.endswith("Z") else value
+    try:
+        if "T" in candidate:
+            datetime.datetime.fromisoformat(candidate)
+        else:
+            datetime.date.fromisoformat(candidate)
+    except ValueError:
         errors.append(f"unparseable-date: {source}{where} = {value!r}")
+
+
+def is_percent_field(key_norm):
+    return bool(PCT_FIELD_RE.search(key_norm)) and not PERCENTILE_FIELD_RE.search(key_norm)
 
 
 def walk_json(source, node, errors, path_hint=""):
     if isinstance(node, dict):
         for key, value in node.items():
-            key_l = str(key).lower()
+            key_norm = normalize_field_name(key)
             here = f"{path_hint}/{key}"
-            if key_l in PRIVATE_FIELD_NAMES:
+            if key_norm in PRIVATE_FIELD_NAMES:
                 errors.append(f"private-field: {source}{here} is a disallowed private-field name")
-            # A percent field's value is always a scalar; the dict/list
-            # exclusion is not a type-check bypass, it is here because
-            # PCT_FIELD_RE also matches "percentile" (e.g. the real key
-            # counties_at_or_above_50th_percentile_high_fire_risk), whose
-            # value is legitimately a container, not a number. A scalar of
-            # the wrong type (string, bool, ...) still reaches and fails
-            # check_percent_value below.
-            if PCT_FIELD_RE.search(key_l) and not isinstance(value, (dict, list)):
+            # is_percent_field excludes "percentile" keys by what the key
+            # means (a rank, not a percentage), not by the value's type --
+            # a genuine pct/percent field must still fail on a container
+            # value, so no dict/list exclusion happens here.
+            if is_percent_field(key_norm):
                 check_percent_value(source, here, value, errors)
-            if DATE_FIELD_RE.search(key_l):
+            if DATE_FIELD_RE.search(key_norm):
                 check_date_value(source, here, value, errors)
             walk_json(source, value, errors, here)
     elif isinstance(node, list):
@@ -563,13 +607,13 @@ def check_csv_files(files, errors):
             if len(row) != width:
                 errors.append(f"ragged-row: {f}:{lineno} has {len(row)} fields, header has {width}")
 
-        header_l = [h.strip().lower() for h in header]
-        for h in header_l:
+        header_norm = [normalize_field_name(h) for h in header]
+        for h in header_norm:
             if h in PRIVATE_FIELD_NAMES:
                 errors.append(f"private-field: {f} header {h!r} is a disallowed private-field name")
 
-        for col_idx, col_name in enumerate(header_l):
-            is_pct = bool(PCT_FIELD_RE.search(col_name))
+        for col_idx, col_name in enumerate(header_norm):
+            is_pct = is_percent_field(col_name)
             is_date = bool(DATE_FIELD_RE.search(col_name))
             if not (is_pct or is_date):
                 continue
@@ -588,8 +632,9 @@ def check_csv_files(files, errors):
                         if v < 0 or v > PCT_MAX:
                             errors.append(f"percent-out-of-range: {f}:{lineno} {col_name}={raw!r}")
                 if is_date:
-                    if not re.match(r"^\d{4}-\d{2}-\d{2}", raw) and not re.search(r"(19|20)\d{2}", raw):
-                        errors.append(f"unparseable-date: {f}:{lineno} {col_name}={raw!r}")
+                    # Same strict ISO parser the JSON path uses -- no
+                    # second, independently-drifting date-shaped regex.
+                    check_date_value(f, f":{lineno} {col_name}", raw, errors)
 
 
 def check_generated_output_allowlist(files, errors):
