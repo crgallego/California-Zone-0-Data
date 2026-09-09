@@ -4,9 +4,10 @@ One row per published dataset or dataset group under `data/` -- not
 literally one row per file. `data/LICENSE` (the CC BY 4.0 grant text) and
 this file itself are governance documents, not published datasets: they
 describe the table below and are deliberately not rows in it.
-This table is what `data/LICENSE` and the root `LICENSE` point to for what is
-actually being licensed and what is not. See `LICENSE` for what Firewise's
-own CC BY 4.0 grant covers, and why it does not extend to third-party facts.
+This table is what `README.md` and the closing scope note in `data/LICENSE`
+point to for what is actually being licensed and what is not. See
+`data/LICENSE` for what Firewise's own CC BY 4.0 grant covers, and why it
+does not extend to third-party facts.
 
 | File(s) | Publisher | Public agency or private body | Source | Vintage / retrieved | Rights basis |
 |---|---|---|---|---|---|
