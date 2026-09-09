@@ -23,14 +23,21 @@ CAL FIRE FHSZ and DINS data carry their own Creative Commons Attribution
 obligation from the originating agency; CDI publishes public regulatory
 records. None of that was stated anywhere.
 
-**Added:** `data/SOURCES.md`, one row per file under `data/`, naming the
-publisher, whether it is a public agency or a private body, the source
-URL, the vintage, and the specific rights basis for republishing it here.
-CAL FIRE DINS and the FHSZ layers are named as Creative Commons Attribution
-specifically (verified directly against `data.ca.gov` and a Data Basin
-mirror), not folded into a generic "public agency" label, since CC BY
-carries a live attribution obligation that a bare public-record citation
-does not.
+**Added:** `data/SOURCES.md`, one row per published dataset or dataset
+group under `data/` -- `data/LICENSE` and `data/SOURCES.md` itself are
+governance documents, not datasets, and are not rows in the table --
+naming the publisher, whether it is a public agency or a private body,
+the source URL, the vintage, and the specific rights basis for
+republishing it here. CAL FIRE DINS is named as Creative Commons
+Attribution specifically, verified directly against `data.ca.gov`. The
+FHSZ layers are likewise named Creative Commons Attribution, verified
+against California's official open-data catalogue listing for the Fire
+Hazard Severity Zone Viewer, which does not specify a numbered CC BY
+version; a Data Basin mirror is cited only as corroboration, not as the
+originating agency's own publication. Naming the specific licence,
+rather than folding it into a generic "public agency" label, matters
+because CC BY carries a live attribution obligation that a bare
+public-record citation does not.
 
 **Not in this change:** a validator check enforcing that every file under
 `data/` has a matching `SOURCES.md` row is planned but not added here --
