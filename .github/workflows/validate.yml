@@ -1,0 +1,56 @@
+name: validate
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: repository-wide validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run validator regression tests
+        run: python3 -m unittest tests/test_validate_repo.py -v
+
+      - name: Run repository validator (twice, to prove determinism)
+        run: |
+          # bash runs this step with -e; a bare non-zero exit from the
+          # validator would otherwise abort the script before status1/status2
+          # are captured and before either run's output is printed, so the
+          # gate would fail with an empty log. set +e around just the two
+          # runs so both always print and both exit codes are captured.
+          set +e
+          python3 scripts/validate_repo.py > /tmp/validate-run-1.txt 2>&1
+          status1=$?
+          python3 scripts/validate_repo.py > /tmp/validate-run-2.txt 2>&1
+          status2=$?
+          set -e
+
+          echo "--- run 1 (exit $status1) ---"
+          cat /tmp/validate-run-1.txt
+          echo "--- run 2 (exit $status2) ---"
+          cat /tmp/validate-run-2.txt
+
+          if ! diff -u /tmp/validate-run-1.txt /tmp/validate-run-2.txt; then
+            echo "::error::validator output is not deterministic between two runs on the same tree"
+            exit 1
+          fi
+          if [ "$status1" -ne 0 ] || [ "$status2" -ne 0 ]; then
+            exit 1
+          fi
