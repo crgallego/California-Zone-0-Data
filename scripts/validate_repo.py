@@ -225,6 +225,19 @@ GENERATED_OUTPUT_ALLOWLIST = {
     "data/zone0_combustible_fence_estimate.json",
 }
 
+# Governance/documentation files under data/ -- a licence grant and a rights
+# table, not something any script produces. Deliberately a separate set from
+# GENERATED_OUTPUT_ALLOWLIST rather than folded into it: admitting a file
+# here is "this is a reviewed, hand-authored document," not "this is an
+# approved shape of script output," and the two questions should not be
+# answerable by the same membership check. A file lands here only by a
+# reviewed addition to this literal, exactly like GENERATED_OUTPUT_ALLOWLIST
+# -- an arbitrary new file under data/ still fails either way.
+DATA_GOVERNANCE_FILES = {
+    "data/LICENSE",
+    "data/SOURCES.md",
+}
+
 PCT_FIELD_RE = re.compile(r"(pct|percent)", re.IGNORECASE)
 # "percentile" contains "percent" as a substring but names a rank/threshold,
 # not a percentage value (e.g. counties_at_or_above_50th_percentile_...,
@@ -660,7 +673,7 @@ def check_csv_files(files, errors):
 
 def check_generated_output_allowlist(files, errors):
     for f in files:
-        if f.startswith("data/") and f not in GENERATED_OUTPUT_ALLOWLIST:
+        if f.startswith("data/") and f not in GENERATED_OUTPUT_ALLOWLIST and f not in DATA_GOVERNANCE_FILES:
             errors.append(f"generated-output-not-allowlisted: {f} is under data/ but not on the approved output allowlist")
 
 
