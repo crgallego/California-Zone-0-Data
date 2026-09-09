@@ -1,0 +1,154 @@
+{
+  "what_this_is": "Parcel year-built and attached-fence material on surviving single-family structures in CAL FIRE DINS. Same survival filter as fence_attachment_dins.json. Year 0, null, and years outside 1800-2026 are treated as undetermined.",
+  "source": {
+    "dataset": "CAL FIRE Damage Inspection (DINS) Data",
+    "layer": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/POSTFIRE_MASTER_DATA_SHARE/FeatureServer/0",
+    "fields": [
+      "YEARBUILT",
+      "FENCEATTACHEDTOSTRUCTURE"
+    ],
+    "retrieved": "2026-08-14"
+  },
+  "sample": {
+    "filter": "DAMAGE = 'No Damage' AND STRUCTURETYPE LIKE 'Single Family Residence%'",
+    "structures": 32269,
+    "year_determined": 23023,
+    "year_undetermined": 9246,
+    "pct_year_determined": 71.35
+  },
+  "cuts": {
+    "pre_2008": {
+      "structures": 21665,
+      "pct_of_year_determined": 94.1,
+      "fence": {
+        "structures_determined": 14525,
+        "fence_attached": 9734,
+        "attached_combustible": 5025,
+        "attached_non_combustible": 4709,
+        "no_fence": 4791,
+        "pct_fence_attached": 67.02,
+        "pct_of_attached_combustible": 51.62,
+        "pct_combustible_fence_attached": 34.6
+      }
+    },
+    "2008_or_later": {
+      "structures": 1358,
+      "pct_of_year_determined": 5.9,
+      "fence": {
+        "structures_determined": 992,
+        "fence_attached": 728,
+        "attached_combustible": 183,
+        "attached_non_combustible": 545,
+        "no_fence": 264,
+        "pct_fence_attached": 73.39,
+        "pct_of_attached_combustible": 25.14,
+        "pct_combustible_fence_attached": 18.45
+      }
+    },
+    "pre_2010": {
+      "structures": 22015,
+      "pct_of_year_determined": 95.62
+    }
+  },
+  "by_era": {
+    "pre_2000": {
+      "(blank)": 1983,
+      "Combustible": 4773,
+      "No Fence": 4298,
+      "Non Combustible": 4271,
+      "Unknown": 4259,
+      "n": 19584,
+      "rates": {
+        "structures_determined": 13342,
+        "fence_attached": 9044,
+        "attached_combustible": 4773,
+        "attached_non_combustible": 4271,
+        "no_fence": 4298,
+        "pct_fence_attached": 67.79,
+        "pct_of_attached_combustible": 52.78,
+        "pct_combustible_fence_attached": 35.77
+      }
+    },
+    "2000_to_2007": {
+      "(blank)": 442,
+      "Combustible": 252,
+      "No Fence": 493,
+      "Non Combustible": 438,
+      "Unknown": 456,
+      "n": 2081,
+      "rates": {
+        "structures_determined": 1183,
+        "fence_attached": 690,
+        "attached_combustible": 252,
+        "attached_non_combustible": 438,
+        "no_fence": 493,
+        "pct_fence_attached": 58.33,
+        "pct_of_attached_combustible": 36.52,
+        "pct_combustible_fence_attached": 21.3
+      }
+    },
+    "2008_to_2009": {
+      "(blank)": 75,
+      "Combustible": 34,
+      "No Fence": 92,
+      "Non Combustible": 79,
+      "Unknown": 70,
+      "n": 350,
+      "rates": {
+        "structures_determined": 205,
+        "fence_attached": 113,
+        "attached_combustible": 34,
+        "attached_non_combustible": 79,
+        "no_fence": 92,
+        "pct_fence_attached": 55.12,
+        "pct_of_attached_combustible": 30.09,
+        "pct_combustible_fence_attached": 16.59
+      }
+    },
+    "2010_to_2019": {
+      "(blank)": 114,
+      "Combustible": 138,
+      "No Fence": 152,
+      "Non Combustible": 458,
+      "Unknown": 107,
+      "n": 969,
+      "rates": {
+        "structures_determined": 748,
+        "fence_attached": 596,
+        "attached_combustible": 138,
+        "attached_non_combustible": 458,
+        "no_fence": 152,
+        "pct_fence_attached": 79.68,
+        "pct_of_attached_combustible": 23.15,
+        "pct_combustible_fence_attached": 18.45
+      }
+    },
+    "2020_or_later": {
+      "Combustible": 11,
+      "No Fence": 20,
+      "Non Combustible": 8,
+      "n": 39,
+      "rates": {
+        "structures_determined": 39,
+        "fence_attached": 19,
+        "attached_combustible": 11,
+        "attached_non_combustible": 8,
+        "no_fence": 20,
+        "pct_fence_attached": 48.72,
+        "pct_of_attached_combustible": 57.89,
+        "pct_combustible_fence_attached": 28.21
+      }
+    }
+  },
+  "overall_year_determined": {
+    "structures_determined": 15517,
+    "fence_attached": 10462,
+    "attached_combustible": 5208,
+    "attached_non_combustible": 5254,
+    "no_fence": 5055,
+    "pct_fence_attached": 67.42,
+    "pct_of_attached_combustible": 49.78,
+    "pct_combustible_fence_attached": 33.56
+  },
+  "what_this_is_not": "Not a census of California housing. DINS is a wildfire-exposed sample. YEARBUILT is a parcel field, not an inspector observation of the fence. A post-2008 house with a combustible fence is legal under Chapter 7A; this table does not say otherwise."
+}

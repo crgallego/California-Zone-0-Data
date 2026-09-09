@@ -222,6 +222,9 @@ GENERATED_OUTPUT_ALLOWLIST = {
     "data/point_checks.csv",
     "data/population_by_fhsz_county.csv",
     "data/population_by_fhsz_state.json",
+    "data/year_built_by_fhsz_county.csv",
+    "data/year_built_by_fhsz_state.json",
+    "data/year_built_dins.json",
     "data/zone0_combustible_fence_estimate.json",
 }
 
@@ -401,6 +404,15 @@ SCRIPT_FETCH_CLASSIFICATION = {
     },
     "scripts/build_housing_by_fhsz.py": {"status": "non-fetching"},
     "scripts/build_population_by_fhsz.py": {"status": "non-fetching"},
+    "scripts/build_year_built.py": {
+        "status": "exempt",
+        "reason": (
+            "2026-09-09: combines private/local ACS and Census inputs with "
+            "many small aggregate queries against the CAL FIRE DINS feature "
+            "service; a single provenance envelope is not yet designed for "
+            "this mixed-input build."
+        ),
+    },
 }
 
 
