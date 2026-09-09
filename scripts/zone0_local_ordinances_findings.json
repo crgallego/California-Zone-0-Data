@@ -1,0 +1,24 @@
+{
+  "malibu": {
+    "status": "adopted",
+    "authority": "Malibu Municipal Code Ch. 17.53 (Fire-Resistant Landscaping); Ordinance No. 361",
+    "adopted_date": "2020-03-23",
+    "effective_date": "2020-08-12",
+    "scope": "citywide; five-foot ember-resistant zone around structures",
+    "fences_named": true,
+    "note": "Hedges and flammable fences/walls prohibited within five feet of a building; effective date is the California Coastal Commission's LCP certification date, since Malibu's fire rules are also Local Coastal Program amendments. A further restriction on attached combustible fences/gates within five feet of a structure took effect 2024-01-01 per the city's own posting; not yet confirmed against a specific ordinance number.",
+    "source_url": "https://www.malibucity.org/1035/Fire-Resistant-Landscaping",
+    "retrieved": "2026-09-07"
+  },
+  "rancho-cucamonga": {
+    "status": "no_known_ordinance",
+    "authority": "Rancho Cucamonga Municipal Code Ch. 17.48 (Fences, Walls, and Screening) -- general zoning only, no fire-hazard or combustibility provisions found",
+    "adopted_date": "",
+    "effective_date": "",
+    "scope": "",
+    "fences_named": false,
+    "note": "The Fire Protection District's Ordinance No. FD60 (adopted 2025-11-19) designates Fire Hazard Severity Zones and a Wildland-Urban Interface Fire Area and requires vegetation management, but the city's general fence/wall chapter (17.48) has no fire-hazard or fence-material provisions distinguishing it from any other California city. Re-check once Zone 0 has an effective date.",
+    "source_url": "https://ecode360.com/43292959",
+    "retrieved": "2026-09-07"
+  }
+}
