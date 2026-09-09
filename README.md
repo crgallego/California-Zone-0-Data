@@ -130,6 +130,48 @@ is still attached at 18.5% of the post-2008 sample, against 34.6% of the
 older one. The newer cell is 992 determined-fence structures. Do not
 generalise it into "new houses don't have wood fences."
 
+`data/compliance_forcing_functions.json` — the rules that are already in force,
+quoted verbatim with their subdivisions. Not a measurement; a citation file.
+
+The binding insurance regulation names the product. 10 CCR 2644.9 forbids an
+admitted insurer from using a rating plan that does not reflect its mandatory
+mitigation factors, and one of those factors is *"Incorporation of only
+noncombustible materials into that portion of any improvements to the property
+on which the Building Being Evaluated is located, **including fences and
+gates**, which is situated within five (5) feet of the Building Being
+Evaluated."* The same insurer must hand the policyholder their wildfire risk
+score in writing, re-score within 30 days of a completed mitigation, and hear an
+appeal. CDI's own FAQ: *"Your insurance company must give you a detailed
+explanation for the score including how you can lower that score and how much
+you could save."*
+
+Point of sale is a dated deadline that already exists. Civil Code 1102.19, in
+force since 2021-07-01, requires a seller in a high or very high zone to hand
+the buyer documentation of defensible-space compliance, or sign an agreement
+putting the buyer on a one-year clock. **1,577,667 housing units — 1,166,961
+of them detached — stand inside that trigger** (SRA High and Very High, plus
+LRA Very High). Whether it also reaches LRA High, a designation that did not
+exist before the 2025 maps and covers another 458,014 units, is an open legal
+question and is recorded as open. Publish 1,577,667, not 2,035,681.
+
+Civil Code 841 presumes the neighbor owes half. For a fence dividing two
+properties, adjoining owners are *"presumed to be equally responsible for the
+reasonable costs of construction, maintenance, or necessary replacement,"
+after 30 days' written notice. The presumption is rebuttable, and it does not
+reach a run that sits wholly on one owner's land — which is what an attached
+fence often is.
+
+`data/fire_risk_reduction_communities_2026.csv` — the Board of Forestry's 2026
+Fire Risk Reduction Community List: **119 agencies**, 42 cities, 12 counties,
+65 districts and departments, adopted by Resolution No. 2026-01 effective
+2026-07-01. Being on it is one way a property earns the community-level credit
+under 2644.9.
+
+It is not a list of jurisdictions with a Zone 0 ordinance or a fence rule, and
+it should never be described as one. FAIR Plan Association material is not
+reproduced here because the public source's redistribution terms were not
+cleared; the repository's rights gate excludes that unresolved source.
+
 `data/fhsz_by_community.csv` — Fire Hazard Severity Zone composition for 40
 California communities. For each community it gives, per responsibility area and
 per tier, the land area in square miles and the share of the municipal boundary
@@ -168,6 +210,9 @@ sub-areas. Point checks describe one coordinate, not a community.
 | [Table B25034, year structure built](https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25034.dat) | US Census Bureau | ACS 2020–2024 5-year |
 | [`POSTFIRE_MASTER_DATA_SHARE`](https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/POSTFIRE_MASTER_DATA_SHARE/FeatureServer/0) ([landing page](https://data.ca.gov/dataset/cal-fire-damage-inspection-dins-data)) | CAL FIRE | Damage Inspection (DINS), 2013–present |
 | [Wildfire and insurance data](https://www.insurance.ca.gov/01-consumers/200-wrr/DataAnalysisOnWildfiresAndInsurance.cfm) | California Department of Insurance | County policy counts 2020–2023; fact sheet published 2025-01-13 |
+| [10 CCR 2644.9, Safer from Wildfires](https://www.insurance.ca.gov/01-consumers/200-wrr/Safer-from-Wildfires.cfm) | California Department of Insurance | Regulation text and April 2023 consumer FAQ |
+| [Fire Risk Reduction Community List](https://bof.fire.ca.gov/projects-and-programs/fire-risk-reduction-community-list) | Board of Forestry and Fire Protection | 2026 list, Resolution No. 2026-01, effective 2026-07-01 |
+| [Civil Code 1102.19](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1102.19.) and [Civil Code 841](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=841) | California Legislative Counsel | Operative 2021-07-01 and 2014-01-01 |
 | [August 2026 Zone 0 regulation summary and rule plead](https://34c031f8-c9fd-4018-8c5a-4159cdff6b0d-cdn-endpoint.azureedge.net/-/media/bof-website/board-meeting-information/monthly-board-binder-materials/archive/2026-monthly-board-binder-materials-workshop-archives/august-2026/full/full-8a-zone-0-regulation-summary--rule-plead-august-2026.pdf?rev=61084bcd20c94b9e9ece954da2c656f1&hash=6995E1441E12F3A819EE0167DD33306C) | California Board of Forestry and Fire Protection | August 19, 2026 final draft as posted in meeting materials |
 
 Retrieved 2026-08-14.
@@ -207,6 +252,10 @@ python scripts/build_cdi_policy_counts.py
 # year built: ACS B25034 on the same block-group assignments, plus DINS YEARBUILT
 curl -O https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25034.dat
 python scripts/build_year_built.py
+
+# rules already in force: the community list
+pip install pypdf
+python scripts/build_frrc_list.py
 ```
 
 The FHSZ script queries the three services above directly. It has no private inputs,

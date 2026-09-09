@@ -212,11 +212,13 @@ PRIVATE_FIELD_NAMES = {normalize_field_name(name) for name in _PRIVATE_FIELD_NAM
 GENERATED_OUTPUT_ALLOWLIST = {
     "data/cdi_policy_counts_by_county.csv",
     "data/cdi_policy_counts_state.json",
+    "data/compliance_forcing_functions.json",
     "data/fence_attachment_by_county.csv",
     "data/fence_attachment_dins.json",
     "data/fence_ignition_dins.json",
     "data/fhsz_by_community.csv",
     "data/fhsz_by_community.json",
+    "data/fire_risk_reduction_communities_2026.csv",
     "data/housing_by_fhsz_county.csv",
     "data/housing_by_fhsz_state.json",
     "data/point_checks.csv",
@@ -404,6 +406,14 @@ SCRIPT_FETCH_CLASSIFICATION = {
     },
     "scripts/build_housing_by_fhsz.py": {"status": "non-fetching"},
     "scripts/build_population_by_fhsz.py": {"status": "non-fetching"},
+    "scripts/build_frrc_list.py": {
+        "status": "exempt",
+        "reason": (
+            "2026-09-09: downloads and parses the Board of Forestry PDF into "
+            "an aggregate agency list; the PDF bytes are held outside the "
+            "clone and the output has no single provenance envelope yet."
+        ),
+    },
     "scripts/build_year_built.py": {
         "status": "exempt",
         "reason": (
