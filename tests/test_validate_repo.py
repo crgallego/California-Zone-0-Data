@@ -314,5 +314,91 @@ class ValidatorEndToEndTests(unittest.TestCase):
         self.assertFails(result, "forbidden-path")
         self.assertIn("test_c13_other.py", result.stdout + result.stderr)
 
+    # -- Luna's PR #5 HOLD, finding 1: network-fetch classification only
+    #    recognized urlopen/requests.get,post/http.client -- a classified
+    #    non-fetching script could still fetch via urllib.request.urlretrieve
+    #    (or any alias/import form of an already-listed call) without
+    #    tripping the liar-catcher --------------------------------------
+    def test_classified_non_fetching_script_using_urlretrieve_is_a_lie(self):
+        self.write(
+            "scripts/build_retrieve_fetch.py",
+            "import urllib.request\n"
+            "def go():\n"
+            "    urllib.request.urlretrieve('https://example.com', '/tmp/x')\n",
+        )
+        self.edit_validator_source(
+            'SCRIPT_FETCH_CLASSIFICATION = {',
+            'SCRIPT_FETCH_CLASSIFICATION = {\n'
+            '    "scripts/build_retrieve_fetch.py": {"status": "non-fetching"},',
+        )
+        result = self.run_validator()
+        self.assertFails(result, "classification-lie")
+        self.assertIn("build_retrieve_fetch.py", result.stdout + result.stderr)
+
+    def test_classified_non_fetching_script_using_aliased_urlretrieve_import_is_a_lie(self):
+        # `from urllib.request import urlretrieve as get_file` -- a fresh
+        # alias of an already-recognized call, not a new spelling that
+        # needed its own denylist entry.
+        self.write(
+            "scripts/build_aliased_retrieve.py",
+            "from urllib.request import urlretrieve as get_file\n"
+            "def go():\n"
+            "    get_file('https://example.com', '/tmp/x')\n",
+        )
+        self.edit_validator_source(
+            'SCRIPT_FETCH_CLASSIFICATION = {',
+            'SCRIPT_FETCH_CLASSIFICATION = {\n'
+            '    "scripts/build_aliased_retrieve.py": {"status": "non-fetching"},',
+        )
+        result = self.run_validator()
+        self.assertFails(result, "classification-lie")
+        self.assertIn("build_aliased_retrieve.py", result.stdout + result.stderr)
+
+    # -- Luna's PR #5 HOLD, finding 2: the private-field-name denylist did
+    #    not include address/apn/license_number, so an allowlisted JSON
+    #    output could carry property/contractor-identifying fields --------
+    def test_property_and_licence_identifying_json_fields_fail(self):
+        self.write(
+            "data/fence_attachment_dins.json",
+            '{"nested": {"address": "1 Main St", "apn": "123-45-678", '
+            '"license_number": "C13-0000001"}}',
+        )
+        result = self.run_validator()
+        combined = result.stdout + result.stderr
+        self.assertFails(result, "private-field")
+        self.assertIn("address", combined)
+        self.assertIn("apn", combined)
+        self.assertIn("license_number", combined)
+
+    # -- Luna's PR #5 HOLD, finding 3: JSON percent/date checks only ran
+    #    when the value was already the right type, so a wrong-typed value
+    #    silently skipped the check instead of failing it -----------------
+    def test_json_non_numeric_percent_value_fails(self):
+        self.write("data/population_by_fhsz_state.json", '{"pct_value": "not-a-number"}')
+        result = self.run_validator()
+        self.assertFails(result, "percent-not-numeric")
+
+    def test_json_date_like_string_that_is_not_a_real_date_fails(self):
+        self.write("data/population_by_fhsz_state.json", '{"retrieved": "not-a-date-2026"}')
+        result = self.run_validator()
+        self.assertFails(result, "unparseable-date")
+
+    def test_json_numeric_date_field_fails(self):
+        self.write("data/population_by_fhsz_state.json", '{"date_submitted": 20260909}')
+        result = self.run_validator()
+        self.assertFails(result, "unparseable-date")
+
+    # -- guard against the fix to finding 3 introducing a new false
+    #    failure: PCT_FIELD_RE also matches "percentile", and the real CDI
+    #    output has a percentile-named key whose value is a nested object,
+    #    not a scalar -- that must still pass -----------------------------
+    def test_percentile_named_object_field_is_not_treated_as_a_percent_value(self):
+        self.write(
+            "data/cdi_policy_counts_state.json",
+            '{"counties_at_or_above_50th_percentile_high_fire_risk": {"Los Angeles": true}}',
+        )
+        result = self.run_validator()
+        self.assertPasses(result)
+
 if __name__ == "__main__":
     unittest.main()
