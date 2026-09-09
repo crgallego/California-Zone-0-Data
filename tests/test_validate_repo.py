@@ -26,6 +26,7 @@ Runs with the validator: ``python3 -m unittest tests/test_validate_repo.py``.
 Stdlib only, no network access (subprocess and git are local-only).
 """
 import ast
+import importlib.util
 import shutil
 import subprocess
 import sys
@@ -34,6 +35,36 @@ import unittest
 from pathlib import Path
 
 REAL_SCRIPTS_DIR = Path(__file__).resolve().parent.parent / "scripts"
+
+
+def _load_validator_module():
+    spec = importlib.util.spec_from_file_location(
+        "validate_repo_under_test", REAL_SCRIPTS_DIR / "validate_repo.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+class PrivateFieldPolicyInvariantTests(unittest.TestCase):
+    """Static invariant, not a fixture run: every raw spelling declared in
+    _PRIVATE_FIELD_NAMES_RAW must canonicalize into the actually-enforced
+    PRIVATE_FIELD_NAMES set. This is what would catch a future regression
+    where PRIVATE_FIELD_NAMES gets hand-edited back into its own separate
+    literal and silently drifts out of sync with normalize_field_name --
+    exactly the shape of bug Luna's HOLD found in "e-mail".
+    """
+
+    def test_every_raw_private_field_name_canonicalizes_into_the_enforced_set(self):
+        module = _load_validator_module()
+        for raw in module._PRIVATE_FIELD_NAMES_RAW:
+            normalized = module.normalize_field_name(raw)
+            self.assertIn(
+                normalized, module.PRIVATE_FIELD_NAMES,
+                f"{raw!r} normalizes to {normalized!r}, which is not in "
+                "PRIVATE_FIELD_NAMES -- the enforced set has drifted from "
+                "its declared raw spellings",
+            )
 
 
 class ValidatorWiringTests(unittest.TestCase):
@@ -413,6 +444,21 @@ class ValidatorEndToEndTests(unittest.TestCase):
         self.assertFails(result, "private-field")
         self.assertIn("licenseNumber", combined)
         self.assertIn("mailing-address", combined)
+
+    # -- Luna's PR #5 HOLD, round 3: the normalizer folded observed keys to
+    #    canonical form, but PRIVATE_FIELD_NAMES itself still held the raw,
+    #    unnormalized "e-mail" spelling, so the lookup missed it; the same
+    #    acronym-boundary gap let "IPAddress" normalize to "ipaddress"
+    #    instead of "ip_address" and bypass that existing policy entry ----
+    def test_hyphenated_email_spelling_fails(self):
+        self.write("data/fence_attachment_dins.json", '{"e-mail": "x@example.com"}')
+        result = self.run_validator()
+        self.assertFails(result, "private-field")
+
+    def test_acronym_camelcase_ip_address_fails(self):
+        self.write("data/fence_attachment_dins.json", '{"IPAddress": "10.0.0.1"}')
+        result = self.run_validator()
+        self.assertFails(result, "private-field")
 
     # -- round 2, finding 2: the dict/list exclusion added to protect the
     #    "percentile" key exempted every container under any pct/percent

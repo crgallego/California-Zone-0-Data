@@ -152,7 +152,44 @@ DENIED_EXTENSION_EXPLANATIONS = {
     ".parquet": "database-like binary",
 }
 
-PRIVATE_FIELD_NAMES = {
+def normalize_field_name(key):
+    """Fold a JSON key or CSV header to one canonical lowercase snake_case
+    form, so a policy spelled once in PRIVATE_FIELD_NAMES also catches
+    camelCase, hyphenated, space-separated, or otherwise differently-
+    punctuated spellings of the same field. Plain `.lower()` is a denylist
+    of exactly one separator style -- the same fail-closed problem this
+    file already solved for network-fetch call spellings via import-alias
+    resolution, here applied to field names instead of call sites: a
+    reviewed name gets matched by its meaning, not by whether the author
+    happened to write it with underscores.
+
+    Two substitutions, in order, because one alone misses acronyms:
+    the first splits an ordinary camelCase boundary (lowercase/digit
+    followed by uppercase, e.g. "license[N]umber"); the second splits an
+    acronym boundary (uppercase followed by an uppercase-then-lowercase
+    run, e.g. "IP[A]ddress" -> "IP_Address") that the first regex cannot
+    see because there is no lowercase/digit immediately before the split
+    point. Skipping the second step is exactly how "IPAddress" would
+    silently normalize to "ipaddress" instead of "ip_address" and bypass
+    an already-declared policy entry.
+    """
+    s = str(key)
+    s = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", "_", s)
+    s = re.sub(r"(?<=[A-Z])(?=[A-Z][a-z])", "_", s)
+    s = re.sub(r"[^0-9a-zA-Z]+", "_", s)
+    return s.strip("_").lower()
+
+
+# Declared as written by a reviewer -- "e-mail" and "email" both appear
+# because they are genuinely different spellings someone might use, not
+# because the set needs to be pre-normalized by hand. PRIVATE_FIELD_NAMES
+# below is the actual enforced policy: every entry here pushed through
+# normalize_field_name(), the same function applied to every observed key.
+# Declaring a raw spelling here and separately hand-writing its normalized
+# form (as the first pass at this policy did for "e-mail") is exactly the
+# two-copies-can-drift bug that let a canonical-but-unnormalized entry
+# silently stop matching once observed keys started being normalized.
+_PRIVATE_FIELD_NAMES_RAW = {
     "email", "e-mail", "phone", "telephone", "fax", "ssn", "social_security_number",
     "dob", "date_of_birth", "bond", "bond_number", "insurance", "workers_comp",
     "workers_compensation", "password", "secret", "api_key", "apikey", "token",
@@ -169,23 +206,7 @@ PRIVATE_FIELD_NAMES = {
     "customer_name", "customer_address", "owner_name", "property_owner",
     "inspector_name", "inspector_id",
 }
-
-
-def normalize_field_name(key):
-    """Fold a JSON key or CSV header to one canonical lowercase snake_case
-    form, so a policy spelled once in PRIVATE_FIELD_NAMES also catches
-    camelCase, hyphenated, space-separated, or otherwise differently-
-    punctuated spellings of the same field. Plain `.lower()` is a denylist
-    of exactly one separator style -- the same fail-closed problem this
-    file already solved for network-fetch call spellings via import-alias
-    resolution, here applied to field names instead of call sites: a
-    reviewed name gets matched by its meaning, not by whether the author
-    happened to write it with underscores.
-    """
-    s = str(key)
-    s = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", "_", s)
-    s = re.sub(r"[^0-9a-zA-Z]+", "_", s)
-    return s.strip("_").lower()
+PRIVATE_FIELD_NAMES = {normalize_field_name(name) for name in _PRIVATE_FIELD_NAMES_RAW}
 
 
 GENERATED_OUTPUT_ALLOWLIST = {
