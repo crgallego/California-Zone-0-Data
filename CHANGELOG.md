@@ -1,5 +1,44 @@
 # Changelog
 
+## 2026-09-08 — Corrected the data licence and added a per-source rights table
+
+**Changed:** the root `LICENSE` now covers `scripts/` and this documentation
+under a plain, unmodified MIT licence, so GitHub's licence detector can
+recognize it (it previously read `NOASSERTION` because the old `LICENSE`
+was a custom dual-licence note in one file). A new `data/LICENSE` carries
+the full, unmodified Creative Commons Attribution 4.0 International legal
+text, scoped explicitly to Firewise's own contribution under `data/` --
+the selection, normalization, joins, derived estimates, and documentation
+-- not to the underlying facts.
+
+**Why:** the previous `LICENSE` granted CC BY 4.0 over "everything under
+data/" without qualification. That is accurate for Firewise's own work but
+was not accurate for third-party sourced figures, most acutely
+`fair_plan_by_county.csv` (withdrawn the same day this correction was
+drafted, see below) -- Firewise had no basis to grant reuse rights in the
+California FAIR Plan Association's own published numbers. The same
+overclaim, less acutely, applied to every other file: US Census data is
+federal public domain regardless of what this repository's licence says;
+CAL FIRE FHSZ and DINS data carry their own Creative Commons Attribution
+obligation from the originating agency; CDI publishes public regulatory
+records. None of that was stated anywhere.
+
+**Added:** `data/SOURCES.md`, one row per file under `data/`, naming the
+publisher, whether it is a public agency or a private body, the source
+URL, the vintage, and the specific rights basis for republishing it here.
+CAL FIRE DINS and the FHSZ layers are named as Creative Commons Attribution
+specifically (verified directly against `data.ca.gov` and a Data Basin
+mirror), not folded into a generic "public agency" label, since CC BY
+carries a live attribution obligation that a bare public-record citation
+does not.
+
+**Not in this change:** a validator check enforcing that every file under
+`data/` has a matching `SOURCES.md` row is planned but not added here --
+`scripts/validate_repo.py` does not exist on `main` yet (it ships with the
+still-unmerged security-validator PR). That check is a follow-up once that
+PR lands, so it has real content to check against rather than an empty
+table.
+
 ## 2026-09-08 — Withdrew California FAIR Plan Association county/statewide files
 
 **Removed:** `data/fair_plan_by_county.csv`, `data/fair_plan_state.json`,

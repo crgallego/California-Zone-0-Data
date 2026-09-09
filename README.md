@@ -224,11 +224,20 @@ or your local fire authority.
 
 ## Licence
 
-Data in `data/` is published under
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Code in `scripts/` is
-published under the MIT licence. Attribution: Firewise Fences, Inc. The
-underlying CAL FIRE and US Census Bureau data remain the work of their
-publishers.
+Firewise's own contribution in `data/` -- compilation, normalization, joins,
+derived estimates, and documentation -- is published under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (full text in
+`data/LICENSE`). Code in `scripts/` and this documentation are published
+under the MIT licence (`LICENSE`). Attribution: Firewise Fences, Inc.
+
+This licence does not extend to the underlying facts and figures
+themselves. US Census Bureau data is US federal public domain. CAL FIRE/OSFM
+Fire Hazard Severity Zone and Damage Inspection (DINS) data are published
+under Creative Commons Attribution by the originating agency, with their own
+attribution obligation that flows through to files derived from them. The
+California Department of Insurance is a state agency publishing regulatory
+records and bulletins. See `data/SOURCES.md` for the publisher, source, and
+rights basis of every file in `data/`.
 
 ## Corrections
 
