@@ -12,7 +12,12 @@
       2020
     ],
     "fact_sheet_published": "2025-01-13",
-    "retrieved": "2026-08-14"
+    "retrieved": "2026-08-14",
+    "county_pdf_provenance": {
+      "url": "https://www.insurance.ca.gov/01-consumers/200-wrr/upload/Residential-Insurance-Policy-Analysis-by-County-2020-to-2023-2.pdf",
+      "retrieved": "2026-09-08T22:14:30Z",
+      "sha256": "c1da5395f4ff8bd5db0eea92674fe354f01617e4f2f52e8f49f657ac88e6dac9"
+    }
   },
   "what_this_is": "Annual counts of new, renewed, and non-renewed residential policies in the voluntary market, plus new and renewed FAIR Plan and Difference-in-Conditions policies, by county. Coverage is homeowners, dwelling-fire (not contents-only), landlord/BOP of four units or fewer, and mobile homes \u2014 about 98-99% of the homeowners market. HO-4 and HO-6 are excluded.",
   "what_this_is_not": "A non-renewal is not a company drop. CDI's January 13, 2025 fact sheet states that past research shows 75-80% of non-renewals are initiated by the policyholder (buying or selling a home, or changing company). The remaining 20-25% are company-initiated, for reasons that include wildfire risk, claims history, and carriers exiting the market. The published tables do not split those two. Do not write that N homeowners were dropped. The CDI non-renewal rate here is their published ratio: non-renewed divided by (new + renewed). A FAIR Plan new-or-renewed count is a flow in that calendar year, not the same thing as the FAIR Plan Association's policies-in-force stock.",
