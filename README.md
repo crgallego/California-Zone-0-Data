@@ -234,10 +234,15 @@ This licence does not extend to the underlying facts and figures
 themselves. US Census Bureau data is US federal public domain. CAL FIRE/OSFM
 Fire Hazard Severity Zone and Damage Inspection (DINS) data are published
 under Creative Commons Attribution by the originating agency, with their own
-attribution obligation that flows through to files derived from them. The
-California Department of Insurance is a state agency publishing regulatory
-records and bulletins. See `data/SOURCES.md` for the publisher, source, and
-rights basis of every file in `data/`.
+attribution obligation that flows through to files derived from them. A
+handful of coordinates in `point_checks.csv` are © OpenStreetMap
+contributors, licensed under the Open Database License (ODbL). The
+California Department of Insurance's own [Website Privacy Policy](https://www.insurance.ca.gov/privacy-policy/index.cfm)
+states that CDI-created website content is considered public domain unless
+otherwise indicated and may be distributed or copied as permitted by law,
+excluding content it does not own and its branding. See `data/SOURCES.md`
+for the publisher, source, and full rights basis of every dataset in
+`data/`.
 
 ## Corrections
 

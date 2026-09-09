@@ -500,5 +500,26 @@ class ValidatorEndToEndTests(unittest.TestCase):
         result = self.run_validator()
         self.assertPasses(result)
 
+    # -- PR #10 integration blocker: current main enforces
+    #    generated-output-not-allowlisted against every path under data/,
+    #    but data/LICENSE and data/SOURCES.md are reviewed governance
+    #    documents, not script output -- admitted through a separate,
+    #    explicitly-named set rather than folded into the generated-output
+    #    allowlist itself -------------------------------------------------
+    def test_data_governance_files_are_admitted(self):
+        self.write("data/LICENSE", "CC BY 4.0 full text placeholder\n")
+        self.write("data/SOURCES.md", "# Data sources and rights basis\n")
+        result = self.run_validator()
+        self.assertPasses(result)
+
+    def test_arbitrary_new_data_document_still_fails(self):
+        # Admitting the two named governance files must not widen the gate
+        # generally -- an unreviewed new file under data/ still fails.
+        self.write("data/RANDOM_NOTES.md", "not a reviewed governance file\n")
+        result = self.run_validator()
+        combined = result.stdout + result.stderr
+        self.assertFails(result, "generated-output-not-allowlisted")
+        self.assertIn("data/RANDOM_NOTES.md", combined)
+
 if __name__ == "__main__":
     unittest.main()
